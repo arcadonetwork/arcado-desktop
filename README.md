@@ -1,2 +1,0 @@
-# arcado-desktop
-Desktop interface
