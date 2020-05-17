@@ -11,10 +11,8 @@ import { AppContainer } from './containers/AppContainer';
 import AppRoutes from './shared/router/Router';
 import { BrowserRouter } from 'react-router-dom';
 
-const _store = store();
-
 ReactDOM.render(
-  <Provider store={_store}>
+  <Provider store={store}>
     <BrowserRouter>
       <AppContainer>
         <AppRoutes />

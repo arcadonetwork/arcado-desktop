@@ -3,11 +3,9 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ROUTES } from './Router'
 import { iRootState } from '../../store/store';
-import { isObjectWithFields } from '../utils/type-checking';
-import UserModel from '../../models/user.model';
 
 interface ContainerProps {
-  user: UserModel,
+  isAuthenticated: boolean,
   component: any,
   exact: boolean,
   path: String
@@ -15,17 +13,18 @@ interface ContainerProps {
 
 const mapStateToProps = (state: iRootState) => {
   return {
-    user: state.session.user
+    user: state.user,
+    isAuthenticated: state.authentication
   }
 }
 
 const mapDispatch = () => ({})
 
-const ProtectedRouteComponent = ({ component: Component, user, exact, path, ...rest } : ContainerProps) => {
+const ProtectedRouteComponent = ({ component: Component, isAuthenticated, exact, path, ...rest } : ContainerProps) => {
   return (
     <Route {...rest} render={
       props => {
-        if (isObjectWithFields(user)  && user.userId) {
+        if (isAuthenticated) {
           return <Component {...rest} {...props} />
         } else {
           return <Redirect to={ROUTES.LOGIN} />

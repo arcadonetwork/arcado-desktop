@@ -1,33 +1,23 @@
 import { init, RematchDispatch, RematchRootState } from '@rematch/core';
-import { session } from './session';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { user } from './models/user';
+import { authentication } from './models/authentication';
 import { createBrowserHistory } from 'history';
 
 export const history = createBrowserHistory();
 
 export interface RootModel {
-  session: typeof session
+  user: typeof user,
+  authentication: typeof authentication,
 }
 
 const models: RootModel = {
-  session
+  user,
+  authentication
 }
 
-export const store = (initialState = {}) => {
-  const reducers = {
-    router: connectRouter(history)
-  };
-  const middlewares = [routerMiddleware(history)];
-
-  return init({
-    models,
-    redux: {
-      initialState,
-      reducers,
-      middlewares
-    }
-  });
-};
+export const store = init({
+  models
+});
 
 
 export type Dispatch = RematchDispatch<RootModel>

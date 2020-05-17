@@ -1,8 +1,15 @@
 import { request, URI } from './request';
 
-export const getAll = async () => {
+const authenticate = async (passphrase: string) => {
   return request({
     url: URI,
-    method: 'GET'
+    method: 'POST',
+    body: {
+      passphrase
+    }
   });
 };
+
+export default {
+  authenticate
+}
