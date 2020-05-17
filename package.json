@@ -1,0 +1,70 @@
+{
+  "name": "arcado-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "eslint-loader": "2.1.2",
+    "eslint-plugin-flowtype": "3.10.5",
+    "eslint-plugin-import": "2.17.3",
+    "eslint-plugin-jsx-a11y": "6.2.1",
+    "eslint-plugin-react": "7.14.0",
+    "eslint-plugin-simple-import-sort": "^4.0.0",
+    "husky": "2.4.1",
+    "less": "3.9.0",
+    "less-loader": "5.0.0",
+    "lint-staged": "8.2.1",
+    "prettier": "1.18.2",
+    "source-map-loader": "^0.2.4",
+    "ts-loader": "^7.0.2",
+    "typescript": "^3.8.3",
+    "react-scripts-ts": "3.1.0"
+  },
+  "dependencies": {
+    "@rematch/core": "1.4.0",
+    "@types/jest": "25.2.2",
+    "@types/node": "14.0.1",
+    "@types/react": "16.9.35",
+    "@types/react-dom": "16.9.8",
+    "@types/react-router-dom": "5.1.5",
+    "@types/react-redux": "7.1.0",
+    "antd": "3.19.8",
+    "css-loader": "3.0.0",
+    "history": "4.10.1",
+    "moment": "2.25.3",
+    "node-sass": "4.14.1",
+    "prop-types": "15.7.2",
+    "react": "16.13.1",
+    "react-dev-utils": "10.2.1",
+    "react-dom": "16.3.1",
+    "react-redux": "7.1.0",
+    "react-router": "5.2.0",
+    "react-router-dom": "5.2.0",
+    "react-scripts": "3.4.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "precommit": "lint-staged",
+    "test": "roadhog test",
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext .js src mock tests && npm run lint:style",
+    "lint:fix": "eslint --fix --ext .js src mock tests && npm run lint:style",
+    "lint-staged": "lint-staged",
+    "lint-staged:js": "eslint --ext .js"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,less}": [
+      "prettier --write",
+      "git add"
+    ],
+    "**/*.{js,jsx}": "npm run lint-staged:js"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ],
+  "eslintConfig": {
+    "extends": "react-app"
+  }
+}
