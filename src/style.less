@@ -5,10 +5,65 @@ body {
   padding: 0;
 }
 
+.app-header {
+  img {
+    width: auto;
+    height: 25px;
+    object-fit: cover;
+    color: @primary-color;
+    fill: @primary-color;
+  }
+}
+
+// COLOR
+
 .bgc-black {
   background-color: #000;
 }
 
-.h60 {
+.bgc-lb {
+  background-color: #333333;
+}
+
+.bgc-primary {
+  background-color: @primary-color;
+}
+
+
+
+
+// SIZING
+
+.h60--fixed {
   height: 60px;
+}
+
+.h100 {
+  height: 100%;
+}
+
+.grid {
+  width: 1024px;
+  margin: auto;
+}
+
+.w250--fixed {
+  width: 250px;
+}
+
+// SPACING
+
+.mt50 {
+  margin-top: 50px;
+}
+
+.ml50 {
+  margin-left: 50px;
+}
+
+// POSITIONING
+
+.flex-c {
+  display: flex;
+  align-items: center;
 }
