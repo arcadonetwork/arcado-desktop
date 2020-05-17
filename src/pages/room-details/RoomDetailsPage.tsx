@@ -3,12 +3,10 @@ import React from 'react';
 interface ContainerProps {
 }
 
-const HomePage: React.FC<ContainerProps> = () => {
+export const RoomDetailsPage: React.FC<ContainerProps> = () => {
   return (
     <div>
-      HomePage
+      RoomDetailsPage
     </div>
   )
 }
-
-export default HomePage;

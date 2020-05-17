@@ -7,8 +7,8 @@ interface ContainerProps {
 
 export const AppContainerHeader: React.FC<ContainerProps> = () => {
   return (
-    <div className="header">
-      <div className="header-inner">
+    <div className="w100 bgc-black h60">
+      <div className="">
 
       </div>
     </div>

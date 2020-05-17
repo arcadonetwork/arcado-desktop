@@ -1,10 +1,15 @@
 import * as React from 'react';
+import { AppContainerHeader } from './AppContainerHeader';
 
+interface ContainerProps {
+  children: any
+}
 
-export const AppContainer: React.FC<{ children: any }> = ({ children }) => {
-  return (
-    <div className="w100 h100">
+export const AppContainer: React.FC<ContainerProps> = ({ children }) => (
+  <>
+    <AppContainerHeader />
+    <div>
       {children}
     </div>
-  )
-}
+  </>
+)

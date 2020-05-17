@@ -1,29 +1,55 @@
 import React from 'react';
-import { Route, Switch } from 'react-router';
+import { Switch, Route } from 'react-router-dom';
 
-import { HomePage } from '../../pages/home/HomePage'
+import HomePage from '../../pages/home/HomePage'
 import { LoginPage } from '../../pages/login/LoginPage'
-import { PrivateRoute } from './PrivateRoute';
+import { GameDetailsPage } from '../../pages/game-details/GameDetailsPage'
+import { UserDetailsPage } from '../../pages/user-details/UserDetailsPage'
+import { RoomDetailsPage } from '../../pages/room-details/RoomDetailsPage'
+import { ProtectedRoute } from './ProtectedRoute';
 
 export const ROUTES = {
+  GAME_DETAILS: '/games/:gameId',
   HOME: '/',
-  LOGIN: '/login'
+  LOGIN: '/login',
+  ROOM_DETAILS: '/rooms/:roomId',
+  USER_DETAILS: '/settings'
 };
 
-export const AppRoutes = () => (
-  <Switch>
+export default () => {
+  return (
+    <Switch>
 
-    <PrivateRoute
-      exact
-      path={ROUTES.HOME}
-      component={HomePage}
-    />
+      <ProtectedRoute
+        exact
+        path={ROUTES.GAME_DETAILS}
+        component={GameDetailsPage}
+      />
 
-    <Route
-      exact
-      path={ROUTES.LOGIN}
-      component={LoginPage}
-    />
+      <ProtectedRoute
+        exact
+        path={ROUTES.USER_DETAILS}
+        component={UserDetailsPage}
+      />
 
-  </Switch>
-)
+      <ProtectedRoute
+        exact
+        path={ROUTES.ROOM_DETAILS}
+        component={RoomDetailsPage}
+      />
+
+      <ProtectedRoute
+        exact
+        path={ROUTES.HOME}
+        component={HomePage}
+      />
+
+      <Route
+        exact
+        path={ROUTES.LOGIN}
+        component={LoginPage}
+      />
+
+    </Switch>
+  )
+}

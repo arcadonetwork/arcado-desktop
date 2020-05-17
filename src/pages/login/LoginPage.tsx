@@ -7,7 +7,7 @@ interface ContainerProps {
 export const LoginPage: React.FC<ContainerProps> = () => {
   return (
     <div>
-      login
+      LoginPage
     </div>
   )
 }

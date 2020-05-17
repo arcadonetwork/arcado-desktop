@@ -5,26 +5,21 @@ import './style.less';
 
 import { Provider } from 'react-redux';
 
-import { store } from './store';
+import { store } from './store/store';
 
 import { AppContainer } from './containers/AppContainer';
-import { AppRoutes } from './shared/router/Router';
+import AppRoutes from './shared/router/Router';
 import { BrowserRouter } from 'react-router-dom';
 
-const target = document.querySelector('#root');
+const _store = store();
 
-
-function render() {
-  ReactDOM.render(
-    <Provider store={store}>
-      <BrowserRouter>
-        <AppContainer>
-          <AppRoutes />
-        </AppContainer>
-      </BrowserRouter>
-    </Provider>,
-    target
-  );
-}
-
-render();
+ReactDOM.render(
+  <Provider store={_store}>
+    <BrowserRouter>
+      <AppContainer>
+        <AppRoutes />
+      </AppContainer>
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('root')
+)
