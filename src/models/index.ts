@@ -1,9 +1,9 @@
-import { application } from './application';
+import { user } from './user';
 
 export interface RootModel {
-  application: typeof application
+  user: typeof user
 }
 
 export const models: RootModel = {
-  application
+  user: user
 }

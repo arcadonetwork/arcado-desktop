@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 
 import { AppContainer } from './containers/AppContainer';
-import { AppRoutes } from './shared/router';
+import { AppRoutes } from './shared/router/Router';
 import { BrowserRouter } from 'react-router-dom';
 
 const target = document.querySelector('#root');
