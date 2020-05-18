@@ -1,15 +1,12 @@
 import { Dispatch } from '../store';
 import { message } from 'antd';
 import api from '../../shared/services/api';
+import UserModel from '../../models/user.model';
 
-const initialState = false
-
-export type AuthenticationState = boolean
-
-export const authentication = {
-  state: initialState,
+export default {
+  state: false,
   reducers: {
-    setIsAuthenticated: (state: AuthenticationState, payload: AuthenticationState) => payload,
+    setIsAuthenticated: (state: any, payload: boolean) => payload,
   },
   effects: (dispatch: Dispatch) => ({
     async authenticate (passphrase: string) {
@@ -29,5 +26,9 @@ export const authentication = {
         dispatch({ type: 'authentication/setIsAuthenticated', payload: true })
       }
     },
+    logout () {
+      dispatch({ type: 'authentication/setIsAuthenticated', payload: false })
+      dispatch({ type: 'user/setUser', payload: new UserModel(undefined) })
+    }
   }),
 };

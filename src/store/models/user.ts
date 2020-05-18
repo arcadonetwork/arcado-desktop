@@ -3,7 +3,9 @@ import { Dispatch } from '../store';
 import { message } from 'antd';
 import api from '../../shared/services/api';
 
-const initialState = new UserModel(undefined)
+const initialState = new UserModel({
+  userId: "9096358076943957197L"
+})
 
 export type UserState = IUser
 

@@ -1,6 +1,6 @@
 import { init, RematchDispatch, RematchRootState } from '@rematch/core';
 import { user } from './models/user';
-import { authentication } from './models/authentication';
+import authentication from './models/authentication';
 import { createBrowserHistory } from 'history';
 
 export const history = createBrowserHistory();

@@ -20,7 +20,7 @@ const mapStateToProps = (state: iRootState) => {
 
 const mapDispatch = () => ({})
 
-const ProtectedRouteComponent = ({ component: Component, isAuthenticated, exact, path, ...rest } : ContainerProps) => {
+const ProtectedRouteComponent = ({ component: Component, isAuthenticated, exact, path,  ...rest } : ContainerProps) => {
   return (
     <Route {...rest} render={
       props => {
