@@ -33,14 +33,14 @@ export default () => {
 
       <ProtectedRoute
         exact
-        path={ROUTES.GAME_DETAILS}
-        component={GameDetailsPage}
+        path={ROUTES.HOME}
+        component={HomePage}
       />
 
-      <ProtectedRoute
+      <Route
         exact
-        path={ROUTES.USER_DETAILS}
-        component={UserDetailsPage}
+        path={ROUTES.LOGIN}
+        component={LoginPage}
       />
 
       <ProtectedRoute
@@ -51,14 +51,14 @@ export default () => {
 
       <ProtectedRoute
         exact
-        path={ROUTES.HOME}
-        component={HomePage}
+        path={ROUTES.USER_DETAILS}
+        component={UserDetailsPage}
       />
 
-      <Route
+      <ProtectedRoute
         exact
-        path={ROUTES.LOGIN}
-        component={LoginPage}
+        path={ROUTES.GAME_DETAILS}
+        component={GameDetailsPage}
       />
 
     </Switch>

@@ -12,7 +12,6 @@ interface ContainerProps {
 export const GameDetailsPageRoomsItem: React.FC<ContainerProps> = ({ gameId, room, isLastChild }) => {
   const clazz = !isLastChild ? 'br-b' : ''
   const uri = getGameRoomItemRoute(gameId, room.id);
-  console.log(uri);
   return (
     <div className={`mb10 fs-s flex-c mb10 pb15 ${clazz}`}>
       <span className="w40">

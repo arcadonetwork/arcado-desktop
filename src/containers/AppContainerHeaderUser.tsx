@@ -2,11 +2,15 @@ import UserModel from '../models/user.model';
 import { Dispatch, iRootState } from '../store/store';
 import * as React from 'react';
 import { connect, useDispatch } from 'react-redux';
+import { History } from 'history';
 import { Icon, Dropdown, Menu } from 'antd';
+import { ROUTES } from '../shared/router/Router';
+import { RouteComponentProps, withRouter } from 'react-router';
 
-interface ContainerProps {
+interface ContainerProps extends RouteComponentProps {
   user?: UserModel,
-  isAuthenticated?: boolean
+  isAuthenticated?: boolean,
+  history: History
 }
 
 const mapState = (state: iRootState) => {
@@ -16,7 +20,7 @@ const mapState = (state: iRootState) => {
   }
 }
 
-const AppContainerHeaderUserComponent: React.FC<ContainerProps> = ({ isAuthenticated, user }) => {
+const AppContainerHeaderUserComponent: React.FC<ContainerProps> = ({ isAuthenticated, user, history }) => {
   const dispatch = useDispatch<Dispatch>();
   if (!isAuthenticated) {
     return <></>
@@ -24,6 +28,8 @@ const AppContainerHeaderUserComponent: React.FC<ContainerProps> = ({ isAuthentic
   function handleMenuClick (key: string) {
     if (key === 'logout') {
       dispatch({ type: 'authentication/logout' })
+    } else if (key === 'profile') {
+      history.push(ROUTES.USER_DETAILS);
     }
   }
 
@@ -31,6 +37,9 @@ const AppContainerHeaderUserComponent: React.FC<ContainerProps> = ({ isAuthentic
     <Dropdown
       overlay={
         <Menu onClick={(({ key }) =>  handleMenuClick(key))}>
+          <Menu.Item key="profile">
+            <span>My Profile</span>
+          </Menu.Item>
           <Menu.Item key="logout">
             <span>Logout</span>
           </Menu.Item>
@@ -49,4 +58,4 @@ const AppContainerHeaderUserComponent: React.FC<ContainerProps> = ({ isAuthentic
   )
 }
 
-export const AppContainerHeaderUser = connect(mapState, null)(AppContainerHeaderUserComponent)
+export const AppContainerHeaderUser = withRouter(connect(mapState, null)(AppContainerHeaderUserComponent))

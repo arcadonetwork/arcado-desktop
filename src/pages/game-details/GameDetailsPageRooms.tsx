@@ -46,6 +46,7 @@ export const GameDetailsPageRooms: React.FC<ContainerProps> = ({ game }) => {
         rooms.map(
           (room, index) =>
             <GameDetailsPageRoomsItem
+              key={room.id}
               gameId={game.id}
               room={room}
               isLastChild={index === rooms.length - 1}
