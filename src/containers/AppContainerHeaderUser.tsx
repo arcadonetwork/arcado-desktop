@@ -1,4 +1,4 @@
-import UserModel from '../models/user.model';
+import AccountModel from '../models/account.model';
 import { Dispatch, iRootState } from '../store/store';
 import * as React from 'react';
 import { connect, useDispatch } from 'react-redux';
@@ -8,19 +8,19 @@ import { ROUTES } from '../shared/router/Router';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 interface ContainerProps extends RouteComponentProps {
-  user?: UserModel,
+  account?: AccountModel,
   isAuthenticated?: boolean,
   history: History
 }
 
 const mapState = (state: iRootState) => {
   return {
-    user: state.session.user,
+    account: state.session.account,
     isAuthenticated: state.session.isAuthenticated
   }
 }
 
-const AppContainerHeaderUserComponent: React.FC<ContainerProps> = ({ isAuthenticated, user, history }) => {
+const AppContainerHeaderUserComponent: React.FC<ContainerProps> = ({ isAuthenticated, account, history }) => {
   const dispatch = useDispatch<Dispatch>();
   if (!isAuthenticated) {
     return <></>
@@ -29,7 +29,7 @@ const AppContainerHeaderUserComponent: React.FC<ContainerProps> = ({ isAuthentic
     if (key === 'logout') {
       dispatch.session.logout();
     } else if (key === 'profile') {
-      history.push(ROUTES.USER_DETAILS);
+      history.push(ROUTES.ACCOUNT_DETAILS);
     }
   }
 
@@ -48,7 +48,7 @@ const AppContainerHeaderUserComponent: React.FC<ContainerProps> = ({ isAuthentic
       placement="bottomRight"
     >
       <div className="ml-auto h100 click flex-c mr50">
-        <span className="fc-white fs-s">{user.userId}</span>
+        <span className="fc-white fs-s">{account.address}</span>
         <div className="ml15 arcado-avatar" />
         <div className="ml15 fc-white fs-xs">
           <Icon type="down" />

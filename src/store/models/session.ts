@@ -1,29 +1,29 @@
-import UserModel, { IUser } from '../../models/user.model';
+import AccountModel, { IAccount } from '../../models/account.model';
 import { Dispatch } from '../store';
 import { message } from 'antd';
 import api from '../../shared/services/api';
 import { isObjectWithFields } from '../../shared/utils/type-checking';
 
 const initialState = {
-  user: new UserModel({
-    userId: "9096358076943957197L"
+  account: new AccountModel({
+    address: "9096358076943957197L"
   }),
   isAuthenticated: false
 }
 
-export type UserState = {
-  user: IUser,
+export type SessionState = {
+  account: IAccount,
   isAuthenticated: boolean
 }
 
 export const session = {
   state: initialState,
   reducers: {
-    setUser: (state: UserState, payload: IUser) => {
+    setAccount: (state: SessionState, payload: IAccount) => {
       return {
         ...state,
-        user: payload,
-        isAuthenticated: (isObjectWithFields(payload) && payload.userId)
+        account: payload,
+        isAuthenticated: (isObjectWithFields(payload) && payload.address)
       }
     },
   },
@@ -32,18 +32,18 @@ export const session = {
       try {
 
         const { result } = await api.authenticate(passphrase);
-        dispatch.session.setUser(result)
+        dispatch.session.setAccount(result)
       } catch (e) {
         message.error('authentication failed | Dummy profile set')
-        dispatch.session.setUser(
-          new UserModel({
-            userId: "9096358076943957197L"
+        dispatch.session.setAccount(
+          new AccountModel({
+            address: "9096358076943957197L"
           })
         )
       }
     },
     logout () {
-      dispatch.session.setUser(new UserModel(undefined))
+      dispatch.session.setAccount(new AccountModel(undefined))
     }
   }),
 };

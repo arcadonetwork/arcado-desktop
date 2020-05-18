@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from '../../pages/home/HomePage'
 import { LoginPage } from '../../pages/login/LoginPage'
 import { GameDetailsPage } from '../../pages/game-details/GameDetailsPage'
-import { UserDetailsPage } from '../../pages/user-details/UserDetailsPage'
+import { AccountDetailsPage } from '../../pages/user-details/AccountDetailsPage'
 import { RoomDetailsPage } from '../../pages/room-details/RoomDetailsPage'
 import { ProtectedRoute } from './ProtectedRoute';
 
@@ -13,7 +13,7 @@ export const ROUTES = {
   HOME: '/',
   LOGIN: '/login',
   ROOM_DETAILS: '/:gameId/rooms/:roomId',
-  USER_DETAILS: '/settings'
+  ACCOUNT_DETAILS: '/settings'
 };
 
 export const getGamesItemRoute = (gameId: string) => {
@@ -51,8 +51,8 @@ export default () => {
 
       <ProtectedRoute
         exact
-        path={ROUTES.USER_DETAILS}
-        component={UserDetailsPage}
+        path={ROUTES.ACCOUNT_DETAILS}
+        component={AccountDetailsPage}
       />
 
       <ProtectedRoute
