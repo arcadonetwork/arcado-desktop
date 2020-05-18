@@ -12,7 +12,7 @@ interface ContainerProps {
 
 const mapStateToProps = (state: iRootState) => {
   return {
-    isAuthenticated: state.authentication,
+    isAuthenticated: state.session.isAuthenticated,
   }
 }
 
@@ -45,7 +45,7 @@ export const LoginPageComponent: React.FC<ContainerProps> = ({ isAuthenticated, 
       </div>
       <div className="flex-c">
         <div className="ml-auto">
-          <Button type="primary" onClick={() => dispatch({ type: 'authentication/authenticate', payload: passphrase })}>
+          <Button type="primary" onClick={() => dispatch.session.authenticate(passphrase)}>
             Sign in
           </Button>
         </div>

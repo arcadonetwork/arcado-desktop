@@ -15,8 +15,8 @@ interface ContainerProps extends RouteComponentProps {
 
 const mapState = (state: iRootState) => {
   return {
-    user: state.user,
-    isAuthenticated: state.authentication
+    user: state.session.user,
+    isAuthenticated: state.session.isAuthenticated
   }
 }
 
@@ -27,7 +27,7 @@ const AppContainerHeaderUserComponent: React.FC<ContainerProps> = ({ isAuthentic
   }
   function handleMenuClick (key: string) {
     if (key === 'logout') {
-      dispatch({ type: 'authentication/logout' })
+      dispatch.session.logout();
     } else if (key === 'profile') {
       history.push(ROUTES.USER_DETAILS);
     }

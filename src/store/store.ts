@@ -1,18 +1,15 @@
 import { init, RematchDispatch, RematchRootState } from '@rematch/core';
-import { user } from './models/user';
-import authentication from './models/authentication';
+import { session } from './models/session';
 import { createBrowserHistory } from 'history';
 
 export const history = createBrowserHistory();
 
 export interface RootModel {
-  user: typeof user,
-  authentication: typeof authentication,
+  session: typeof session
 }
 
 const models: RootModel = {
-  user,
-  authentication
+  session
 }
 
 export const store = init({

@@ -13,8 +13,8 @@ interface ContainerProps {
 
 const mapStateToProps = (state: iRootState) => {
   return {
-    user: state.user,
-    isAuthenticated: state.authentication
+    user: state.session.user,
+    isAuthenticated: state.session.isAuthenticated
   }
 }
 
