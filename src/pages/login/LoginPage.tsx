@@ -3,10 +3,11 @@ import { Button, Input } from 'antd';
 import { connect, useDispatch } from 'react-redux';
 import { Dispatch, iRootState } from '../../store/store';
 import { ROUTES } from '../../shared/router/Router';
-import { RouteComponentProps } from 'react-router-dom';
+import { History } from 'history';
 
-interface ContainerProps extends RouteComponentProps {
-  isAuthenticated: boolean
+interface ContainerProps {
+  isAuthenticated: boolean,
+  history : History
 }
 
 const mapStateToProps = (state: iRootState) => {

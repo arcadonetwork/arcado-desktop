@@ -4,7 +4,7 @@ import api from '../../shared/services/api';
 import UserModel from '../../models/user.model';
 
 export default {
-  state: false,
+  state: true,
   reducers: {
     setIsAuthenticated: (state: any, payload: boolean) => payload,
   },

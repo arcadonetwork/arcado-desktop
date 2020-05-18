@@ -27,12 +27,20 @@ body {
   background-color: #333333;
 }
 
+.bgc-lgrey {
+  background-color: #eee;
+}
+
 .bgc-primary {
   background-color: @primary-color;
 }
 
 .fc-primary {
   color: @primary-color;
+}
+
+.fc-black {
+  color: #000;
 }
 
 .fc-white {
@@ -54,9 +62,30 @@ body {
   margin: auto;
 }
 
+.w100 {
+  width: 100%;
+}
+
+.w40 {
+  width: 40%;
+}
+
+.w20 {
+  width: 20%;
+}
+
+.w175--fixed {
+  width: 175px;
+}
+
 .w250--fixed {
   width: 250px;
 }
+
+.h225--fixed {
+  height: 200px;
+}
+
 
 .fs-xs {
   font-size: 0.7em;
@@ -109,6 +138,10 @@ body {
   margin-left: 50px;
 }
 
+.mb50 {
+  margin-bottom: 50px;
+}
+
 .mr50 {
   margin-right: 50px;
 }
@@ -121,11 +154,35 @@ body {
   margin-left: 15px;
 }
 
+.mr15 {
+  margin-right: 15px;
+}
+
+.pb15 {
+  padding-bottom: 15px;
+}
+
 // POSITIONING
 
 .flex-c {
   display: flex;
   align-items: center;
+}
+
+.grid-col4 {
+  display: grid;
+  grid-template-columns: 23% 23% 23% 23%;
+  grid-gap: 2%;
+}
+
+.grid-col5 {
+  display: grid;
+  grid-template-columns: 18% 18% 18% 18% 18%;
+  grid-gap: 2%;
+}
+
+.click {
+  cursor: pointer;
 }
 
 .arcado-avatar {
@@ -135,6 +192,6 @@ body {
   background-color: #efefef;
 }
 
-.click {
-  cursor: pointer;
+.br-b {
+  border-bottom: 1px solid #efefef;
 }
