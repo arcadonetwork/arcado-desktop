@@ -6,9 +6,10 @@ import { isObjectWithFields } from '../../shared/utils/type-checking';
 
 const initialState = {
   account: new AccountModel({
-    address: "9096358076943957197L"
+    address: "9096358076943957197L",
+    balance: "1234321"
   }),
-  isAuthenticated: false
+  isAuthenticated: true
 }
 
 export type SessionState = {
@@ -37,7 +38,8 @@ export const session = {
         message.error('authentication failed | Dummy profile set')
         dispatch.session.setAccount(
           new AccountModel({
-            address: "9096358076943957197L"
+            address: "9096358076943957197L",
+            balance: "1234321"
           })
         )
       }

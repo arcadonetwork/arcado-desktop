@@ -6,8 +6,12 @@ import RoomModel from '../../models/room.model';
 import api from '../../shared/services/api';
 import local_room from '../../shared/utils/room.json';
 import { message } from 'antd';
-import { RoomDetailsPageMenu } from './RoomDetailsPageMenu';
 import { RoomDetailsPageParticipants } from './RoomDetailsPageParticipants';
+import { PageNavigation } from '../../components/PageNavigation';
+
+const menu = [
+  'Participants'
+]
 
 interface MatchParams {
   roomId: string;
@@ -20,6 +24,7 @@ interface ContainerProps extends RouteComponentProps<MatchParams> {
 
 export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   const [room, setRoom] = useState(new RoomModel(undefined));
+  const [page, setPage] = useState(menu[0]);
   const [loading, setLoading] = useState(true);
   const { gameId, roomId } = match.params;
 
@@ -48,7 +53,11 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
       <RoomDetailsPageHeader
         room={room}
       />
-      <RoomDetailsPageMenu />
+      <PageNavigation
+        menu={menu}
+        activePage={page}
+        setPage={(page) => setPage(page)}
+      />
       <RoomDetailsPageParticipants participants={room.participants} />
     </>
   )

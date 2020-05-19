@@ -7,7 +7,7 @@ import local_game from '../../shared/utils/localGame.json';
 import { RouteComponentProps } from 'react-router';
 import { GameDetailsPageHeader } from './GameDetailsPageHeader';
 import { GameDetailsPageRooms } from './GameDetailsPageRooms';
-import { GameDetailsPageMenu } from './GameDetailsPageMenu';
+import { PageNavigation } from '../../components/PageNavigation';
 
 interface MatchParams {
   gameId: string;
@@ -17,8 +17,10 @@ interface ContainerProps extends RouteComponentProps<MatchParams> {
 
 }
 
-export const GameDetailsPage: React.FC<ContainerProps> = ({ match }) => {
+const menu = ['Rooms'];
 
+export const GameDetailsPage: React.FC<ContainerProps> = ({ match }) => {
+  const [page, setPage] = useState(menu[0]);
   const [game, setGame] = useState(new GameModel(undefined));
   const [loading, setLoading] = useState(true);
   const { gameId } = match.params;
@@ -47,7 +49,11 @@ export const GameDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   return (
     <div>
       <GameDetailsPageHeader game={game} />
-      <GameDetailsPageMenu />
+      <PageNavigation
+        menu={menu}
+        activePage={page}
+        setPage={(page) => setPage(page)}
+      />
       <GameDetailsPageRooms game={game} />
     </div>
   )

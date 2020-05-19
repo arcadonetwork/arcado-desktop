@@ -38,10 +38,18 @@ const getRoom = async (gameId: string, roomId: string) => {
   });
 };
 
+const getTransactions = async (address: string) => {
+  return request({
+    url: `${URI}/transactions/${address}`,
+    method: 'GET'
+  });
+};
+
 export default {
   authenticate,
   getGames,
   getGame,
   getRooms,
-  getRoom
+  getRoom,
+  getTransactions
 }

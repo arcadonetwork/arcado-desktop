@@ -38,7 +38,7 @@ const AppContainerHeaderUserComponent: React.FC<ContainerProps> = ({ isAuthentic
       overlay={
         <Menu onClick={(({ key }) =>  handleMenuClick(key))}>
           <Menu.Item key="profile">
-            <span>My Profile</span>
+            <span>My Account</span>
           </Menu.Item>
           <Menu.Item key="logout">
             <span>Logout</span>

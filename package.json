@@ -18,6 +18,7 @@
     "typescript": "3.8.3"
   },
   "dependencies": {
+    "@antv/g2": "^4.0.8",
     "@craco/craco": "^5.6.4",
     "@rematch/core": "1.4.0",
     "@types/jest": "25.2.2",

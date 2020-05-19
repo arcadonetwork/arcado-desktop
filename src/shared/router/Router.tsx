@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from '../../pages/home/HomePage'
 import { LoginPage } from '../../pages/login/LoginPage'
 import { GameDetailsPage } from '../../pages/game-details/GameDetailsPage'
-import { AccountDetailsPage } from '../../pages/user-details/AccountDetailsPage'
+import { AccountDetailsPage } from '../../pages/account-details/AccountDetailsPage'
 import { RoomDetailsPage } from '../../pages/room-details/RoomDetailsPage'
 import { ProtectedRoute } from './ProtectedRoute';
 
