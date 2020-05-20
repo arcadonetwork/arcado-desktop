@@ -25,7 +25,9 @@ const AccountDetailsPageComponent: React.FC<ContainerProps> = ({ account }) => {
   const [page, setPage] = useState(menu[0]);
   return (
     <div>
-      <AccountDetailsPageHeader account={account} />
+      <AccountDetailsPageHeader
+        account={account}
+      />
       <PageNavigation
         menu={menu}
         activePage={page}

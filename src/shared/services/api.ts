@@ -1,4 +1,5 @@
 import { request, URI } from './request';
+import RoomModel from '../../models/room.model';
 
 const authenticate = async (passphrase: string) => {
   return request({
@@ -7,6 +8,14 @@ const authenticate = async (passphrase: string) => {
     body: {
       passphrase
     }
+  });
+};
+
+const createRoom = async (gameId: string, room: RoomModel) => {
+  return request({
+    url: `${URI}/${gameId}`,
+    method: 'POST',
+    body: room
   });
 };
 
@@ -51,5 +60,6 @@ export default {
   getGame,
   getRooms,
   getRoom,
-  getTransactions
+  getTransactions,
+  createRoom
 }

@@ -7,8 +7,8 @@ interface ContainerProps {
 
 export const AccountDetailsPageHeaderItem: React.FC<ContainerProps> = ({ label, value }) => {
   return (
-    <div className="mb25">
-      <div className="fc-lgrey">{label}</div>
+    <div className="mb10 fs-s">
+      <div className="fc-lgrey ">{label}</div>
       <div className="ffm-bold fc-black">{value}</div>
     </div>
   )
