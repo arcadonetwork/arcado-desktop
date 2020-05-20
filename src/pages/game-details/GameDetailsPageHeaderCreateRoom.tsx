@@ -20,6 +20,10 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
   const [room, setRoom] = useState(new RoomModel(undefined));
   const [distribution, setPriceDistribution] = useState(new PriceDistributionModel(undefined));
 
+  if (!isCreatingRoom) {
+    return <></>;
+  }
+
   async function createRoom (room: RoomModel) {
     try {
       const { result } = await api.createRoom(game.id, room);
