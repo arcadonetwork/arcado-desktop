@@ -17,8 +17,8 @@ export const GameDetailsPageRooms: React.FC<ContainerProps> = ({ game }) => {
   useEffect( () => {
     async function fetchData() {
       try {
-        const { result } = await roomsApi.getRooms(game.id);
-        setRooms(result);
+        const { rooms } = await roomsApi.getRooms(game.id);
+        setRooms(rooms);
         setLoading(false);
       } catch (e) {
         message.error('can not load rooms')

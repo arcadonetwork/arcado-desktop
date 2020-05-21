@@ -21,7 +21,6 @@ export const WelcomePageRegister: React.FC<ContainerProps> = () => {
   const [isRegistered, setIsRegistered] = useState(false);
 
   async function onSubmit (data: UserData) {
-    console.log(data);
     try {
       const result = await usersApi.register(data.email);
       setAccount(new AccountModel(result));

@@ -8,13 +8,13 @@ interface ContainerProps {
 }
 
 export const GameDetailsPageHeader: React.FC<ContainerProps> = ({ game }) => {
-  const [isCreatingRoom, setIsCreatingRoom] = useState(false);
+  const [isCreatingRoom, setIsCreatingRoom] = useState(true);
   return (
     <>
       <div className="flex-c mb50">
         <div className="bgc-lgrey h225--fixed w175--fixed mr50" />
         <div>
-          <h1 className="ffm-bold">{game.title}</h1>
+          <h1 className="ffm-bold">{game.name}</h1>
           <p>{game.description}</p>
           <Button onClick={(ev) => setIsCreatingRoom(true)} type="primary">Create room</Button>
         </div>

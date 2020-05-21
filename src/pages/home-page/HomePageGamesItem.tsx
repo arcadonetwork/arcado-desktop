@@ -14,7 +14,7 @@ export const HomePageGamesItem: React.FC<ContainerProps> = ({ game, index }) => 
     <Link to={uri} className="mt50">
       <div className="w100 h225--fixed bgc-lgrey mb10">
       </div>
-      <span className="ffm-bold fc-black">{game.title}</span>
+      <span className="ffm-bold fc-black">{game.name}</span>
     </Link>
   )
 }

@@ -11,7 +11,7 @@ export const RoomDetailsPageHeader: React.FC<ContainerProps> = ({ room }) => {
     <div className="flex-c mb50">
       <div className="bgc-lgrey h225--fixed w175--fixed mr50" />
       <div>
-        <h3 className="">{room.game.title}</h3>
+        <h3 className="">{room.game.name}</h3>
         <h1 className="fs-xl mb25">
           <span>Room:</span>{' '}
           <span className="ffm-bold fc-black">{room.title}</span>

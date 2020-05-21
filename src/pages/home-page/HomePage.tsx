@@ -14,8 +14,8 @@ const HomePage: React.FC<ContainerProps> = () => {
   useEffect( () => {
     async function fetchData() {
       try {
-        const { result } = await gamesApi.getGames();
-        setGames(result);
+        const { games } = await gamesApi.getGames();
+        setGames(games);
         setLoading(false);
       } catch (e) {
         message.error('can not load games')

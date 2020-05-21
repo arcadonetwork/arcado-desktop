@@ -17,5 +17,6 @@ export const store = init({
 });
 
 
+export type Store = typeof store
 export type Dispatch = RematchDispatch<RootModel>
 export type iRootState = RematchRootState<RootModel>

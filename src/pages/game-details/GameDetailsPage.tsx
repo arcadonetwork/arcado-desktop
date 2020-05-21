@@ -27,8 +27,8 @@ export const GameDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   useEffect( () => {
     async function fetchData() {
       try {
-        const { result } = await gamesApi.getGame(gameId)
-        setGame(result)
+        const { game } = await gamesApi.getGame(gameId)
+        setGame(game)
         setLoading(false)
       } catch (e) {
         message.error('can not load games')

@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import GameModel from '../../models/game.model';
 import Modal from 'antd/es/modal';
 import { TextInputField } from 'src/components/TextInputField';
-import RoomModel from '../../models/room.model';
 import { NumberInputField } from 'src/components/NumberInputField';
-import PriceDistributionModel from '../../models/price-distribution.model';
-import { roomsApi } from '../../shared/services/rooms';
 import { message } from 'antd';
-import { getGameRoomItemRoute } from '../../shared/router/Router';
 import { RouteComponentProps, withRouter } from 'react-router';
+import { useForm } from 'react-hook-form';
+import { roomsApi } from '../../shared/services/rooms';
+import { iRootState } from '../../store/store';
+import { useSelector } from 'react-redux';
+import { getGameRoomItemRoute } from '../../shared/router/Router';
+
+type DistributionData = {
+  first: number;
+  second: number;
+  third: number;
+}
+
+type RoomData = {
+  id: string;
+  name: string;
+  maxPlayers: number;
+  entryFee?: number;
+  distribution: DistributionData
+}
 
 interface ContainerProps extends RouteComponentProps {
   game: GameModel,
@@ -17,20 +32,30 @@ interface ContainerProps extends RouteComponentProps {
 }
 
 const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ game, isCreatingRoom, setIsCreatingRoom, history }) => {
-  const [room, setRoom] = useState(new RoomModel(undefined));
-  const [distribution, setPriceDistribution] = useState(new PriceDistributionModel(undefined));
+  const {
+    register,
+    handleSubmit
+  } = useForm<RoomData>()
+
+  const account = useSelector((state: iRootState) => state.session.account);
 
   if (!isCreatingRoom) {
     return <></>;
   }
 
-  async function createRoom (room: RoomModel) {
+  async function createRoom (roomData: RoomData) {
     try {
-      const { result } = await roomsApi.createRoom(game.id, room);
-      const uri = getGameRoomItemRoute(game.id, result.id);
+      const body = {
+        ...roomData,
+        address: account.address,
+        passphrase: account.passphrase
+      }
+      const { room } = await roomsApi.createRoom(game.id, body);
+      const uri = getGameRoomItemRoute(game.id, room.id);
       message.success('new room created');
       history.push(uri);
     } catch (e) {
+      console.error(e);
       message.error('something went wrong');
       setIsCreatingRoom(false)
     }
@@ -40,29 +65,26 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
     <Modal
       visible={isCreatingRoom}
       onCancel={() => setIsCreatingRoom(false)}
-      title={`${game.title} - Create room`}
-      onOk={() => {
-        room.distribution = distribution;
-        createRoom(room);
-      }}
+      title={`${game.name} - Create room`}
+      onOk={handleSubmit(createRoom)}
     >
       <div className="mb15">
         <TextInputField
           label="Name"
           name="name"
-          reference={() => ''}
+          reference={register}
         />
       </div>
       <div className="grid-col2 mb25">
         <NumberInputField
           label="Buyin"
-          onChange={(buyin: number) => setRoom({ ...room, buyin })}
-          value={room.buyin}
+          name="entryFee"
+          reference={register}
         />
         <NumberInputField
           label="Players"
-          onChange={(players: number) => setRoom({ ...room, players })}
-          value={room.players}
+          name="maxPlayers"
+          reference={register}
         />
       </div>
       <div>
@@ -72,18 +94,18 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
         <div className="grid-col3">
           <NumberInputField
             label="#1"
-            onChange={(first: number) => setPriceDistribution({ ...distribution, first })}
-            value={distribution.first}
+            name="distribution.first"
+            reference={register}
           />
           <NumberInputField
             label="#2"
-            onChange={(second: number) => setPriceDistribution({ ...distribution, second })}
-            value={distribution.second}
+            name="distribution.second"
+            reference={register}
           />
           <NumberInputField
             label="#3"
-            onChange={(third: number) => setPriceDistribution({ ...distribution, third })}
-            value={distribution.third}
+            name="distribution.third"
+            reference={register}
           />
         </div>
       </div>
