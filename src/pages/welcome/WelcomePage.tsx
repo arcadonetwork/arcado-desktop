@@ -9,7 +9,7 @@ interface ContainerProps {
   history : History
 }
 
-const menu = ['register', 'login']
+const menu = ['login', 'register']
 
 export const WelcomePage: React.FC<ContainerProps> = ({ history }: ContainerProps) => {
   const [page, setPage] = useState(menu[0]);
@@ -30,7 +30,7 @@ export const WelcomePage: React.FC<ContainerProps> = ({ history }: ContainerProp
       {
         page === 'login'
         ? <WelcomePageLogin history={history} />
-        : <WelcomePageRegister history={history} />
+        : <WelcomePageRegister />
       }
 
     </>

@@ -1,24 +1,27 @@
 import React from 'react';
-import { Input } from 'antd';
+import { FieldElement, Message } from 'react-hook-form';
 
 interface ContainerProps {
   label: string,
-  value: string,
-  onChange(value: string): any
+  name: string,
+  error?: Message,
+  reference(ref: FieldElement<any>): void
 }
 
-export const TextInputField: React.FC<ContainerProps> = ({ label, value, onChange }) => {
+export const TextInputField: React.FC<ContainerProps> = ({ label, reference, name, error }) => {
   return (
-    <div>
-      <div className="mb10">
+    <>
+      <div className="mb10 flex-c flex-jc-sb">
         <span>{label}</span>
+        {error ? <span className="fc-red fs-s">{error}</span> : ''}
       </div>
       <div className="mb10">
-        <Input
-          value={value}
-          onChange={(ev) => onChange(ev.target.value)}
+        <input
+          className={error ? 'error-input' : ''}
+          name={name}
+          ref={reference}
         />
       </div>
-    </div>
+    </>
   )
 }

@@ -49,8 +49,8 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
       <div className="mb15">
         <TextInputField
           label="Name"
-          onChange={(title: string) => setRoom({ ...room, title })}
-          value={room.title}
+          name="name"
+          reference={() => ''}
         />
       </div>
       <div className="grid-col2 mb25">
