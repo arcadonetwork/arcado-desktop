@@ -1,4 +1,4 @@
-export const URI = 'https://localhost:3000'
+export const BASE_URI = 'http://localhost:3000'
 
 interface Options {
   url: string,

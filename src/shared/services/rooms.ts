@@ -1,15 +1,7 @@
-import { request, URI } from './request';
+import { BASE_URI, request } from './request';
 import RoomModel from '../../models/room.model';
 
-const authenticate = async (passphrase: string) => {
-  return request({
-    url: URI,
-    method: 'POST',
-    body: {
-      passphrase
-    }
-  });
-};
+const URI = `${BASE_URI}/rooms`
 
 const createRoom = async (gameId: string, room: RoomModel) => {
   return request({
@@ -54,8 +46,7 @@ const getTransactions = async (address: string) => {
   });
 };
 
-export default {
-  authenticate,
+export const roomsApi = {
   getGames,
   getGame,
   getRooms,

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../shared/services/api';
+import { roomsApi } from '../../shared/services/rooms';
 import { message } from 'antd';
-import local_rooms from '../../shared/utils/rooms.json';
 import GameModel from '../../models/game.model';
 import { Loading } from '../../components/Loading';
 import { GameDetailsPageRoomsItem } from './GameDetailsPageRoomsItem';
@@ -18,12 +17,11 @@ export const GameDetailsPageRooms: React.FC<ContainerProps> = ({ game }) => {
   useEffect( () => {
     async function fetchData() {
       try {
-        const { result } = await api.getRooms(game.id);
+        const { result } = await roomsApi.getRooms(game.id);
         setRooms(result);
         setLoading(false);
       } catch (e) {
         message.error('can not load rooms')
-        setRooms(local_rooms);
         setLoading(false);
       }
     }

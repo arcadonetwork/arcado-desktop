@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../shared/services/api';
+import { gamesApi } from '../../shared/services/games';
 import { Loading } from '../../components/Loading';
-import local_games from '../../shared/utils/games.json';
 import { message } from 'antd';
 import { HomePageGames } from './HomePageGames';
 
@@ -15,12 +14,11 @@ const HomePage: React.FC<ContainerProps> = () => {
   useEffect( () => {
     async function fetchData() {
       try {
-        const { result } = await api.getGames();
+        const { result } = await gamesApi.getGames();
         setGames(result);
         setLoading(false);
       } catch (e) {
         message.error('can not load games')
-        setGames(local_games);
         setLoading(false);
       }
     }

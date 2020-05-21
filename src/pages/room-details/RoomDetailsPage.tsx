@@ -3,8 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import { Loading } from '../../components/Loading';
 import { RoomDetailsPageHeader } from './RoomDetailsPageHeader';
 import RoomModel from '../../models/room.model';
-import api from '../../shared/services/api';
-import local_room from '../../shared/utils/room.json';
+import { roomsApi } from '../../shared/services/rooms';
 import { message } from 'antd';
 import { RoomDetailsPageParticipants } from './RoomDetailsPageParticipants';
 import { PageNavigation } from '../../components/PageNavigation';
@@ -31,12 +30,11 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   useEffect( () => {
     async function fetchData() {
       try {
-        const { result } = await api.getRoom(gameId, roomId);
+        const { result } = await roomsApi.getRoom(gameId, roomId);
         setRoom(result);
         setLoading(false);
       }catch (e) {
         message.error('Can not fetch room');
-        setRoom(new RoomModel(local_room));
         setLoading(false);
       }
     }
@@ -58,7 +56,9 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
         activePage={page}
         setPage={(page) => setPage(page)}
       />
-      <RoomDetailsPageParticipants participants={room.participants} />
+      <RoomDetailsPageParticipants
+        participants={room.participants}
+      />
     </>
   )
 }

@@ -21,7 +21,7 @@ export const AccountDetailsPageHeader: React.FC<ContainerProps> = ({ account }) 
         />
         <AccountDetailsPageHeaderItem
           label="Balance"
-          value={`${account.balance} LSK`}
+          value={`${account.balance || 0} LSK`}
         />
       </div>
       <div className="w50 ml-auto flex-c">

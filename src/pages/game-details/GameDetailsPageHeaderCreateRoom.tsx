@@ -5,7 +5,7 @@ import { TextInputField } from 'src/components/TextInputField';
 import RoomModel from '../../models/room.model';
 import { NumberInputField } from 'src/components/NumberInputField';
 import PriceDistributionModel from '../../models/price-distribution.model';
-import api from '../../shared/services/api';
+import { roomsApi } from '../../shared/services/rooms';
 import { message } from 'antd';
 import { getGameRoomItemRoute } from '../../shared/router/Router';
 import { RouteComponentProps, withRouter } from 'react-router';
@@ -26,7 +26,7 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
 
   async function createRoom (room: RoomModel) {
     try {
-      const { result } = await api.createRoom(game.id, room);
+      const { result } = await roomsApi.createRoom(game.id, room);
       const uri = getGameRoomItemRoute(game.id, result.id);
       message.success('new room created');
       history.push(uri);

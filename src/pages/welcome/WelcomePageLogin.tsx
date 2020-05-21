@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input } from 'antd';
+import { Button } from 'antd';
 import { connect, useDispatch } from 'react-redux';
 import { Dispatch, iRootState } from '../../store/store';
 import { ROUTES } from '../../shared/router/Router';
 import { History } from 'history';
+import { TextInputField } from '../../components/TextInputField';
 
 interface ContainerProps {
   isAuthenticated: boolean,
@@ -16,7 +17,8 @@ const mapStateToProps = (state: iRootState) => {
   }
 }
 
-export const LoginPageComponent: React.FC<ContainerProps> = ({ isAuthenticated, history }: ContainerProps) => {
+export const WelcomePageLoginComponent: React.FC<ContainerProps> = ({ isAuthenticated, history }: ContainerProps) => {
+  const [email, setEmail] = useState('');
   const [passphrase, setPassphrase] = useState('');
   const dispatch = useDispatch<Dispatch>();
 
@@ -28,24 +30,23 @@ export const LoginPageComponent: React.FC<ContainerProps> = ({ isAuthenticated, 
 
   return (
     <>
+      <div className="mb15">
+        <TextInputField
+          label="Email"
+          value={email}
+          onChange={setEmail}
+        />
+      </div>
       <div className="mb25">
-        <h1 className="fs-xl">Welcome to <span className="fc-primary ffm-bold">Arcado</span></h1>
-        <p>We gamify your gaming experience</p>
-      </div>
-
-      <div className="mb10">
-        <span>Passphrase</span>
-      </div>
-      <div className="mb10">
-        <Input
+        <TextInputField
+          label="Passphrase"
           value={passphrase}
-          onChange={(ev) => setPassphrase(ev.target.value)}
-          className="arcado-passphrase"
+          onChange={setPassphrase}
         />
       </div>
       <div className="flex-c">
         <div className="ml-auto">
-          <Button type="primary" onClick={() => dispatch.session.authenticate(passphrase)}>
+          <Button type="primary" onClick={() => dispatch.session.authenticate(email, passphrase)}>
             Sign in
           </Button>
         </div>
@@ -54,7 +55,7 @@ export const LoginPageComponent: React.FC<ContainerProps> = ({ isAuthenticated, 
   )
 }
 
-export const LoginPage = connect(
+export const WelcomePageLogin = connect(
   mapStateToProps,
   null
-)(LoginPageComponent)
+)(WelcomePageLoginComponent)
