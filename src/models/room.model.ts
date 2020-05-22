@@ -1,38 +1,40 @@
 import { IGame } from './game.model';
-import { IParticipant } from './participant.model';
 import PriceDistributionModel from './price-distribution.model';
 
 export interface IRoom {
   id: string;
-  title: string;
-  players: number;
-  bet: number;
-  buyin?: number;
+  name: string;
+  maxPlayers: number;
+  entryFee?: number;
   game?: IGame;
   distribution?: PriceDistributionModel;
-  participants?: IParticipant[];
+  addresses?: string[];
+  gameId: string
+  status: number
 }
 
 export default class RoomModel implements IRoom {
   id: string;
-  title: string;
-  players: number;
-  bet: number;
-  buyin?: number;
+  name: string;
+  maxPlayers: number;
+  entryFee?: number;
   game?: IGame;
-  participants?: IParticipant[];
+  addresses?: string[];
   distribution?: PriceDistributionModel;
+  gameId: string
+  status: number
 
-  constructor(game: IRoom) {
-    if (game) {
-      this.id = game.id;
-      this.title = game.title;
-      this.players = game.players;
-      this.bet = game.bet;
-      this.game = game.game;
-      this.participants = game.participants
-      this.buyin = game.buyin
-      this.distribution = game.distribution
+  constructor(room: IRoom) {
+    if (room) {
+      this.id = room.id;
+      this.name = room.name;
+      this.maxPlayers = room.maxPlayers;
+      this.game = room.game;
+      this.addresses = room.addresses
+      this.entryFee = room.entryFee
+      this.distribution = room.distribution
+      this.gameId = room.gameId
+      this.status = room.status
     }
   }
 }

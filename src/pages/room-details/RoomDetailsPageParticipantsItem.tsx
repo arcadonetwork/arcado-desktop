@@ -1,24 +1,15 @@
 import React from 'react';
-import ParticipantModel from '../../models/participant.model';
 
 interface ContainerProps {
-  participant: ParticipantModel,
+  address: string,
   isLastChild: boolean
 }
 
-export const RoomDetailsPageParticipantsItem: React.FC<ContainerProps> = ({ participant, isLastChild }) => {
+export const RoomDetailsPageParticipantsItem: React.FC<ContainerProps> = ({ address, isLastChild }) => {
   const clazz = !isLastChild ? 'br-b' : ''
   return (
     <div className={`mb10 fs-s flex-c mb10 pb15 ${clazz}`}>
-      <span className="w40">
-        <div>{participant.address}</div>
-      </span>
-      <span className="w20">
-        {participant.win} / {participant.loss}
-      </span>
-      <span className="w20">
-        {participant.status}
-      </span>
+      <span className="w40">{address}</span>
     </div>
   )
 }

@@ -15,10 +15,10 @@ export const GameDetailsPageRoomsItem: React.FC<ContainerProps> = ({ gameId, roo
   return (
     <div className={`mb10 fs-s flex-c mb10 pb15 ${clazz}`}>
       <span className="w40">
-        <Link to={uri}>{room.title}</Link>
+        <Link to={uri}>{room.name}</Link>
       </span>
-      <span className="w20">{room.bet}</span>
-      <span className="w20">{room.players}</span>
+      <span className="w20">{room.entryFee}</span>
+      <span className="w20">{room.maxPlayers}</span>
     </div>
   )
 }

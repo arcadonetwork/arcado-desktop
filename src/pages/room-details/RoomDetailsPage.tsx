@@ -7,6 +7,7 @@ import { roomsApi } from '../../shared/services/rooms';
 import { message } from 'antd';
 import { RoomDetailsPageParticipants } from './RoomDetailsPageParticipants';
 import { PageNavigation } from '../../components/PageNavigation';
+import { gamesApi } from '../../shared/services/games';
 
 const menu = [
   'Participants'
@@ -30,8 +31,12 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   useEffect( () => {
     async function fetchData() {
       try {
-        const { result } = await roomsApi.getRoom(gameId, roomId);
-        setRoom(result);
+        const [{ room }, { game }] = await Promise.all([
+          roomsApi.getRoom(gameId, roomId),
+          gamesApi.getGame(gameId)
+        ])
+        room.game = game;
+        setRoom(room);
         setLoading(false);
       }catch (e) {
         message.error('Can not fetch room');
@@ -57,7 +62,7 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
         setPage={(page) => setPage(page)}
       />
       <RoomDetailsPageParticipants
-        participants={room.participants}
+        addresses={room.addresses}
       />
     </>
   )

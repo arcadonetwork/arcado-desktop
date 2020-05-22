@@ -1,13 +1,12 @@
 import React from 'react';
 import { RoomDetailsPageParticipantsItem } from './RoomDetailsPageParticipantsItem';
-import ParticipantModel from '../../models/participant.model';
 
 
 interface ContainerProps {
-  participants: ParticipantModel[]
+  addresses: string[]
 }
 
-export const RoomDetailsPageParticipants: React.FC<ContainerProps> = ({ participants }) => {
+export const RoomDetailsPageParticipants: React.FC<ContainerProps> = ({ addresses }) => {
   return (
     <div>
       <div className="flex-c ffm-bold mb25 fc-black fs-s">
@@ -16,12 +15,12 @@ export const RoomDetailsPageParticipants: React.FC<ContainerProps> = ({ particip
         <span className="w20">Status</span>
       </div>
       {
-        participants.map(
-          (participant, index) =>
+        addresses.map(
+          (address, index) =>
             <RoomDetailsPageParticipantsItem
-              key={participant.address}
-              participant={participant}
-              isLastChild={index === participants.length - 1}
+              key={address}
+              address={address}
+              isLastChild={index === addresses.length - 1}
             />
         )
       }
