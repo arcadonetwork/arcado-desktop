@@ -45,7 +45,7 @@ export const GameDetailsPage: React.FC<ContainerProps> = ({ match }) => {
 
 
   return (
-    <div>
+    <div className="">
       <GameDetailsPageHeader game={game} />
       <PageNavigation
         menu={menu}

@@ -8,7 +8,7 @@ interface ContainerProps {
 export const AppContainer: React.FC<ContainerProps> = ({ children }) => (
   <>
     <AppContainerHeader />
-    <div className="grid mt50">
+    <div className="grid mt75">
       {children}
     </div>
   </>

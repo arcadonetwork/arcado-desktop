@@ -13,12 +13,12 @@ export const GameDetailsPageRoomsItem: React.FC<ContainerProps> = ({ gameId, roo
   const clazz = !isLastChild ? 'br-b' : ''
   const uri = getGameRoomItemRoute(gameId, room.id);
   return (
-    <div className={`mb10 fs-s flex-c mb10 pb15 ${clazz}`}>
+    <div className={`p15 flex-c br5 ${clazz}`}>
       <span className="w40">
-        <Link to={uri}>{room.name}</Link>
+        <Link to={uri} className="ffm-bold fc-black">{room.name}</Link>
       </span>
       <span className="w20">{room.entryFee}</span>
-      <span className="w20">{room.maxPlayers}</span>
+      <span className="w20">{(room.addresses ||[]).length - 1} / {room.maxPlayers}</span>
     </div>
   )
 }

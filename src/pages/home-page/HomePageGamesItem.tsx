@@ -12,7 +12,7 @@ export const HomePageGamesItem: React.FC<ContainerProps> = ({ game, index }) => 
   const uri = getGamesItemRoute(game.id);
   return (
     <Link to={uri} className="mt50">
-      <div className="w100 h225--fixed bgc-lgrey mb10">
+      <div className="bgc-lgrey br5 w100 h150--fixed mb10">
       </div>
       <span className="ffm-bold fc-black">{game.name}</span>
     </Link>

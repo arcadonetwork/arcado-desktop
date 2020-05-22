@@ -27,8 +27,11 @@ const HomePage: React.FC<ContainerProps> = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Browse Games</h1>
+    <div className="mt50">
+      <div className="mb50">
+        <div className="fs-xl fc-black ffm-bold">Browse Games</div>
+        <p>Gamify your multiplayer matches by betting on a game you are about to start</p>
+      </div>
       {
         loading
         ? <Loading />

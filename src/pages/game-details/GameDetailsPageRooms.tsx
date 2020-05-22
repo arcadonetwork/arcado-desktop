@@ -35,22 +35,24 @@ export const GameDetailsPageRooms: React.FC<ContainerProps> = ({ game }) => {
 
   return (
     <div>
-      <div className="flex-c ffm-bold mb25 fc-black fs-s">
-        <span className="w40">Name</span>
-        <span className="w20">Bet (LSK)</span>
+      <div className="flex-c p15 br5 ffm-bold fs-s">
+        <span className="w40 fc-black">Name</span>
+        <span className="w20">Buyin (LSK)</span>
         <span className="w20">Players</span>
       </div>
-      {
-        rooms.map(
-          (room, index) =>
-            <GameDetailsPageRoomsItem
-              key={room.id}
-              gameId={game.id}
-              room={room}
-              isLastChild={index === rooms.length - 1}
-            />
-        )
-      }
+      <div className="bgc-white br br5">
+        {
+          rooms.map(
+            (room, index) =>
+              <GameDetailsPageRoomsItem
+                key={room.id}
+                gameId={game.id}
+                room={room}
+                isLastChild={index === rooms.length - 1}
+              />
+          )
+        }
+      </div>
     </div>
   )
 }

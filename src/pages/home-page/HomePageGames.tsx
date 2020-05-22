@@ -15,7 +15,7 @@ export const HomePageGames: React.FC<ContainerProps> = ({ games }) => {
     )
   }
   return (
-    <div className="grid-col5 flex-fs">
+    <div className="grid-col5 flex-fs flex-jc-sb">
       {
         games.map((game, index) => <HomePageGamesItem key={index} game={game} index={index} />)
       }
