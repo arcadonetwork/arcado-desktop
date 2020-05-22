@@ -10,6 +10,14 @@ const createRoom = async (gameId: string, room: object) => {
   });
 };
 
+const join = async (gameId: string, roomId: string, room: object) => {
+  return request({
+    url: `${URI}/games/${gameId}/rooms/${roomId}/join`,
+    method: 'POST',
+    body: room
+  });
+};
+
 const getRooms = async (gameId: string) => {
   return request({
     url: `${URI}/games/${gameId}/rooms`,
@@ -27,5 +35,6 @@ const getRoom = async (gameId: string, roomId: string) => {
 export const roomsApi = {
   getRooms,
   getRoom,
-  createRoom
+  createRoom,
+  join
 }

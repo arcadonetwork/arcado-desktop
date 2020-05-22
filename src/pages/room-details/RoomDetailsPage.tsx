@@ -28,24 +28,30 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   const [loading, setLoading] = useState(true);
   const { gameId, roomId } = match.params;
 
-  useEffect( () => {
-    async function fetchData() {
-      try {
-        const [{ room }, { game }] = await Promise.all([
-          roomsApi.getRoom(gameId, roomId),
-          gamesApi.getGame(gameId)
-        ])
-        room.game = game;
-        setRoom(room);
-        setLoading(false);
-      }catch (e) {
-        message.error('Can not fetch room');
-        setLoading(false);
-      }
+  async function getRoomDetails () {
+    try {
+      const [{ room }, { game }] = await Promise.all([
+        roomsApi.getRoom(gameId, roomId),
+        gamesApi.getGame(gameId)
+      ])
+      room.game = game;
+      setRoom(room);
+      setLoading(false);
+    }catch (e) {
+      message.error('Can not fetch room');
+      setLoading(false);
     }
-    fetchData();
+  }
+
+  useEffect( () => {
+    getRoomDetails();
     return () => ''
   }, []);
+
+  async function refresh () {
+    await setLoading(true);
+    getRoomDetails();
+  }
 
   if(loading) {
     return <Loading />
@@ -54,6 +60,7 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   return (
     <>
       <RoomDetailsPageHeader
+        refresh={refresh}
         room={room}
       />
       <PageNavigation
