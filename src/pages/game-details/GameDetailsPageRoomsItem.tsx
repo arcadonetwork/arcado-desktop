@@ -18,7 +18,8 @@ export const GameDetailsPageRoomsItem: React.FC<ContainerProps> = ({ gameId, roo
         <Link to={uri} className="ffm-bold fc-black">{room.name}</Link>
       </span>
       <span className="w20">{room.entryFee}</span>
-      <span className="w20">{(room.addresses ||[]).length - 1} / {room.maxPlayers}</span>
+      <span className="w20">{(room.addresses ||[]).length} / {room.maxPlayers}</span>
+      <Link to={uri} className="ml-auto">enter</Link>
     </div>
   )
 }

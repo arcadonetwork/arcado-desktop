@@ -10,7 +10,6 @@ interface Options {
 export const request = (options: Options) => {
   const { url } = options;
   const body = JSON.stringify(options.body);
-  console.log(body);
   return fetchRequest(url, {
     ...options,
     body,

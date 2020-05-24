@@ -11,6 +11,7 @@ export interface IRoom {
   addresses?: string[];
   gameId: string
   status: number
+  createdBy: string
 }
 
 export default class RoomModel implements IRoom {
@@ -23,6 +24,7 @@ export default class RoomModel implements IRoom {
   distribution?: PriceDistributionModel;
   gameId: string
   status: number
+  createdBy: string
 
   constructor(room: IRoom) {
     if (room) {
@@ -35,6 +37,7 @@ export default class RoomModel implements IRoom {
       this.distribution = room.distribution
       this.gameId = room.gameId
       this.status = room.status
+      this.createdBy = room.createdBy
     }
   }
 }

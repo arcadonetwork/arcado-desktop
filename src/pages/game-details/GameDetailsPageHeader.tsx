@@ -12,11 +12,19 @@ export const GameDetailsPageHeader: React.FC<ContainerProps> = ({ game }) => {
   return (
     <>
       <div className="flex-c mb50">
-        <div className="bgc-lgrey img--150 mr50" />
-        <div>
+        <div className="bgc-lgrey br5 game-image img--150 mr50" >
+          <img src={game.image} />
+        </div>
+        <div className="w50">
           <div className="fs-l fc-black ffm-bold">{game.name}</div>
-          <p>{game.description}</p>
-          <Button onClick={(ev) => setIsCreatingRoom(true)} type="primary">Create room</Button>
+          <p className="w100">{game.description}</p>
+        </div>
+        <div className="ml-auto">
+          <Button
+            onClick={(ev) => setIsCreatingRoom(true)}
+            type="primary"
+            className="w175--fixed h45--fixed"
+          >Create room</Button>
         </div>
       </div>
       <GameDetailsPageHeaderCreateRoom

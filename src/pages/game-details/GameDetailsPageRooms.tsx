@@ -4,6 +4,7 @@ import { message } from 'antd';
 import GameModel from '../../models/game.model';
 import { Loading } from '../../components/Loading';
 import { GameDetailsPageRoomsItem } from './GameDetailsPageRoomsItem';
+import { isArrayWithElements } from '../../shared/utils/type-checking';
 
 
 interface ContainerProps {
@@ -42,7 +43,8 @@ export const GameDetailsPageRooms: React.FC<ContainerProps> = ({ game }) => {
       </div>
       <div className="bgc-white br br5">
         {
-          rooms.map(
+          isArrayWithElements(rooms)
+          ? rooms.map(
             (room, index) =>
               <GameDetailsPageRoomsItem
                 key={room.id}
@@ -51,6 +53,11 @@ export const GameDetailsPageRooms: React.FC<ContainerProps> = ({ game }) => {
                 isLastChild={index === rooms.length - 1}
               />
           )
+            : (
+              <div className="p15 flex-c br5 bgc-white">
+                There are no rooms created for this game
+              </div>
+            )
         }
       </div>
     </div>

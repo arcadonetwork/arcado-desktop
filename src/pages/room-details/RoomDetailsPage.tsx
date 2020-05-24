@@ -8,6 +8,7 @@ import { message } from 'antd';
 import { RoomDetailsPageParticipants } from './RoomDetailsPageParticipants';
 import { PageNavigation } from '../../components/PageNavigation';
 import { gamesApi } from '../../shared/services/games';
+import { RoomDetailsPagePrizeDistribution } from './RoomDetailsPagePrizeDistribution';
 
 const menu = [
   'Participants'
@@ -63,6 +64,7 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
         refresh={refresh}
         room={room}
       />
+      <RoomDetailsPagePrizeDistribution room={room} />
       <PageNavigation
         menu={menu}
         activePage={page}

@@ -34,7 +34,8 @@ interface ContainerProps extends RouteComponentProps {
 const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ game, isCreatingRoom, setIsCreatingRoom, history }) => {
   const {
     register,
-    handleSubmit
+    handleSubmit,
+    errors
   } = useForm<RoomData>()
 
   const account = useSelector((state: iRootState) => state.session.account);
@@ -72,6 +73,7 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
         <TextInputField
           label="Name"
           name="name"
+          placeholder="Noobs only!"
           reference={register}
         />
       </div>
@@ -80,17 +82,30 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
           label="Buyin"
           name="entryFee"
           reference={register}
+          defaultValue={10}
         />
         <NumberInputField
           label="Players"
           name="maxPlayers"
           reference={register}
+          defaultValue={5}
         />
       </div>
       <div>
-        <div className="pb10 mb10 br-b">
+        <div className="pb10 mb10 br-b flex flex-jc-sb">
           <span className="fc-black">Price Distribution</span>
+          <span className="fc-red">
+            {errors.distribution ?
+              errors.distribution.first
+                ? errors.distribution.first.message
+                : errors.distribution.second
+                ? errors.distribution.second.message
+                : errors.distribution.third.message
+              : ''
+            }
+          </span>
         </div>
+        <p className="mb25 w70 fs-s">The distribution is calculated on percentages. Make sure that the the distribution equals 100% when saving.</p>
         <div className="grid-col3">
           <NumberInputField
             label="#1"

@@ -9,7 +9,7 @@ export const RoomDetailsPageParticipantsItem: React.FC<ContainerProps> = ({ addr
   const clazz = !isLastChild ? 'br-b' : ''
   return (
     <div className={`flex-c p15 ${clazz}`}>
-      <span className="w40">{address}</span>
+      <span className="w40 fc-black">{address}</span>
     </div>
   )
 }
