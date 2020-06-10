@@ -6,6 +6,7 @@ import { History } from 'history';
 import { Icon, Dropdown, Menu } from 'antd';
 import { ROUTES } from '../shared/router/Router';
 import { RouteComponentProps, withRouter } from 'react-router';
+import { LiskAvatar } from '../components/lisk-avatar/LiskAvatar';
 
 interface ContainerProps extends RouteComponentProps {
   account?: AccountModel,
@@ -49,7 +50,12 @@ const AppContainerHeaderUserComponent: React.FC<ContainerProps> = ({ isAuthentic
     >
       <div className="ml-auto h100 click flex-c mr50">
         <span className="fc-white fs-s">{account.address}</span>
-        <div className="ml15 arcado-avatar" />
+        <div className="ml15 arcado-avatar" >
+          <LiskAvatar
+            address={account.address}
+            size="s"
+            />
+        </div>
         <div className="ml15 fc-white fs-xs">
           <Icon type="down" />
         </div>

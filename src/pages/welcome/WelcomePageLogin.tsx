@@ -35,7 +35,7 @@ export const WelcomePageLoginComponent: React.FC<ContainerProps> = ({ isAuthenti
     if(isAuthenticated) {
       history.push(ROUTES.HOME)
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, history])
 
   function authenticate (data: LoginForm) {
     dispatch.session.authenticate(data.email, data.passphrase);

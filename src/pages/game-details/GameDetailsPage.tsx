@@ -37,7 +37,7 @@ export const GameDetailsPage: React.FC<ContainerProps> = ({ match }) => {
     }
     fetchData();
     return () => ''
-  }, [])
+  }, [gameId])
 
   if(loading) {
     return <Loading />

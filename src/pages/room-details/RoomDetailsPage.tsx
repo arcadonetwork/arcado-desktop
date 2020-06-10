@@ -36,7 +36,7 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
         gamesApi.getGame(gameId)
       ])
       room.game = game;
-      setRoom(room);
+      setRoom(new RoomModel(room));
       setLoading(false);
     }catch (e) {
       message.error('Can not fetch room');

@@ -8,21 +8,16 @@ import { iRootState } from '../../store/store';
 interface ContainerProps {
   room: RoomModel,
   refresh(): void,
-  setIntendsToParticipate(value: boolean): void,
-  intendsToParticipate: boolean
+  setIntendsToStop(value: boolean): void,
+  intendsToStop: boolean
 }
 
-export const RoomDetailsPageHeaderParticipateModal: React.FC<ContainerProps> = ({ room, refresh, intendsToParticipate, setIntendsToParticipate }) => {
+export const RoomDetailsPageHeaderStopModal: React.FC<ContainerProps> = ({ room, refresh, intendsToStop, setIntendsToStop }) => {
   const account = useSelector((state: iRootState) => state.session.account);
-
-  async function participate () {
+  console.log({intendsToStop})
+  async function stop () {
     try {
-      const isPresent = (room.addresses || []).find(address => address === account.address)
-      if (isPresent) {
-        message.error('You are already participating')
-        return;
-      }
-      await roomsApi.join(room.gameId, room.id, {
+      await roomsApi.stop(room.gameId, room.id, {
         address: account.address,
         roomId: room.id
       });
@@ -36,14 +31,14 @@ export const RoomDetailsPageHeaderParticipateModal: React.FC<ContainerProps> = (
 
   return (
     <Modal
-      title="Accept Transaction"
-      visible={intendsToParticipate}
-      onOk={participate}
-      onCancel={() => setIntendsToParticipate(false)}
-      okText="Participate"
+      title="End Game"
+      visible={intendsToStop}
+      onOk={stop}
+      onCancel={() => setIntendsToStop(false)}
+      okText="End"
     >
       <div className="flex-c flex-column flex-jc-c fs-m">
-        <div className="">You are about to participate in the <span className="fc-black ffm-bold">{room.name}</span> room.</div>
+        <div className="">You are about to stop the game from <span className="fc-black ffm-bold">{room.name}</span>.</div>
         <div>Do you agree on adding <span className="fc-black ffm-bold">{room.entryFee} LSK</span> from your balance to the prize pool?</div>
       </div>
     </Modal>
