@@ -88,7 +88,8 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
           label="Players"
           name="maxPlayers"
           reference={register}
-          defaultValue={5}
+          defaultValue={3}
+          min={3}
         />
       </div>
       <div>
