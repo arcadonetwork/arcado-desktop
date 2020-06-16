@@ -12,7 +12,6 @@ export interface IRoom {
   gameId: string
   status: number
   createdBy: string
-  hasStarted: boolean
 }
 
 export default class RoomModel implements IRoom {
@@ -40,7 +39,6 @@ export default class RoomModel implements IRoom {
       this.gameId = room.gameId
       this.status = room.status
       this.createdBy = room.createdBy
-      this.hasStarted = room.hasStarted
     }
   }
 }
