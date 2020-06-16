@@ -24,7 +24,8 @@ export const RoomDetailsPageHeaderParticipateModal: React.FC<ContainerProps> = (
       }
       await roomsApi.join(room.gameId, room.id, {
         address: account.address,
-        roomId: room.id
+        roomId: room.id,
+        passphrase: account.passphrase
       });
       message.success('successfully joined the room')
       refresh();
