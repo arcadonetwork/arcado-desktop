@@ -40,7 +40,7 @@ export default class RoomModel implements IRoom {
       this.gameId = room.gameId
       this.status = room.status
       this.createdBy = room.createdBy
-      this.hasStarted = true
+      this.hasStarted = room.hasStarted
     }
   }
 }
