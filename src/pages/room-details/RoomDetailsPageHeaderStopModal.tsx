@@ -15,25 +15,26 @@ interface ContainerProps {
 
 export const RoomDetailsPageHeaderStopModal: React.FC<ContainerProps> = ({ room, refresh, intendsToStop, setIntendsToStop }) => {
   const account = useSelector((state: iRootState) => state.session.account);
-  const [firstPlace, setFirstPlace] = useState('');
-  const [secondPlace, setSecondPlace] = useState('');
-  const [thirdPlace, setThirdPlace] = useState('');
+  const [first, setFirstPlace] = useState('');
+  const [second, setSecondPlace] = useState('');
+  const [third, setThirdPlace] = useState('');
   const [selectableAddresses, setSelectableAddresses] = useState(room.addresses);
 
   useEffect(() => {
-    const filteredAddresses = room.addresses.filter(address => address !== firstPlace && address !== secondPlace && address !== thirdPlace)
+    const filteredAddresses = room.addresses.filter(address => address !== first && address !== second && address !== third)
     setSelectableAddresses(filteredAddresses);
     return () => ''
-  }, [firstPlace, secondPlace, thirdPlace])
+  }, [first, second, third])
 
   async function stop () {
     try {
       await roomsApi.stop(room.gameId, room.id, {
         address: account.address,
         roomId: room.id,
-        firstPlace,
-        secondPlace,
-        thirdPlace
+        first,
+        second,
+        third,
+        passphrase: account.address
       });
       message.success('successfully joined the room')
       refresh();
@@ -48,7 +49,7 @@ export const RoomDetailsPageHeaderStopModal: React.FC<ContainerProps> = ({ room,
       title="End Game"
       visible={intendsToStop}
       onOk={stop}
-      okButtonProps={{ disabled: (!firstPlace || !secondPlace || !thirdPlace) }}
+      okButtonProps={{ disabled: (!first || !second || !third) }}
       onCancel={() => setIntendsToStop(false)}
       okText="End"
     >
@@ -57,7 +58,7 @@ export const RoomDetailsPageHeaderStopModal: React.FC<ContainerProps> = ({ room,
         <div className="w100 mb15">
           <SelectInputField
             label="First place"
-            value={firstPlace}
+            value={first}
             setValue={setFirstPlace}
             options={selectableAddresses}
           />
@@ -65,7 +66,7 @@ export const RoomDetailsPageHeaderStopModal: React.FC<ContainerProps> = ({ room,
         <div className="w100 mb15">
           <SelectInputField
             label="Second place"
-            value={secondPlace}
+            value={second}
             setValue={setSecondPlace}
             options={selectableAddresses}
           />
@@ -73,7 +74,7 @@ export const RoomDetailsPageHeaderStopModal: React.FC<ContainerProps> = ({ room,
         <div className="w100 mb15">
           <SelectInputField
             label="Third place"
-            value={thirdPlace}
+            value={third}
             setValue={setThirdPlace}
             options={selectableAddresses}
           />

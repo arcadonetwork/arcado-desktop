@@ -25,7 +25,8 @@ export const RoomDetailsPageHeaderActions: React.FC<ContainerProps> = ({ room, r
     try {
       await roomsApi.start(room.gameId, room.id, {
         address: account.address,
-        roomId: room.id
+        roomId: room.id,
+        passphrase: account.address
       });
       message.success('successfully joined the room')
       refresh();
