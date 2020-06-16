@@ -20,7 +20,7 @@ const join = async (gameId: string, roomId: string, room: object) => {
 
 const start = async (gameId: string, roomId: string, room: object) => {
   return request({
-    url: `${URI}/games/${gameId}/rooms/${roomId}/join`,
+    url: `${URI}/games/${gameId}/rooms/${roomId}/start`,
     method: 'POST',
     body: room
   });
