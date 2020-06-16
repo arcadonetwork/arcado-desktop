@@ -5,14 +5,9 @@ import { usersApi } from '../../shared/services/users';
 import { isObjectWithFields } from '../../shared/utils/type-checking';
 
 const initialState = {
-  account: new AccountModel({"address":"16502651766141489818L","passphrase":"once ancient swamp spray marble move toward suggest silver sniff plug load", balance: ""}),
-  isAuthenticated: true
-}
-
-/*const initialState = {
   account: new AccountModel(undefined),
   isAuthenticated: false
-}*/
+}
 
 export type SessionState = {
   account: IAccount,
