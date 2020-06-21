@@ -10,6 +10,7 @@ import { roomsApi } from '../../shared/services/rooms';
 import { iRootState } from '../../store/store';
 import { useSelector } from 'react-redux';
 import { getGameRoomItemRoute } from '../../shared/router/Router';
+import { toRawLsk } from '../../shared/utils/lsk';
 
 type DistributionData = {
   first: number;
@@ -54,6 +55,7 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
       setDistributionError(undefined)
     }
     try {
+      roomData.entryFee = toRawLsk(roomData.entryFee);
       const body = {
         ...roomData,
         address: account.address,
@@ -69,7 +71,6 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
       setIsCreatingRoom(false)
     }
   }
-  console.log(errors);
 
   return (
     <Modal
@@ -109,8 +110,8 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
                 value: true,
                 message: "required"
               },
-              pattern : {
-                value: /^(?:[1-9]|\\d\\d\\d*)$/i,
+              min : {
+                value: 1,
                 message: "Min. of 1 LSK"
               }
             })
@@ -126,9 +127,9 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
                 value: true,
                 message: "required"
               },
-              pattern : {
-                value: /^(?:[1-9]|\\d\\d\\d*)$/i,
-                message: "Min. of 1 LSK"
+              min : {
+                value: 3,
+                message: "Min. 3 players"
               }
             })
           }

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "@types/numeral": "0.0.28",
     "eslint-loader": "2.1.2",
     "eslint-plugin-flowtype": "3.10.5",
     "eslint-plugin-import": "2.17.3",
@@ -31,6 +32,7 @@
     "craco-less": "^1.16.0",
     "moment": "2.25.3",
     "node-sass": "4.14.1",
+    "numeral": "^2.0.6",
     "prop-types": "15.7.2",
     "react": "16.8.3",
     "react-dom": "16.8.3",

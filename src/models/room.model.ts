@@ -1,5 +1,6 @@
 import { IGame } from './game.model';
-import PriceDistributionModel from './price-distribution.model';
+import PriceDistributionModel, { IPriceDistribution } from './price-distribution.model';
+import EndResultModel, { IEndResult } from './end-result.model';
 
 export interface IRoom {
   id: string;
@@ -7,7 +8,8 @@ export interface IRoom {
   maxPlayers: number;
   entryFee?: number;
   game?: IGame;
-  distribution?: PriceDistributionModel;
+  distribution?: IPriceDistribution;
+  endResult?: IEndResult;
   addresses?: string[];
   gameId: string
   status: number
@@ -25,7 +27,7 @@ export default class RoomModel implements IRoom {
   gameId: string
   status: number
   createdBy: string
-  hasStarted: boolean
+  endResult: EndResultModel
 
   constructor(room: IRoom) {
     if (room) {
@@ -39,6 +41,7 @@ export default class RoomModel implements IRoom {
       this.gameId = room.gameId
       this.status = room.status
       this.createdBy = room.createdBy
+      this.endResult = room.endResult
     }
   }
 }

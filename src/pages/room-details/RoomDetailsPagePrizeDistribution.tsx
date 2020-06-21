@@ -1,6 +1,7 @@
 import React from 'react';
 import RoomModel from '../../models/room.model';
-import { Icon } from 'antd';
+import { fromRawLsk } from '../../shared/utils/lsk';
+import { RoomDetailsPagePrizeDistributionItem } from './RoomDetailsPagePrizeDistributionItem';
 
 interface ContainerProps {
   room: RoomModel
@@ -11,40 +12,32 @@ const getCalculatedPrizeDistribution = (totalPricePool: number, percentage: numb
 }
 
 export const RoomDetailsPagePrizeDistribution: React.FC<ContainerProps> = ({ room }) => {
-  const totalPricePool = room.maxPlayers * room.entryFee;
+  const totalPricePool = room.maxPlayers * Number(fromRawLsk(room.entryFee));
+  const isFinished = room.status === 2;
   return (
     <div className="br mb50 bgc-white br5">
-      <div className="flex-fs ">
+      <div className="w100 flex-fs ">
 
-        <div className="w100 flex-c flex-jc-c fs-s p10 br-r">
-          <div className="flex-c flex-jc-c img--30 bgc-gold fc-black mr15">
-            <Icon type="trophy" />
-          </div>
-          <div className="flex flex-column">
-            <div className="fc-black fs-s">First Place</div>
-            <div className="fc-black ffm-bold">{getCalculatedPrizeDistribution(totalPricePool, room.distribution.first)} LSK</div>
-          </div>
-        </div>
+        <RoomDetailsPagePrizeDistributionItem
+          isLastChild={false}
+          label={isFinished ? room.endResult.first : 'First Place'}
+          value={getCalculatedPrizeDistribution(totalPricePool, room.distribution.first)}
+          bgColor="bgc-gold"
+        />
 
-        <div className="w100 flex-c flex-jc-c fs-s p10 br-r">
-          <div className="flex-c flex-jc-c img--30 bgc-silver fc-black mr15">
-            <Icon type="trophy" />
-          </div>
-          <div className="flex flex-column">
-            <div className="fc-black fs-s">Second Place</div>
-            <div className="fc-black ffm-bold">{getCalculatedPrizeDistribution(totalPricePool, room.distribution.second)} LSK</div>
-          </div>
-        </div>
+        <RoomDetailsPagePrizeDistributionItem
+          isLastChild={false}
+          label={isFinished ? room.endResult.second : 'Second Place'}
+          value={getCalculatedPrizeDistribution(totalPricePool, room.distribution.second)}
+          bgColor="bgc-silver"
+        />
 
-        <div className="w100 flex-c flex-jc-c fs-s p10">
-          <div className="flex-c flex-jc-c img--30 bgc-bronze fc-black mr15">
-            <Icon type="trophy" />
-          </div>
-          <div className="flex flex-column">
-            <div className="fc-black fs-s">Third Place</div>
-            <div className="fc-black ffm-bold">{getCalculatedPrizeDistribution(totalPricePool, room.distribution.third)} LSK</div>
-          </div>
-        </div>
+        <RoomDetailsPagePrizeDistributionItem
+          isLastChild={true}
+          label={isFinished ? room.endResult.third : 'Third Place'}
+          value={getCalculatedPrizeDistribution(totalPricePool, room.distribution.third)}
+          bgColor="bgc-bronze"
+        />
 
       </div>
     </div>

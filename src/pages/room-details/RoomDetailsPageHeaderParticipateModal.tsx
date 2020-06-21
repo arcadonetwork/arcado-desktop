@@ -4,6 +4,7 @@ import { message, Modal } from 'antd';
 import { roomsApi } from '../../shared/services/rooms';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
+import { fromRawLsk } from '../../shared/utils/lsk';
 
 interface ContainerProps {
   room: RoomModel,
@@ -45,7 +46,7 @@ export const RoomDetailsPageHeaderParticipateModal: React.FC<ContainerProps> = (
     >
       <div className="flex-c flex-column flex-jc-c fs-m">
         <div className="">You are about to participate in the <span className="fc-black ffm-bold">{room.name}</span> room.</div>
-        <div>Do you agree on adding <span className="fc-black ffm-bold">{room.entryFee} LSK</span> from your balance to the prize pool?</div>
+        <div>Do you agree on adding <span className="fc-black ffm-bold">{fromRawLsk(room.entryFee)} LSK</span> from your balance to the prize pool?</div>
       </div>
     </Modal>
   )

@@ -3,6 +3,7 @@ import RoomModel from '../../models/room.model';
 import { getGamesItemRoute } from '../../shared/router/Router';
 import { Link } from 'react-router-dom';
 import { RoomDetailsPageHeaderActions } from './RoomDetailsPageHeaderActions';
+import { fromRawLsk } from '../../shared/utils/lsk';
 
 interface ContainerProps {
   room: RoomModel,
@@ -20,16 +21,12 @@ export const RoomDetailsPageHeader: React.FC<ContainerProps> = ({ room, refresh 
       <div>
         <Link to={gameUri} className="fc-lgrey">{room.game.name}</Link>
         <div className="fs-xl ffm-bold fc-black mb15">{room.name}</div>
-
         <div className="flex-fs">
-
           <div className="flex-c flex-jc-fe mr50">
-            <div className="mr50">Buyin:{'  '}<span className="fc-black ffm-bold">{room.entryFee} LSK</span></div>
+            <div className="mr50">Buyin:{'  '}<span className="fc-black ffm-bold">{fromRawLsk(room.entryFee)} LSK</span></div>
             <div className="mr50">Players:{'  '}<span className="fc-black ffm-bold">{(room.addresses ||[]).length} / {room.maxPlayers}</span></div>
           </div>
-
         </div>
-
       </div>
 
       <div className="ml-auto">
