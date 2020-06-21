@@ -7,6 +7,7 @@ const authenticate = async (email: string, passphrase: string) => {
     url: `${URI}/${email}`,
     method: 'POST',
     body: {
+      email,
       passphrase
     }
   });

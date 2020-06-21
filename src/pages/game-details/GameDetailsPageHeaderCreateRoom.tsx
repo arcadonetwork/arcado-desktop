@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GameModel from '../../models/game.model';
 import Modal from 'antd/es/modal';
 import { TextInputField } from 'src/components/TextInputField';
@@ -37,7 +37,7 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
     handleSubmit,
     errors
   } = useForm<RoomData>()
-
+  const [distributionError, setDistributionError] = useState(undefined);
   const account = useSelector((state: iRootState) => state.session.account);
 
   if (!isCreatingRoom) {
@@ -45,6 +45,14 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
   }
 
   async function createRoom (roomData: RoomData) {
+    let { first, second, third } = roomData.distribution;
+    [first, second, third] = [first, second, third].map(Number);
+    if ((first + second + third) !== 100) {
+      setDistributionError('Prize Distribution is not equal to 100')
+      return;
+    } else {
+      setDistributionError(undefined)
+    }
     try {
       const body = {
         ...roomData,
@@ -61,6 +69,7 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
       setIsCreatingRoom(false)
     }
   }
+  console.log(errors);
 
   return (
     <Modal
@@ -74,36 +83,66 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
           label="Name"
           name="name"
           placeholder="Noobs only!"
-          reference={register}
+          error={(errors.name || {}).message}
+          reference={
+            register({
+              required: {
+                value: true,
+                message: "required"
+              },
+              minLength: {
+                value: 3,
+                message: "At least 3 chars."
+              }
+            })
+          }
         />
       </div>
       <div className="grid-col2 mb25">
         <NumberInputField
-          label="Buyin"
+          label="Entry Fee"
           name="entryFee"
-          reference={register}
-          defaultValue={10}
+          error={(errors.entryFee || {}).message}
+          reference={
+            register({
+              required: {
+                value: true,
+                message: "required"
+              },
+              pattern : {
+                value: /^(?:[1-9]|\\d\\d\\d*)$/i,
+                message: "Min. of 1 LSK"
+              }
+            })
+          }
         />
         <NumberInputField
           label="Players"
           name="maxPlayers"
-          reference={register}
+          error={(errors.maxPlayers || {}).message}
+          reference={
+            register({
+              required: {
+                value: true,
+                message: "required"
+              },
+              pattern : {
+                value: /^(?:[1-9]|\\d\\d\\d*)$/i,
+                message: "Min. of 1 LSK"
+              }
+            })
+          }
           defaultValue={3}
           min={3}
         />
       </div>
-      <div>
-        <div className="pb10 mb10 br-b flex flex-jc-sb">
+      <div className="w100">
+        <div className="w100 pb10 mb10 br-b flex-c flex-jc-sb">
           <span className="fc-black">Price Distribution</span>
           <span className="fc-red">
-            {errors.distribution ?
-              errors.distribution.first
-                ? errors.distribution.first.message
-                : errors.distribution.second
-                ? errors.distribution.second.message
-                : errors.distribution.third.message
-              : ''
-            }
+            {distributionError
+            ? distributionError
+            : ''}
           </span>
         </div>
         <p className="mb25 w70 fs-s">The distribution is calculated on percentages. Make sure that the the distribution equals 100% when saving.</p>
@@ -111,17 +150,56 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
           <NumberInputField
             label="#1"
             name="distribution.first"
-            reference={register}
+            placeholder="50"
+            error={((errors.distribution || {}).first || {}).message}
+            reference={
+              register({
+                required: {
+                  value: true,
+                  message: "required"
+                },
+                min : {
+                  value: 0,
+                  message: "At least 0"
+                }
+              })
+            }
           />
           <NumberInputField
             label="#2"
             name="distribution.second"
-            reference={register}
+            error={((errors.distribution || {}).second || {}).message}
+            placeholder="30"
+            reference={
+              register({
+                required: {
+                  value: true,
+                  message: "required"
+                },
+                min : {
+                  value: 0,
+                  message: "At least 0"
+                }
+              })
+            }
           />
           <NumberInputField
             label="#3"
             name="distribution.third"
-            reference={register}
+            placeholder="20"
+            error={((errors.distribution || {}).third || {}).message}
+            reference={
+              register({
+                required: {
+                  value: true,
+                  message: "required"
+                },
+                min : {
+                  value: 0,
+                  message: "At least 0"
+                }
+              })
+            }
           />
         </div>
       </div>

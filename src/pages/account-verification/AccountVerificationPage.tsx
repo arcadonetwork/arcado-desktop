@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
-import { useDispatch } from 'react-redux';
-import { Dispatch } from '../../store/store'
 import { History } from 'history';
 import Checkbox from 'antd/es/checkbox';
-import AccountModel from '../../models/account.model';
 import { ROUTES } from '../../shared/router/Router';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { RouteComponentProps } from 'react-router';
+import { useSelector } from 'react-redux';
+import { iRootState } from '../../store/store';
 
 interface ContainerProps extends RouteComponentProps {
-  history : History,
-  account: AccountModel
+  history : History
 }
 
-const WelcomePageRegisterVerificationComponent: React.FC<ContainerProps> = ({ account, history }) => {
+export const AccountVerificationPage: React.FC<ContainerProps> = ({ history }: ContainerProps) => {
 
   const [hasSavedPassphrase, setHasSavedPassphrase] = useState(false);
-  const dispatch = useDispatch<Dispatch>();
+  const account = useSelector((state: iRootState) => state.session.account);
 
   async function saveAccount() {
-    await dispatch.session.setAccount(new AccountModel(account))
     history.push(ROUTES.HOME)
   }
 
@@ -28,14 +25,18 @@ const WelcomePageRegisterVerificationComponent: React.FC<ContainerProps> = ({ ac
       <p className="w50 txt-ac">Thank you for registering. The following passphrase is now associated with your
         email. <span className="ffm-bold fc-black">Please, write down the passhrase.</span></p>
 
-      <div className="mt25 mb25 p15 bgc-white br br5 br-c-primary w50">
-        <div className="mb25">
-          <div className="fs-n fc-black ffm-bold">Address</div>
+      <div className="w70 mt25 mb25 p50 bgc-white br br-c-primary w50">
+        <div className="w100 mb15">
+          <div className="fs-n ffm-bold">Public Key</div>
+          <div className="fc-black">{account.publicKey}</div>
+        </div>
+        <div className="pb15 br-b mb15">
+          <div className="fs-n ffm-bold">Address</div>
           <div className="fc-black">{account.address}</div>
         </div>
-        <div className="mb15">
-          <div className="fs-n fc-black ffm-bold">Passphrase</div>
-          <div className=" fc-black">{account.passphrase}</div>
+        <div className="">
+          <div className="fs-n ffm-bold">Passphrase</div>
+          <div className="fc-black fs-m">{account.passphrase}</div>
         </div>
       </div>
 
@@ -51,6 +52,4 @@ const WelcomePageRegisterVerificationComponent: React.FC<ContainerProps> = ({ ac
       </Button>
     </div>
   )
-};
-
-export const WelcomePageRegisterVerification = withRouter(WelcomePageRegisterVerificationComponent);
+}

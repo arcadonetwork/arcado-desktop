@@ -26,10 +26,9 @@ export const session = {
     },
   },
   effects: (dispatch: Dispatch) => ({
-    async authenticate (email: string, passphrase: string) {
+    async authenticate ({ email, passphrase }: any) {
       try {
-
-        const { result } = await usersApi.authenticate(email, passphrase);
+        const result = await usersApi.authenticate(email, passphrase);
         dispatch.session.setAccount(result)
       } catch (e) {
         message.error('authentication failed | Dummy profile set')

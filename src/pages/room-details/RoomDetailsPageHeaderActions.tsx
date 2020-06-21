@@ -38,7 +38,11 @@ export const RoomDetailsPageHeaderActions: React.FC<ContainerProps> = ({ room, r
 
   let actions = [];
 
-  if (room.createdBy === account.address) {
+  if (room.status === 2) {
+    actions.push(<div>
+      game is finished
+    </div>)
+  } else if (room.createdBy === account.address) {
     if (room.status === 1) {
       actions.push(
         <div className="flex-fs">
@@ -86,10 +90,6 @@ export const RoomDetailsPageHeaderActions: React.FC<ContainerProps> = ({ room, r
           The game is about to start
         </Button>
       )
-    } else if (room.status === 2) {
-      actions.push(<div>
-        game is finished
-      </div>)
     } else {
       actions.push(
         <Button

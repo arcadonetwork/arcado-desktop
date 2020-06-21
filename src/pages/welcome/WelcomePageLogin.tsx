@@ -26,7 +26,8 @@ type LoginForm = {
 export const WelcomePageLoginComponent: React.FC<ContainerProps> = ({ isAuthenticated, history }: ContainerProps) => {
   const {
     register,
-    handleSubmit
+    handleSubmit,
+    errors
   } = useForm<LoginForm>();
 
   const dispatch = useDispatch<Dispatch>();
@@ -38,7 +39,10 @@ export const WelcomePageLoginComponent: React.FC<ContainerProps> = ({ isAuthenti
   }, [isAuthenticated, history])
 
   function authenticate (data: LoginForm) {
-    dispatch.session.authenticate(data.email, data.passphrase);
+    dispatch.session.authenticate({
+      email: data.email,
+      passphrase: data.passphrase
+    });
   }
 
   return (
@@ -47,9 +51,13 @@ export const WelcomePageLoginComponent: React.FC<ContainerProps> = ({ isAuthenti
         <TextInputField
           label="Email"
           name="email"
+          error={(errors.email || {}).message}
           reference={
             register({
-              required: true,
+              required: {
+                value: true,
+                message: 'required'
+              },
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                 message: "invalid email address"
@@ -62,9 +70,13 @@ export const WelcomePageLoginComponent: React.FC<ContainerProps> = ({ isAuthenti
         <TextInputField
           label="Passphrase"
           name="passphrase"
+          error={(errors.passphrase || {}).message}
           reference={
             register({
-              required: true
+              required: {
+                value: true,
+                message: 'required'
+              }
             })
           }
         />

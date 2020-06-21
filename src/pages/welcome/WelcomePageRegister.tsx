@@ -1,41 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, message } from 'antd';
 import { TextInputField } from '../../components/TextInputField';
 import { usersApi } from '../../shared/services/users';
 import AccountModel from '../../models/account.model';
-import { WelcomePageRegisterVerification } from './WelcomePageRegisterVerification';
 import { useForm } from "react-hook-form";
+import { History } from 'history';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from '../../store/store';
+import { ROUTES } from '../../shared/router/Router';
 
 interface ContainerProps {
+  history: History
 }
 
 type UserData = {
   email: string
 }
 
-export const WelcomePageRegister: React.FC<ContainerProps> = () => {
+export const WelcomePageRegister: React.FC<ContainerProps> = ({ history }) => {
 
   const { register, handleSubmit, errors } = useForm<UserData>();
-
-  const [account, setAccount] = useState(new AccountModel(undefined));
-  const [isRegistered, setIsRegistered] = useState(false);
+  const dispatch = useDispatch<Dispatch>();
 
   async function onSubmit (data: UserData) {
     try {
       const result = await usersApi.register(data.email);
-      setAccount(new AccountModel(result));
-      setIsRegistered(true)
+      await dispatch.session.setAccount(new AccountModel(result))
+      history.push(ROUTES.ACCOUNT_VERIFICATION)
     } catch (e) {
       message.error('something went wrong')
     }
-  }
-
-  if (isRegistered) {
-    return (
-      <WelcomePageRegisterVerification
-        account={account}
-      />
-    )
   }
 
   return (
@@ -48,10 +42,13 @@ export const WelcomePageRegister: React.FC<ContainerProps> = () => {
           error={(errors.email || {}).message}
           reference={
             register({
-              required: true,
+              required: {
+                value: true,
+                message: "required"
+              },
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                message: "invalid email address"
+                message: "Invalid email address"
               }
             })
           }

@@ -30,7 +30,7 @@ export const WelcomePage: React.FC<ContainerProps> = ({ history }: ContainerProp
       {
         page === 'login'
         ? <WelcomePageLogin history={history} />
-        : <WelcomePageRegister />
+        : <WelcomePageRegister history={history} />
       }
 
     </>

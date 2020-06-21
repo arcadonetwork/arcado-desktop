@@ -6,12 +6,13 @@ interface ContainerProps {
   name: string,
   error?: Message,
   defaultValue?: any,
+  placeholder?: string,
   min?: number
   max?: number
   reference(ref: FieldElement<any>): void
 }
 
-export const NumberInputField: React.FC<ContainerProps> = ({ label, reference, name, error, defaultValue, min, max }) => {
+export const NumberInputField: React.FC<ContainerProps> = ({ label, placeholder, reference, name, error, defaultValue, min, max }) => {
   return (
     <div>
       <div className="mb10 flex-c flex-jc-sb">
@@ -22,6 +23,7 @@ export const NumberInputField: React.FC<ContainerProps> = ({ label, reference, n
         <input
           className={error ? 'error-input' : ''}
           name={name}
+          placeholder={placeholder}
           ref={reference}
           defaultValue={defaultValue}
           type="number"

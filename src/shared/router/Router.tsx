@@ -7,13 +7,15 @@ import { GameDetailsPage } from '../../pages/game-details/GameDetailsPage'
 import { AccountDetailsPage } from '../../pages/account-details/AccountDetailsPage'
 import { RoomDetailsPage } from '../../pages/room-details/RoomDetailsPage'
 import { ProtectedRoute } from './ProtectedRoute';
+import { AccountVerificationPage } from '../../pages/account-verification/AccountVerificationPage';
 
 export const ROUTES = {
   GAME_DETAILS: '/:gameId',
   HOME: '/',
   LOGIN: '/login',
   ROOM_DETAILS: '/:gameId/rooms/:roomId',
-  ACCOUNT_DETAILS: '/settings'
+  ACCOUNT_DETAILS: '/settings',
+  ACCOUNT_VERIFICATION: '/account-verification'
 };
 
 export const getGamesItemRoute = (gameId: string) => {
@@ -53,6 +55,12 @@ export default () => {
         exact
         path={ROUTES.ACCOUNT_DETAILS}
         component={AccountDetailsPage}
+      />
+
+      <ProtectedRoute
+        exact
+        path={ROUTES.ACCOUNT_VERIFICATION}
+        component={AccountVerificationPage}
       />
 
       <ProtectedRoute
