@@ -1,46 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AccountDetailsPageHeader } from './AccountDetailsPageHeader';
-import { iRootState } from '../../store/store';
-import { connect } from 'react-redux';
-import { IAccount } from '../../models/account.model';
-import { PageNavigation } from 'src/components/PageNavigation';
-import { AccountDetailsPageTransactions } from './AccountDetailsPageTransactions';
+import { Dispatch, iRootState } from '../../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { Loading } from '../../components/Loading';
 
 interface ContainerProps {
-  account: IAccount
 }
 
-const mapStateToProps = (state: iRootState) => {
-  return {
-    account: state.session.account,
-    isAuthenticated: state.session.isAuthenticated
+export const AccountDetailsPage: React.FC<ContainerProps> = () => {
+  const dispatch = useDispatch<Dispatch>();
+  const account = useSelector((state: iRootState) => state.session.account);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    async function getAccount () {
+      await dispatch.session.getAccount(account.email);
+      setIsLoading(false);
+    }
+    if (isLoading) {
+      getAccount();
+    }
+    return () => '';
+  }, [])
+
+  if (isLoading) {
+    return <Loading />
   }
-}
 
-const mapDispatch = () => ({})
-
-const menu = ['Transactions']
-
-const AccountDetailsPageComponent: React.FC<ContainerProps> = ({ account }) => {
-  const [page, setPage] = useState(menu[0]);
   return (
     <div>
       <AccountDetailsPageHeader
         account={account}
       />
-      <PageNavigation
-        menu={menu}
-        activePage={page}
-        setPage={(page) => setPage(page)}
-      />
-      <AccountDetailsPageTransactions
-        account={account}
-      />
     </div>
   )
 }
-
-export const AccountDetailsPage = connect(
-  mapStateToProps,
-  mapDispatch
-)(AccountDetailsPageComponent)

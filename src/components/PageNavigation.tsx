@@ -28,6 +28,7 @@ export const PageNavigation: React.FC<PageNavigationContainerProps> = ({ menu, a
       {
         menu.map(item =>
           <PageNavigationItem
+            key={item}
             label={item}
             isActive={activePage === item}
             setPage={setPage}

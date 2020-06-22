@@ -1,26 +1,17 @@
 import React  from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { ROUTES } from './Router'
 import { iRootState } from '../../store/store';
 
 interface ContainerProps {
-  isAuthenticated: boolean,
   component: any,
   exact: boolean,
   path: String
 }
 
-const mapStateToProps = (state: iRootState) => {
-  return {
-    account: state.session.account,
-    isAuthenticated: state.session.isAuthenticated
-  }
-}
-
-const mapDispatch = () => ({})
-
-const ProtectedRouteComponent = ({ component: Component, isAuthenticated, exact, path,  ...rest } : ContainerProps) => {
+export const ProtectedRoute = ({ component: Component, exact, path,  ...rest } : ContainerProps) => {
+  const isAuthenticated = useSelector((state: iRootState) => state.session.isAuthenticated);
   return (
     <Route {...rest} render={
       props => {
@@ -33,8 +24,3 @@ const ProtectedRouteComponent = ({ component: Component, isAuthenticated, exact,
     } />
   )
 }
-
-export const ProtectedRoute = connect(
-  mapStateToProps,
-  mapDispatch
-)(ProtectedRouteComponent)

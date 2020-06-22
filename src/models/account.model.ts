@@ -1,4 +1,5 @@
 export interface IAccount {
+  email: string;
   address: string;
   passphrase: string;
   publicKey: string;
@@ -8,15 +9,17 @@ export interface IAccount {
 }
 
 export default class AccountModel implements IAccount {
-  address: string
+  email: string;
+  address: string;
   publicKey: string;
-  win?: number
+  win?: number;
   balance?: string;
-  passphrase: string
-  loss?: number
+  passphrase: string;
+  loss?: number;
 
   constructor(account: IAccount) {
     if (account) {
+      this.email = account.email;
       this.address = account.address;
       this.publicKey = account.publicKey;
       this.balance = account.balance;

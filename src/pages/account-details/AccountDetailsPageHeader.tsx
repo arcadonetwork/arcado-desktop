@@ -40,9 +40,9 @@ export const AccountDetailsPageHeader: React.FC<ContainerProps> = ({ account }) 
           />
         </div>
         <div className="mr15">
-          <div>First place: <span className="ffm-bold">2</span></div>
-          <div>Second place: <span className="ffm-bold">2</span></div>
-          <div>Third place: <span className="ffm-bold">2</span></div>
+          <div>First place: <span className="ffm-bold">0</span></div>
+          <div>Second place: <span className="ffm-bold">0</span></div>
+          <div>Third place: <span className="ffm-bold">0</span></div>
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { Dispatch } from '../store';
 import { message } from 'antd';
 import { usersApi } from '../../shared/services/users';
 import { isObjectWithFields } from '../../shared/utils/type-checking';
+import { fromRawLsk } from '../../shared/utils/lsk';
 
 const initialState = {
   account: new AccountModel(undefined),
@@ -30,6 +31,15 @@ export const session = {
       try {
         const result = await usersApi.authenticate(email, passphrase);
         dispatch.session.setAccount(result)
+      } catch (e) {
+        message.error('authentication failed | Dummy profile set')
+      }
+    },
+    async getAccount (email: string) {
+      try {
+        const result = await usersApi.getUser(email);
+        result.balance = fromRawLsk(result.balance);
+        dispatch.session.setAccount(new AccountModel(result))
       } catch (e) {
         message.error('authentication failed | Dummy profile set')
       }
