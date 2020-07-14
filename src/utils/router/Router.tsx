@@ -2,12 +2,13 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from '../../pages/home-page/HomePage'
-import { WelcomePage } from '../../pages/welcome/WelcomePage'
+import { LoginPage } from '../../pages/login/LoginPage'
 import { GameDetailsPage } from '../../pages/game-details/GameDetailsPage'
 import { AccountDetailsPage } from '../../pages/account-details/AccountDetailsPage'
 import { RoomDetailsPage } from '../../pages/room-details/RoomDetailsPage'
 import { ProtectedRoute } from './ProtectedRoute';
 import { AccountVerificationPage } from '../../pages/account-verification/AccountVerificationPage';
+import InitialiseAccountPage from '../../pages/initialise-account/InitialiseAccountPage';
 
 export const ROUTES = {
   GAME_DETAILS: '/:gameId',
@@ -15,7 +16,8 @@ export const ROUTES = {
   LOGIN: '/login',
   ROOM_DETAILS: '/:gameId/rooms/:roomId',
   ACCOUNT_DETAILS: '/settings',
-  ACCOUNT_VERIFICATION: '/account-verification'
+  ACCOUNT_VERIFICATION: '/account-verification',
+  INITIALISE: '/initialise'
 };
 
 export const getGamesItemRoute = (gameId: string) => {
@@ -42,7 +44,13 @@ export default () => {
       <Route
         exact
         path={ROUTES.LOGIN}
-        component={WelcomePage}
+        component={LoginPage}
+      />
+
+      <Route
+        exact
+        path={ROUTES.INITIALISE}
+        component={InitialiseAccountPage}
       />
 
       <ProtectedRoute

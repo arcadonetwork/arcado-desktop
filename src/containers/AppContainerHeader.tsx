@@ -1,18 +1,20 @@
 import * as React from 'react';
 
-import logo from '../assets/logo.svg'
 import { AppContainerHeaderUser } from './AppContainerHeaderUser'
-import { ROUTES } from '../shared/router/Router';
 import { Link } from 'react-router-dom';
+import { Logo } from '../assets/Logo'
+import { ROUTES } from '../utils/router/Router';
 
 interface ContainerProps {
 }
 
 export const AppContainerHeader: React.FC<ContainerProps> = () => {
   return (
-    <div className="app-header w100 bgc-black h60--fixed flex-c">
-      <Link to={ROUTES.HOME} className="ml50 w250--fixed">
-        <img src={logo} className="logo" alt="logo" />
+    <div className="app-header w100 bgc-xxl-grey h60--fixed flex-c">
+      <Link to={ROUTES.HOME} className="ml50">
+        <div className=" w75--fixed" >
+          <Logo />
+        </div>
       </Link>
       <AppContainerHeaderUser />
     </div>

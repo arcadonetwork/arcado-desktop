@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { roomsApi } from '../../shared/services/rooms';
+import { getRooms } from '../../utils/api/rooms';
 import { message } from 'antd';
 import GameModel from '../../models/game.model';
 import { Loading } from '../../components/Loading';
 import { GameDetailsPageRoomsItem } from './GameDetailsPageRoomsItem';
-import { isArrayWithElements } from '../../shared/utils/type-checking';
+import { isArrayWithElements } from '../../utils/utils/type-checking';
 
 
 interface ContainerProps {
@@ -18,7 +18,7 @@ export const GameDetailsPageRooms: React.FC<ContainerProps> = ({ game }) => {
   useEffect( () => {
     async function fetchData() {
       try {
-        const { rooms } = await roomsApi.getRooms(game.id);
+        const { rooms } = await getRooms(game.id);
         setRooms(rooms);
         setLoading(false);
       } catch (e) {

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { History } from 'history';
 import { Icon, Dropdown, Menu } from 'antd';
-import { ROUTES } from '../shared/router/Router';
+import { ROUTES } from '../utils/router/Router';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { LiskAvatar } from '../components/lisk-avatar/LiskAvatar';
 
@@ -49,14 +49,14 @@ const AppContainerHeaderUserComponent: React.FC<ContainerProps> = ({ isAuthentic
       placement="bottomRight"
     >
       <div className="ml-auto h100 click flex-c mr50">
-        <span className="fc-white fs-s">{account.address}</span>
+        <span className="fc-black fs-s">{account.address}</span>
         <div className="ml15 arcado-avatar" >
           <LiskAvatar
             address={account.address}
             size="s"
             />
         </div>
-        <div className="ml15 fc-white fs-xs">
+        <div className="ml15 fc-black fs-xs">
           <Icon type="down" />
         </div>
       </div>

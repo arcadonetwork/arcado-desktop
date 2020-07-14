@@ -1,6 +1,6 @@
 import React from 'react';
 import GameModel from '../../models/game.model';
-import { isArrayWithElements } from '../../shared/utils/type-checking';
+import { isArrayWithElements } from '../../utils/utils/type-checking';
 import { HomePageGamesItem } from './HomePageGamesItem';
 import { HomePageGamesEmpty } from './HomePageGamesEmpty';
 

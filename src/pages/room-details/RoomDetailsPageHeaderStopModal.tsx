@@ -1,7 +1,7 @@
 import RoomModel from '../../models/room.model';
 import React, { useEffect, useState } from 'react';
 import { message, Modal } from 'antd';
-import { roomsApi } from '../../shared/services/rooms';
+import { stopRoom } from '../../utils/api/rooms';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
 import { SelectInputField } from '../../components/SelectInputField';
@@ -28,7 +28,7 @@ export const RoomDetailsPageHeaderStopModal: React.FC<ContainerProps> = ({ room,
 
   async function stop () {
     try {
-      await roomsApi.stop(room.gameId, room.id, {
+      await stopRoom(room.gameId, room.id, {
         address: account.address,
         roomId: room.id,
         first,

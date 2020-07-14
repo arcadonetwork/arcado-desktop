@@ -3,7 +3,7 @@ import RoomModel from '../../models/room.model';
 import { Button, message } from 'antd';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
-import { roomsApi } from '../../shared/services/rooms';
+import { startRoom } from '../../utils/api/rooms';
 import { RoomDetailsPageHeaderParticipateModal } from './RoomDetailsPageHeaderParticipateModal';
 import { RoomDetailsPageHeaderStopModal } from './RoomDetailsPageHeaderStopModal';
 
@@ -23,7 +23,7 @@ export const RoomDetailsPageHeaderActions: React.FC<ContainerProps> = ({ room, r
       return;
     }
     try {
-      await roomsApi.start(room.gameId, room.id, {
+      await startRoom(room.gameId, room.id, {
         address: account.address,
         roomId: room.id,
         passphrase: account.passphrase

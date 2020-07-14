@@ -6,11 +6,11 @@ import { NumberInputField } from 'src/components/NumberInputField';
 import { message } from 'antd';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { useForm } from 'react-hook-form';
-import { roomsApi } from '../../shared/services/rooms';
+import { createRoom } from '../../utils/api/rooms';
 import { iRootState } from '../../store/store';
 import { useSelector } from 'react-redux';
-import { getGameRoomItemRoute } from '../../shared/router/Router';
-import { toRawLsk } from '../../shared/utils/lsk';
+import { getGameRoomItemRoute } from '../../utils/router/Router';
+import { toRawLsk } from '../../utils/utils/lsk';
 
 type DistributionData = {
   first: number;
@@ -45,7 +45,7 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
     return <></>;
   }
 
-  async function createRoom (roomData: RoomData) {
+  async function createOnClick (roomData: RoomData) {
     let { first, second, third } = roomData.distribution;
     [first, second, third] = [first, second, third].map(Number);
     if ((first + second + third) !== 100) {
@@ -61,7 +61,7 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
         address: account.address,
         passphrase: account.passphrase
       }
-      const { room } = await roomsApi.createRoom(game.id, body);
+      const { room } = await createRoom(game.id, body);
       const uri = getGameRoomItemRoute(game.id, room.id);
       message.success('new room created');
       history.push(uri);
@@ -77,7 +77,7 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
       visible={isCreatingRoom}
       onCancel={() => setIsCreatingRoom(false)}
       title={`${game.name} - Create room`}
-      onOk={handleSubmit(createRoom)}
+      onOk={handleSubmit(createOnClick)}
     >
       <div className="mb15">
         <TextInputField

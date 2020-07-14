@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { gamesApi } from '../../shared/services/games';
+import { getGames } from '../../utils/api/games';
 import { Loading } from '../../components/Loading';
 import { message } from 'antd';
 import { HomePageGames } from './HomePageGames';
@@ -14,7 +14,7 @@ const HomePage: React.FC<ContainerProps> = () => {
   useEffect( () => {
     async function fetchData() {
       try {
-        const { games } = await gamesApi.getGames();
+        const { games } = await getGames();
         setGames(games);
         setLoading(false);
       } catch (e) {
@@ -27,7 +27,7 @@ const HomePage: React.FC<ContainerProps> = () => {
   }, []);
 
   return (
-    <div className="mt50">
+    <div className="grid mt75">
       <div className="mb50">
         <div className="fs-xl fc-black ffm-bold">Browse Games</div>
         <p>Gamify your multiplayer matches by betting on a game you are about to start</p>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from 'antd';
 import { History } from 'history';
 import Checkbox from 'antd/es/checkbox';
-import { ROUTES } from '../../shared/router/Router';
+import { ROUTES } from '../../utils/router/Router';
 import { RouteComponentProps } from 'react-router';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
@@ -21,11 +21,11 @@ export const AccountVerificationPage: React.FC<ContainerProps> = ({ history }: C
   }
 
   return (
-    <div className="flex-c flex-column mt50">
-      <p className="w50 txt-ac">Thank you for registering. The following passphrase is now associated with your
+    <div className="w50 m-auto flex-c flex-column mt75">
+      <p className="txt-ac">Thank you for registering. The following passphrase is now associated with your
         email. <span className="ffm-bold fc-black">Please, write down the passhrase.</span></p>
 
-      <div className="w70 mt25 mb25 p50 bgc-white br br-c-primary w50">
+      <div className="w100 mt25 mb25 p50 bgc-white br br-c-primary">
         <div className="w100 mb15">
           <div className="fs-n ffm-bold">Public Key</div>
           <div className="fc-black">{account.publicKey}</div>
@@ -47,6 +47,7 @@ export const AccountVerificationPage: React.FC<ContainerProps> = ({ history }: C
       <Button
         disabled={!hasSavedPassphrase}
         onClick={() => saveAccount()}
+        className="w175--fixed h45--fixed"
         type="primary">
         Start exploring
       </Button>

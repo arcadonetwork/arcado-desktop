@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 
 import { AppContainer } from './containers/AppContainer';
-import AppRoutes from './shared/router/Router';
+import AppRoutes from './utils/router/Router';
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(

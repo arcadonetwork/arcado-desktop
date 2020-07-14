@@ -1,9 +1,9 @@
 import AccountModel, { IAccount } from '../../models/account.model';
 import { Dispatch } from '../store';
 import { message } from 'antd';
-import { usersApi } from '../../shared/services/users';
-import { isObjectWithFields } from '../../shared/utils/type-checking';
-import { fromRawLsk } from '../../shared/utils/lsk';
+import { getAccount, authenticate } from '../../utils/api/account';
+import { isObjectWithFields } from '../../utils/utils/type-checking';
+import { fromRawLsk } from '../../utils/utils/lsk';
 
 const initialState = {
   account: new AccountModel(undefined),
@@ -29,7 +29,7 @@ export const session = {
   effects: (dispatch: Dispatch) => ({
     async authenticate ({ email, passphrase }: any) {
       try {
-        const result = await usersApi.authenticate(email, passphrase);
+        const result = await authenticate(email, passphrase);
         dispatch.session.setAccount(result)
       } catch (e) {
         message.error('authentication failed | Dummy profile set')
@@ -37,7 +37,7 @@ export const session = {
     },
     async getAccount (email: string) {
       try {
-        const result = await usersApi.getUser(email);
+        const result = await getAccount(email);
         result.balance = fromRawLsk(result.balance);
         dispatch.session.setAccount(new AccountModel(result))
       } catch (e) {

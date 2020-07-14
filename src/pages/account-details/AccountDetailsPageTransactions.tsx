@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { usersApi } from '../../shared/services/users';
+import { getTransactionsByAddress } from '../../utils/api/account';
 import { message } from 'antd';
 import { Loading } from '../../components/Loading';
 import AccountModel from '../../models/account.model';
@@ -17,7 +17,7 @@ export const AccountDetailsPageTransactions: React.FC<ContainerProps> = ({ accou
   useEffect( () => {
     async function fetchData() {
       try {
-        const { result } = await usersApi.getTransactions(account.address);
+        const { result } = await getTransactionsByAddress(account.address);
         setTransactions(result);
         setLoading(false);
       } catch (e) {

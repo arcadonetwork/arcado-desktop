@@ -1,10 +1,10 @@
 import RoomModel from '../../models/room.model';
 import React from 'react';
 import { message, Modal } from 'antd';
-import { roomsApi } from '../../shared/services/rooms';
+import { joinRoom } from '../../utils/api/rooms';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
-import { fromRawLsk } from '../../shared/utils/lsk';
+import { fromRawLsk } from '../../utils/utils/lsk';
 
 interface ContainerProps {
   room: RoomModel,
@@ -23,7 +23,7 @@ export const RoomDetailsPageHeaderParticipateModal: React.FC<ContainerProps> = (
         message.error('You are already participating')
         return;
       }
-      await roomsApi.join(room.gameId, room.id, {
+      await joinRoom(room.gameId, room.id, {
         address: account.address,
         roomId: room.id,
         passphrase: account.passphrase

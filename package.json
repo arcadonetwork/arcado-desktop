@@ -27,6 +27,7 @@
     "@types/react-dom": "16.9.8",
     "@types/react-redux": "7.1.0",
     "@types/react-router-dom": "5.1.5",
+    "@types/socket.io-client": "^1.4.33",
     "antd": "3.19.8",
     "bignumber.js": "^9.0.0",
     "craco-less": "^1.16.0",
@@ -40,7 +41,8 @@
     "react-minimal-pie-chart": "^8.0.1",
     "react-redux": "7.2.0",
     "react-router": "5.2.0",
-    "react-router-dom": "5.2.0"
+    "react-router-dom": "5.2.0",
+    "socket.io-client": "2.2.0"
   },
   "scripts": {
     "start": "PORT=3001 craco start",

@@ -1,10 +1,25 @@
 @import '~antd/dist/antd.less';
 
+@font-face {
+  font-family: 'circular';
+  src: url('./assets/fonts/circular-book.otf');
+}
+
+@font-face {
+  font-family: 'circular-bold';
+  src: url('./assets/fonts/circular-bold.otf');
+}
+
+@font-face {
+  font-family: 'circular-medium';
+  src: url('./assets/fonts/circular-medium.otf');
+}
+
 body {
   margin: 0;
   padding: 0;
-  background-color: #fafafa;
-  font-family: 'Lato', sans-serif;
+  background-color: #fff;
+  font-family: circular, sans-serif;
 }
 
 .app-header {
@@ -62,6 +77,10 @@ body {
   background-color: #cd7f32;
 }
 
+.bgc-xxl-grey {
+  background-color: #f1f1f1;
+}
+
 .fc-primary {
   color: @primary-color;
 }
@@ -72,6 +91,10 @@ body {
 
 .fc-white {
   color: #fff;
+}
+
+.fc-grey {
+  color: #666;
 }
 
 .fc-lgrey {
@@ -149,6 +172,18 @@ body {
   height: 150px;
 }
 
+.vh100minus60 {
+  min-height: calc(100vh - 60px);
+  max-height: calc(100vh - 60px);
+}
+
+.w-auto {
+  width: auto;
+}
+
+.w75--fixed {
+  width: 75px;
+}
 
 .w175--fixed {
   width: 175px;
@@ -198,6 +233,14 @@ body {
 
 // SPACING
 
+.m-auto {
+  margin: auto;
+}
+
+.m0 {
+  margin: 0px;
+}
+
 .m5 {
   margin: 5px;
 }
@@ -238,6 +281,10 @@ body {
   margin-top: 75px;
 }
 
+.mt125 {
+  margin-top: 125px;
+}
+
 .ml25 {
   margin-left: 25px;
 }
@@ -268,6 +315,10 @@ body {
 
 .mr15 {
   margin-right: 15px;
+}
+
+.p0 {
+  padding: 0;
 }
 
 .pb10 {

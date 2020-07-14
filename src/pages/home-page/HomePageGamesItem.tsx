@@ -1,7 +1,7 @@
 import React from 'react';
 import GameModel from '../../models/game.model';
 import { Link } from 'react-router-dom';
-import { getGamesItemRoute } from '../../shared/router/Router';
+import { getGamesItemRoute } from '../../utils/router/Router';
 
 interface ContainerProps {
   game: GameModel,

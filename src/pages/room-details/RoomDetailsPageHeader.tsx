@@ -1,9 +1,9 @@
 import React from 'react';
 import RoomModel from '../../models/room.model';
-import { getGamesItemRoute } from '../../shared/router/Router';
+import { getGamesItemRoute } from '../../utils/router/Router';
 import { Link } from 'react-router-dom';
 import { RoomDetailsPageHeaderActions } from './RoomDetailsPageHeaderActions';
-import { fromRawLsk } from '../../shared/utils/lsk';
+import { fromRawLsk } from '../../utils/utils/lsk';
 
 interface ContainerProps {
   room: RoomModel,

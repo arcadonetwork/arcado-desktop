@@ -27,7 +27,7 @@ export const AccountDetailsPage: React.FC<ContainerProps> = () => {
   }
 
   return (
-    <div>
+    <div className="grid mt75">
       <AccountDetailsPageHeader
         account={account}
       />

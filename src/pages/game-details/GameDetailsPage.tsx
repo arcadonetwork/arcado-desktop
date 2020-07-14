@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import GameModel from '../../models/game.model';
-import { gamesApi } from '../../shared/services/games';
+import { getGame } from '../../utils/api/games';
 import { message } from 'antd';
 import { Loading } from '../../components/Loading';
 import { RouteComponentProps } from 'react-router';
@@ -27,7 +27,7 @@ export const GameDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   useEffect( () => {
     async function fetchData() {
       try {
-        const { game } = await gamesApi.getGame(gameId)
+        const { game } = await getGame(gameId)
         setGame(game)
         setLoading(false)
       } catch (e) {
@@ -45,7 +45,7 @@ export const GameDetailsPage: React.FC<ContainerProps> = ({ match }) => {
 
 
   return (
-    <div className="">
+    <div className="grid mt75">
       <GameDetailsPageHeader game={game} />
       <PageNavigation
         menu={menu}

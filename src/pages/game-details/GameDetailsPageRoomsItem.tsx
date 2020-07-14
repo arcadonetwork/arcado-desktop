@@ -1,8 +1,8 @@
 import React from 'react';
 import RoomModel from '../../models/room.model';
 import { Link } from 'react-router-dom';
-import { getGameRoomItemRoute } from '../../shared/router/Router';
-import { fromRawLsk } from '../../shared/utils/lsk';
+import { getGameRoomItemRoute } from '../../utils/router/Router';
+import { fromRawLsk } from '../../utils/utils/lsk';
 
 interface ContainerProps {
   gameId: string,

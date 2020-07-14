@@ -3,12 +3,16 @@ import { RouteComponentProps } from 'react-router';
 import { Loading } from '../../components/Loading';
 import { RoomDetailsPageHeader } from './RoomDetailsPageHeader';
 import RoomModel from '../../models/room.model';
-import { roomsApi } from '../../shared/services/rooms';
+import { getRoom } from '../../utils/api/rooms';
 import { message } from 'antd';
 import { RoomDetailsPageParticipants } from './RoomDetailsPageParticipants';
 import { PageNavigation } from '../../components/PageNavigation';
-import { gamesApi } from '../../shared/services/games';
+import { getGame } from '../../utils/api/games';
 import { RoomDetailsPagePrizeDistribution } from './RoomDetailsPagePrizeDistribution';
+import socketIOClient from "socket.io-client";
+const ENDPOINT = "http://localhost:3000";
+
+const socket = socketIOClient(ENDPOINT);
 
 const menu = [
   'Participants'
@@ -32,8 +36,8 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   async function getRoomDetails () {
     try {
       const [{ room }, { game }] = await Promise.all([
-        roomsApi.getRoom(gameId, roomId),
-        gamesApi.getGame(gameId)
+        getRoom(gameId, roomId),
+        getGame(gameId)
       ])
       room.game = game;
       setRoom(new RoomModel(room));
@@ -45,6 +49,9 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   }
 
   useEffect( () => {
+    socket.on("connection", (data: any) => {
+      console.log('cool')
+    });
     getRoomDetails();
     return () => ''
   }, []);
@@ -59,7 +66,7 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   }
 
   return (
-    <>
+    <div className="grid mt75">
       <RoomDetailsPageHeader
         refresh={refresh}
         room={room}
@@ -73,6 +80,6 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
       <RoomDetailsPageParticipants
         addresses={room.addresses}
       />
-    </>
+    </div>
   )
 }

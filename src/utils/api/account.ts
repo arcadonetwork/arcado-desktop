@@ -2,7 +2,7 @@ import { BASE_URI, request } from './request';
 
 const URI = `${BASE_URI}/users`
 
-const authenticate = async (email: string, passphrase: string) => {
+export const authenticate = async (email: string, passphrase: string) => {
   return request({
     url: `${URI}/${email}`,
     method: 'POST',
@@ -13,7 +13,7 @@ const authenticate = async (email: string, passphrase: string) => {
   });
 };
 
-const register = async (email: string) => {
+export const registerAccount = async (email: string) => {
   return request({
     url: `${URI}/register`,
     method: 'POST',
@@ -23,23 +23,16 @@ const register = async (email: string) => {
   });
 };
 
-const getUser = async (email: string) => {
+export const getAccount = async (email: string) => {
   return request({
     url: `${URI}/${encodeURI(email)}`,
     method: 'GET'
   });
 };
 
-const getTransactions = async (email: string) => {
+export const getTransactionsByAddress = async (email: string) => {
   return request({
     url: `${URI}/${encodeURI(email)}/transactions`,
     method: 'GET'
   });
 };
-
-export const usersApi = {
-  authenticate,
-  register,
-  getTransactions,
-  getUser
-}

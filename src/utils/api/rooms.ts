@@ -2,7 +2,8 @@ import { BASE_URI, request } from './request';
 
 const URI = `${BASE_URI}`
 
-const createRoom = async (gameId: string, room: object) => {
+
+export const createRoom = async (gameId: string, room: object) => {
   return request({
     url: `${URI}/games/${gameId}/rooms`,
     method: 'POST',
@@ -10,7 +11,7 @@ const createRoom = async (gameId: string, room: object) => {
   });
 };
 
-const join = async (gameId: string, roomId: string, room: object) => {
+export const joinRoom = async (gameId: string, roomId: string, room: object) => {
   return request({
     url: `${URI}/games/${gameId}/rooms/${roomId}/join`,
     method: 'POST',
@@ -18,7 +19,7 @@ const join = async (gameId: string, roomId: string, room: object) => {
   });
 };
 
-const start = async (gameId: string, roomId: string, room: object) => {
+export const startRoom = async (gameId: string, roomId: string, room: object) => {
   return request({
     url: `${URI}/games/${gameId}/rooms/${roomId}/start`,
     method: 'POST',
@@ -26,7 +27,7 @@ const start = async (gameId: string, roomId: string, room: object) => {
   });
 };
 
-const stop = async (gameId: string, roomId: string, room: object) => {
+export const stopRoom = async (gameId: string, roomId: string, room: object) => {
   return request({
     url: `${URI}/games/${gameId}/rooms/${roomId}/stop`,
     method: 'POST',
@@ -34,25 +35,16 @@ const stop = async (gameId: string, roomId: string, room: object) => {
   });
 };
 
-const getRooms = async (gameId: string) => {
+export const getRooms = async (gameId: string) => {
   return request({
     url: `${URI}/games/${gameId}/rooms`,
     method: 'GET'
   });
 };
 
-const getRoom = async (gameId: string, roomId: string) => {
+export const getRoom = async (gameId: string, roomId: string) => {
   return request({
     url: `${URI}/games/${gameId}/rooms/${roomId}`,
     method: 'GET'
   });
 };
-
-export const roomsApi = {
-  getRooms,
-  getRoom,
-  createRoom,
-  join,
-  start,
-  stop
-}
