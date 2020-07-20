@@ -1,18 +1,28 @@
 import AccountModel, { IAccount } from '../../models/account.model';
 import { Dispatch } from '../store';
 import { message } from 'antd';
-import { getAccount, authenticate } from '../../utils/api/account';
+import { getAccount, authenticate, addFundsToAccount } from '../../utils/api/accounts';
 import { isObjectWithFields } from '../../utils/utils/type-checking';
-import { fromRawLsk } from '../../utils/utils/lsk';
+
+/*const initialState = {
+  account: new AccountModel({
+    address: "813630206057921731L",
+    passphrase: "decade draw witness sadness suit junk theory trophy perfect chair sadness wheel",
+    publicKey: "d46e9b6487255b4fd2cc112c521b4cde5acc34e3657a2d46f74d4a43326a46b7"
+  }),
+  isValidAndSynced: true
+}*/
 
 const initialState = {
   account: new AccountModel(undefined),
-  isAuthenticated: false
+  isValidAndSynced: false,
+  isValidAndLoading: false
 }
 
 export type SessionState = {
   account: IAccount,
-  isAuthenticated: boolean
+  isValidAndSynced: boolean,
+  syncingAccount: boolean
 }
 
 export const session = {
@@ -22,7 +32,14 @@ export const session = {
       return {
         ...state,
         account: payload,
-        isAuthenticated: (isObjectWithFields(payload) && payload.address)
+        isValidAndSynced: (isObjectWithFields(payload) && payload.address),
+        isValidAndLoading: false,
+      }
+    },
+    setAccountLoadingState: (state: SessionState, payload: boolean) => {
+      return {
+        ...state,
+        isValidAndLoading: payload
       }
     },
   },
@@ -30,19 +47,40 @@ export const session = {
     async authenticate ({ email, passphrase }: any) {
       try {
         const result = await authenticate(email, passphrase);
+        console.log(result);
         dispatch.session.setAccount(result)
       } catch (e) {
         message.error('authentication failed | Dummy profile set')
       }
     },
-    async getAccount (email: string) {
-      try {
-        const result = await getAccount(email);
-        result.balance = fromRawLsk(result.balance);
-        dispatch.session.setAccount(new AccountModel(result))
-      } catch (e) {
-        message.error('authentication failed | Dummy profile set')
+    async setValidAccount (account: AccountModel) {
+      const onChainAccount = await this.findAccount(account.address);
+      if (isObjectWithFields(onChainAccount)) {
+        account = {
+          ...account,
+          ...onChainAccount
+        }
       }
+      this.setAccount(new AccountModel(account));
+    },
+    setAccountLoading (loading: boolean) {
+      dispatch.session.setAccountLoadingState(loading);
+    },
+    async findAccount (address: string) {
+      try {
+        return await getAccount(address)
+      } catch (e) {
+        console.error(e)
+        return undefined;
+      }
+    },
+    addFunds (address: string) {
+      addFundsToAccount(address)
+        .then(({ data }) => {
+
+        }).catch(() => {
+
+        });
     },
     setAccount (account: AccountModel) {
       dispatch.session.setAccountState(account);

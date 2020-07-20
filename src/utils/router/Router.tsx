@@ -7,18 +7,30 @@ import { GameDetailsPage } from '../../pages/game-details/GameDetailsPage'
 import { AccountDetailsPage } from '../../pages/account-details/AccountDetailsPage'
 import { RoomDetailsPage } from '../../pages/room-details/RoomDetailsPage'
 import { ProtectedRoute } from './ProtectedRoute';
-import { AccountVerificationPage } from '../../pages/account-verification/AccountVerificationPage';
+import { InitialiseAccountPageVerification } from '../../pages/initialise-account/InitialiseAccountPageVerification';
 import InitialiseAccountPage from '../../pages/initialise-account/InitialiseAccountPage';
+import { LogoutPage } from '../../pages/logout/LogoutPage';
+import { message } from 'antd';
 
 export const ROUTES = {
   GAME_DETAILS: '/:gameId',
   HOME: '/',
   LOGIN: '/login',
+  LOGOUT: '/logout',
   ROOM_DETAILS: '/:gameId/rooms/:roomId',
-  ACCOUNT_DETAILS: '/settings',
+  ACCOUNT_DETAILS: '/address/:address',
   ACCOUNT_VERIFICATION: '/account-verification',
   INITIALISE: '/initialise'
 };
+
+export const getAccountDetailsRoute = (address: string) => {
+  if (address === undefined) {
+    message.info('invalid address');
+    return ROUTES.HOME;
+  }
+  return ROUTES.ACCOUNT_DETAILS
+    .replace(':address', address);
+}
 
 export const getGamesItemRoute = (gameId: string) => {
   return ROUTES.GAME_DETAILS
@@ -49,6 +61,12 @@ export default () => {
 
       <Route
         exact
+        path={ROUTES.LOGOUT}
+        component={LogoutPage}
+      />
+
+      <Route
+        exact
         path={ROUTES.INITIALISE}
         component={InitialiseAccountPage}
       />
@@ -68,7 +86,7 @@ export default () => {
       <ProtectedRoute
         exact
         path={ROUTES.ACCOUNT_VERIFICATION}
-        component={AccountVerificationPage}
+        component={InitialiseAccountPageVerification}
       />
 
       <ProtectedRoute

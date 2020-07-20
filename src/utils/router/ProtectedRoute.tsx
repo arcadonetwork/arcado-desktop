@@ -11,11 +11,11 @@ interface ContainerProps {
 }
 
 export const ProtectedRoute = ({ component: Component, exact, path,  ...rest } : ContainerProps) => {
-  const isAuthenticated = useSelector((state: iRootState) => state.session.isAuthenticated);
+  const isValidAndSynced = useSelector((state: iRootState) => state.session.isValidAndSynced);
   return (
     <Route {...rest} render={
       props => {
-        if (isAuthenticated) {
+        if (isValidAndSynced) {
           return <Component {...rest} {...props} />
         } else {
           return <Redirect to={ROUTES.LOGIN} />

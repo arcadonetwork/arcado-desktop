@@ -11,7 +11,7 @@ export const AccountDetailsPageTransactionsItem: React.FC<ContainerProps> = ({ t
   return (
     <div className={`mb10 fs-s flex-c mb10 pb15 ${clazz}`}>
       <span className="w40">
-        {transaction.address}
+        {transaction.id}
       </span>
       <span className="w20"></span>
       <span className="w20"></span>

@@ -1,34 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import { AccountDetailsPageHeader } from './AccountDetailsPageHeader';
-import { Dispatch, iRootState } from '../../store/store';
-import { useDispatch, useSelector } from 'react-redux';
 import { Loading } from '../../components/Loading';
+import { RouteComponentProps } from 'react-router';
+import { getAccount } from '../../utils/api/accounts';
+import { AccountDetailsPageTransactions } from './AccountDetailsPageTransactions';
 
-interface ContainerProps {
+interface MatchParams {
+  address: string;
 }
 
-export const AccountDetailsPage: React.FC<ContainerProps> = () => {
-  const dispatch = useDispatch<Dispatch>();
-  const account = useSelector((state: iRootState) => state.session.account);
+interface ContainerProps extends RouteComponentProps<MatchParams> {
+
+}
+
+export const AccountDetailsPage: React.FC<ContainerProps> = ({ match }) => {
+
   const [isLoading, setIsLoading] = useState(true);
+  const [account, setAccount] = useState(undefined);
+  const { address } = match.params;
+
+
   useEffect(() => {
-    async function getAccount () {
-      await dispatch.session.getAccount(account.email);
+    async function initialiseAccount () {
+      const accountModel = await getAccount(address);
+      setAccount(accountModel);
       setIsLoading(false);
     }
     if (isLoading) {
-      getAccount();
+      initialiseAccount();
     }
     return () => '';
   }, [])
 
   if (isLoading) {
-    return <Loading />
+    return (
+      <div className="grid mt75 flex-c flex-jc-c">
+        <Loading />
+      </div>
+    )
   }
 
   return (
-    <div className="grid mt75">
+    <div className="grid mt50">
       <AccountDetailsPageHeader
+        account={account}
+      />
+      <AccountDetailsPageTransactions
         account={account}
       />
     </div>

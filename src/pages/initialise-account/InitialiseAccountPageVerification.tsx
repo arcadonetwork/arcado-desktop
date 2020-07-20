@@ -11,7 +11,7 @@ interface ContainerProps extends RouteComponentProps {
   history : History
 }
 
-export const AccountVerificationPage: React.FC<ContainerProps> = ({ history }: ContainerProps) => {
+export const InitialiseAccountPageVerification: React.FC<ContainerProps> = ({ history }: ContainerProps) => {
 
   const [hasSavedPassphrase, setHasSavedPassphrase] = useState(false);
   const account = useSelector((state: iRootState) => state.session.account);

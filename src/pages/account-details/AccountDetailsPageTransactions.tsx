@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { getTransactionsByAddress } from '../../utils/api/account';
-import { message } from 'antd';
+import { getTransactionsByAddress } from '../../utils/api/accounts';
 import { Loading } from '../../components/Loading';
 import AccountModel from '../../models/account.model';
 import { AccountDetailsPageTransactionsItem } from './AccountDetailsPageTransactionsItem';
+import { isArrayWithElements } from '../../utils/utils/type-checking';
+import { AccountDetailsPageTransactionsNotFound } from './AccountDetailsPageTransactionsNotFound';
 
 
 interface ContainerProps {
@@ -17,11 +18,10 @@ export const AccountDetailsPageTransactions: React.FC<ContainerProps> = ({ accou
   useEffect( () => {
     async function fetchData() {
       try {
-        const { result } = await getTransactionsByAddress(account.address);
-        setTransactions(result);
+        const { data } = await getTransactionsByAddress(account.address);
+        setTransactions(data);
         setLoading(false);
       } catch (e) {
-        message.error('can not load rooms')
         setTransactions([]);
         setLoading(false);
       }
@@ -42,7 +42,9 @@ export const AccountDetailsPageTransactions: React.FC<ContainerProps> = ({ accou
         <span className="w20">Players</span>
       </div>
       {
-        transactions.map(
+        !isArrayWithElements(transactions)
+        ? <AccountDetailsPageTransactionsNotFound />
+        : transactions.map(
           (transaction, index) =>
             <AccountDetailsPageTransactionsItem
               key={transaction.address}
