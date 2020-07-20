@@ -16,10 +16,10 @@ export default ({ children }: { children: any }) => {
   const dispatch = useDispatch<Dispatch>();
 
   if (!socket) {
-    /*socket = io.connect(`${WS_BASE}`, {
+    socket = io.connect(`${WS_BASE}`, {
       path: 'rpc',
       transports: ['websocket']
-    })*/
+    })
     socket = io.connect(`${WS_BASE}`)
 
     socket.on('connect', () => {

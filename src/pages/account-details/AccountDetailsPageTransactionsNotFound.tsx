@@ -4,7 +4,7 @@ interface ContainerProps {
 }
 
 export const AccountDetailsPageTransactionsNotFound: React.FC<ContainerProps> = () => (
-  <div className="flex-c mb10 p15-25 br bgc-xxl-grey fc-lgrey br5">
+  <div className="flex-c fs-s flex-c pb15 pt15 fc-lgrey">
       <span className="w40">
         No transactions found
       </span>

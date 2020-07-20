@@ -4,6 +4,7 @@ export interface ITransaction {
   blockId: string;
   type: number;
   timestamp: string;
+  amount?: string;
   senderPublicKey: string;
   recipientPublicKey: string;
   senderId: string;
@@ -19,6 +20,7 @@ export default class TransactionModel implements ITransaction {
   timestamp: string;
   senderPublicKey: string;
   recipientPublicKey: string;
+  amount?: string;
   senderId: string;
   recipientId: string;
   signature: string;
@@ -32,6 +34,7 @@ export default class TransactionModel implements ITransaction {
       this.timestamp = transaction.timestamp;
       this.senderPublicKey = transaction.senderPublicKey;
       this.recipientPublicKey = transaction.recipientPublicKey;
+      this.amount = transaction.amount;
       this.senderId = transaction.senderId;
       this.recipientId = transaction.recipientId;
       this.signature = transaction.signature;

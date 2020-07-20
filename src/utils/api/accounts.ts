@@ -36,10 +36,3 @@ export const addFundsToAccount = async (address: string) => {
     method: 'POST'
   });
 };
-
-export const getTransactionsByAddress = async (address: string) => {
-  return request({
-    url: `${URI}/${encodeURI(address)}/transactions`,
-    method: 'GET'
-  });
-};

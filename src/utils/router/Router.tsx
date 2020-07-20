@@ -11,6 +11,7 @@ import { InitialiseAccountPageVerification } from '../../pages/initialise-accoun
 import InitialiseAccountPage from '../../pages/initialise-account/InitialiseAccountPage';
 import { LogoutPage } from '../../pages/logout/LogoutPage';
 import { message } from 'antd';
+import { TransactionDetails } from '../../pages/transaction-details/TransactionDetails';
 
 export const ROUTES = {
   GAME_DETAILS: '/:gameId',
@@ -20,7 +21,8 @@ export const ROUTES = {
   ROOM_DETAILS: '/:gameId/rooms/:roomId',
   ACCOUNT_DETAILS: '/address/:address',
   ACCOUNT_VERIFICATION: '/account-verification',
-  INITIALISE: '/initialise'
+  INITIALISE: '/initialise',
+  TRANSACTION_DETAILS: '/tx/:txId'
 };
 
 export const getAccountDetailsRoute = (address: string) => {
@@ -41,6 +43,11 @@ export const getGameRoomItemRoute = (gameId: string, roomId: string) => {
   return ROUTES.ROOM_DETAILS
     .replace(':gameId', gameId)
     .replace(':roomId', roomId);
+}
+
+export const getTransactionDetailsRoute = (txId: string) => {
+  return ROUTES.TRANSACTION_DETAILS
+    .replace(':txId', txId)
 }
 
 export default () => {
@@ -93,6 +100,12 @@ export default () => {
         exact
         path={ROUTES.GAME_DETAILS}
         component={GameDetailsPage}
+      />
+
+      <ProtectedRoute
+        exact
+        path={ROUTES.TRANSACTION_DETAILS}
+        component={TransactionDetails}
       />
 
     </Switch>

@@ -19,18 +19,15 @@ export const AccountDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   const [account, setAccount] = useState(undefined);
   const { address } = match.params;
 
-
   useEffect(() => {
     async function initialiseAccount () {
       const accountModel = await getAccount(address);
       setAccount(accountModel);
       setIsLoading(false);
     }
-    if (isLoading) {
-      initialiseAccount();
-    }
-    return () => '';
-  }, [])
+    initialiseAccount();
+    return () => setIsLoading(true);
+  }, [address])
 
   if (isLoading) {
     return (
