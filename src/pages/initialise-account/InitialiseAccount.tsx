@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Icon, message } from 'antd';
 import { TextInputField } from '../../components/TextInputField';
-import { registerAccount } from '../../utils/api/account';
 import AccountModel from '../../models/account.model';
 import { useForm } from "react-hook-form";
 import { History } from 'history';
@@ -9,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { Dispatch } from '../../store/store';
 import { ROUTES } from '../../utils/router/Router';
 import { Link } from 'react-router-dom';
+import { createAccount } from '../../utils/passphrase';
 
 interface ContainerProps {
   history: History
@@ -18,18 +18,19 @@ type UserData = {
   email: string
 }
 
-const InitialiseAccountPage: React.FC<ContainerProps> = ({ history }) => {
-
+const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
 
   const { register, handleSubmit, errors } = useForm<UserData>();
   const dispatch = useDispatch<Dispatch>();
 
   async function onSubmit (data: UserData) {
     try {
-      const result = await registerAccount(data.email);
+      const result = await createAccount();
+      console.log(result);
       await dispatch.session.setAccount(new AccountModel(result))
       history.push(ROUTES.ACCOUNT_VERIFICATION)
     } catch (e) {
+      console.error(e);
       message.error('something went wrong')
     }
   }
@@ -80,4 +81,4 @@ const InitialiseAccountPage: React.FC<ContainerProps> = ({ history }) => {
   )
 }
 
-export default InitialiseAccountPage;
+export default InitialiseAccount;

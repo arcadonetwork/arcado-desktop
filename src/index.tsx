@@ -9,15 +9,18 @@ import { store } from './store/store';
 
 import { AppContainer } from './containers/AppContainer';
 import AppRoutes from './utils/router/Router';
+import WebSocketProvider from './utils/websocket-context/WebSocketContext';
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <AppContainer>
-        <AppRoutes />
-      </AppContainer>
-    </BrowserRouter>
+    <WebSocketProvider>
+      <BrowserRouter>
+        <AppContainer>
+          <AppRoutes />
+        </AppContainer>
+      </BrowserRouter>
+    </WebSocketProvider>
   </Provider>,
   document.getElementById('root')
 )

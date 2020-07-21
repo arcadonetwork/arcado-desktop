@@ -1,4 +1,5 @@
-export const BASE_URI = 'http://localhost:3000'
+export const API_BASE_URI = 'http://localhost:3000'
+export const NETWORK_BASE_URI = 'http://localhost:4000/api'
 
 interface Options {
   url: string,

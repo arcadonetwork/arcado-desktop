@@ -1,5 +1,5 @@
 export interface IAccount {
-  email: string;
+  email?: string;
   address: string;
   passphrase: string;
   publicKey: string;

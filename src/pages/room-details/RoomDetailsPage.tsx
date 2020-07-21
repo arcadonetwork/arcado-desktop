@@ -9,10 +9,10 @@ import { RoomDetailsPageParticipants } from './RoomDetailsPageParticipants';
 import { PageNavigation } from '../../components/PageNavigation';
 import { getGame } from '../../utils/api/games';
 import { RoomDetailsPagePrizeDistribution } from './RoomDetailsPagePrizeDistribution';
-import socketIOClient from "socket.io-client";
-const ENDPOINT = "http://localhost:3000";
+//import socketIOClient from "socket.io-client";
+//const ENDPOINT = "http://localhost:3000";
 
-const socket = socketIOClient(ENDPOINT);
+//const socket = socketIOClient(ENDPOINT);
 
 const menu = [
   'Participants'
@@ -49,9 +49,6 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   }
 
   useEffect( () => {
-    socket.on("connection", (data: any) => {
-      console.log('cool')
-    });
     getRoomDetails();
     return () => ''
   }, []);
