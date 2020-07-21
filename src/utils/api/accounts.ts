@@ -1,20 +1,9 @@
-import { BASE_URI, request } from './request';
+import { API_BASE_URI, request } from './request';
 import AccountModel from '../../models/account.model';
 import { fromRawLsk } from '../utils/lsk';
 import { isObjectWithFields } from '../utils/type-checking';
 
-const URI = `${BASE_URI}/accounts`
-
-export const authenticate = async (email: string, passphrase: string) => {
-  return request({
-    url: `${URI}/${email}`,
-    method: 'POST',
-    body: {
-      email,
-      passphrase
-    }
-  });
-};
+const URI = `${API_BASE_URI}/accounts`
 
 export const getAccount = async (address: string) => {
   const { data } = await request({

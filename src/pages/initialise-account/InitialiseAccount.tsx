@@ -18,7 +18,7 @@ type UserData = {
   email: string
 }
 
-const InitialiseAccountPage: React.FC<ContainerProps> = ({ history }) => {
+const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
 
   const { register, handleSubmit, errors } = useForm<UserData>();
   const dispatch = useDispatch<Dispatch>();
@@ -81,4 +81,4 @@ const InitialiseAccountPage: React.FC<ContainerProps> = ({ history }) => {
   )
 }
 
-export default InitialiseAccountPage;
+export default InitialiseAccount;

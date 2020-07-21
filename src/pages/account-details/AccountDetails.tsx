@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { AccountDetailsPageHeader } from './AccountDetailsPageHeader';
+import { AccountDetailsHeader } from './AccountDetailsHeader';
 import { Loading } from '../../components/Loading';
 import { RouteComponentProps } from 'react-router';
 import { getAccount } from '../../utils/api/accounts';
-import { AccountDetailsPageTransactions } from './AccountDetailsPageTransactions';
+import { AccountDetailsTransactions } from './AccountDetailsTransactions';
+import { isObjectWithFields } from '../../utils/utils/type-checking';
+import { AccountDetailsNotFound } from './AccountDetailsNotFound';
 
 interface MatchParams {
   address: string;
@@ -13,19 +15,25 @@ interface ContainerProps extends RouteComponentProps<MatchParams> {
 
 }
 
-export const AccountDetailsPage: React.FC<ContainerProps> = ({ match }) => {
+export const AccountDetails: React.FC<ContainerProps> = ({ match }) => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [account, setAccount] = useState(undefined);
   const { address } = match.params;
 
-  useEffect(() => {
-    async function initialiseAccount () {
+  async function getAccountDetails () {
+    try {
       const accountModel = await getAccount(address);
       setAccount(accountModel);
       setIsLoading(false);
+    } catch (e) {
+      setAccount(undefined);
+      setIsLoading(false);
     }
-    initialiseAccount();
+  }
+
+  useEffect(() => {
+    getAccountDetails();
     return () => setIsLoading(true);
   }, [address])
 
@@ -37,12 +45,16 @@ export const AccountDetailsPage: React.FC<ContainerProps> = ({ match }) => {
     )
   }
 
+  if (!isObjectWithFields(account)) {
+    return <AccountDetailsNotFound address={address} />
+  }
+
   return (
     <div className="grid mt50">
-      <AccountDetailsPageHeader
+      <AccountDetailsHeader
         account={account}
       />
-      <AccountDetailsPageTransactions
+      <AccountDetailsTransactions
         account={account}
       />
     </div>

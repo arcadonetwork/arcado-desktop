@@ -4,11 +4,11 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from '../../pages/home-page/HomePage'
 import { LoginPage } from '../../pages/login/LoginPage'
 import { GameDetailsPage } from '../../pages/game-details/GameDetailsPage'
-import { AccountDetailsPage } from '../../pages/account-details/AccountDetailsPage'
+import { AccountDetails } from '../../pages/account-details/AccountDetails'
 import { RoomDetailsPage } from '../../pages/room-details/RoomDetailsPage'
 import { ProtectedRoute } from './ProtectedRoute';
-import { InitialiseAccountPageVerification } from '../../pages/initialise-account/InitialiseAccountPageVerification';
-import InitialiseAccountPage from '../../pages/initialise-account/InitialiseAccountPage';
+import { InitialiseAccountVerification } from '../../pages/initialise-account/InitialiseAccountVerification';
+import InitialiseAccount from '../../pages/initialise-account/InitialiseAccount';
 import { LogoutPage } from '../../pages/logout/LogoutPage';
 import { message } from 'antd';
 import { TransactionDetails } from '../../pages/transaction-details/TransactionDetails';
@@ -75,7 +75,7 @@ export default () => {
       <Route
         exact
         path={ROUTES.INITIALISE}
-        component={InitialiseAccountPage}
+        component={InitialiseAccount}
       />
 
       <ProtectedRoute
@@ -87,13 +87,13 @@ export default () => {
       <ProtectedRoute
         exact
         path={ROUTES.ACCOUNT_DETAILS}
-        component={AccountDetailsPage}
+        component={AccountDetails}
       />
 
       <ProtectedRoute
         exact
         path={ROUTES.ACCOUNT_VERIFICATION}
-        component={InitialiseAccountPageVerification}
+        component={InitialiseAccountVerification}
       />
 
       <ProtectedRoute

@@ -63,9 +63,7 @@ export const getAccountByPassphrase = (passphrase: string) => {
   const keys = cryptography.getPrivateAndPublicKeyFromPassphrase(
     passphrase
   );
-
   const address = cryptography.getAddressFromPublicKey(keys.publicKey);
-
   return new AccountModel({
     address,
     passphrase: passphrase,

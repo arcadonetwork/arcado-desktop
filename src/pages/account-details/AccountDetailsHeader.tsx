@@ -2,14 +2,14 @@ import React from 'react';
 import AccountModel from '../../models/account.model';
 import { LiskAvatar } from '../../components/lisk-avatar/LiskAvatar';
 import { Button } from 'antd';
-import { AccountDetailsPageHeaderItem } from './AccountDetailsPageHeaderItem';
+import { AccountDetailsHeaderItem } from './AccountDetailsHeaderItem';
 import { getFormattedNumber } from '../../utils/numbers';
 
 interface ContainerProps {
   account: AccountModel
 }
 
-export const AccountDetailsPageHeader: React.FC<ContainerProps> = ({ account }) => {
+export const AccountDetailsHeader: React.FC<ContainerProps> = ({ account }) => {
   const details = [{
     label: "Balance",
     value: `${getFormattedNumber(account.balance)} LSK`
@@ -33,7 +33,12 @@ export const AccountDetailsPageHeader: React.FC<ContainerProps> = ({ account }) 
         </div>
       </div>
       <div className="flex-fs">
-        {details.map((item, index) => <AccountDetailsPageHeaderItem item={item} isLastChild={index === details.length - 1} />)
+        {details.map((item, index) =>
+          <AccountDetailsHeaderItem
+            key={item.label}
+            item={item}
+            isLastChild={index === details.length - 1}
+          />)
         }
       </div>
 

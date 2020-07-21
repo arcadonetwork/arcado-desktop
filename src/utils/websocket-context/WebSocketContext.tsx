@@ -1,8 +1,5 @@
 import React, { createContext } from 'react'
-import io from 'socket.io-client';
-import { WS_BASE } from './config';
 import { useDispatch } from 'react-redux';
-import BlockModel from '../../models/block.model';
 import { Dispatch } from '../../store/store';
 
 const WebSocketContext = createContext(null)
@@ -16,11 +13,12 @@ export default ({ children }: { children: any }) => {
   const dispatch = useDispatch<Dispatch>();
 
   if (!socket) {
-    socket = io.connect(`${WS_BASE}`, {
-      path: 'rpc',
-      transports: ['websocket']
-    })
-    socket = io.connect(`${WS_BASE}`)
+    /*socket = io(`http://127.0.0.1:5000`, { transports: ['websocket'], reconnection: true,
+      reconnectionDelay: 500,
+      jsonp: false, })*/
+    socket = {
+      on: (value: string, fn: any) => ''
+    }
 
     socket.on('connect', () => {
       dispatch.network.setStatusUpdate({ online: true });
@@ -34,7 +32,7 @@ export default ({ children }: { children: any }) => {
       dispatch.network.setStatusUpdate({ online: false });
     });
 
-    socket.on('blocks/change', (block: BlockModel) => {
+    socket.on('blocks/change', (block: any) => {
       console.log('new block')
       dispatch.blocks.newBlockCreated(block);
     });

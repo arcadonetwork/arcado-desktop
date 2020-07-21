@@ -1,6 +1,6 @@
-import { BASE_URI, request } from './request';
+import { API_BASE_URI, request } from './request';
 
-const URI = `${BASE_URI}`
+const URI = `${API_BASE_URI}`
 
 
 export const createRoom = async (gameId: string, room: object) => {

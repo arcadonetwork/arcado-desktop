@@ -2,25 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { getTransactionsByAddress } from '../../utils/api/transactions';
 import { Loading } from '../../components/Loading';
 import AccountModel from '../../models/account.model';
-import { AccountDetailsPageTransactionsItem } from './AccountDetailsPageTransactionsItem';
+import { AccountDetailsTransactionsItem } from './AccountDetailsTransactionsItem';
 import { isArrayWithElements } from '../../utils/utils/type-checking';
-import { AccountDetailsPageTransactionsNotFound } from './AccountDetailsPageTransactionsNotFound';
+import { AccountDetailsTransactionsNotFound } from './AccountDetailsTransactionsNotFound';
 
 
 interface ContainerProps {
   account: AccountModel
 }
 
-export const AccountDetailsPageTransactions: React.FC<ContainerProps> = ({ account }) => {
+export const AccountDetailsTransactions: React.FC<ContainerProps> = ({ account }) => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect( () => {
     async function fetchData() {
       try {
-        const { data } = await getTransactionsByAddress(account.address);
-        console.log(data);
-        setTransactions(data);
+        const transactions = await getTransactionsByAddress(account.address);
+        setTransactions(transactions);
         setLoading(false);
       } catch (e) {
         setTransactions([]);
@@ -49,11 +48,11 @@ export const AccountDetailsPageTransactions: React.FC<ContainerProps> = ({ accou
       </div>
       {
         !isArrayWithElements(transactions)
-        ? <AccountDetailsPageTransactionsNotFound />
+        ? <AccountDetailsTransactionsNotFound />
         : transactions.map(
           (transaction, index) =>
-            <AccountDetailsPageTransactionsItem
-              key={transaction.address}
+            <AccountDetailsTransactionsItem
+              key={index}
               transaction={transaction}
               isLastChild={index === transaction.length - 1}
             />

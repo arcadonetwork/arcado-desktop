@@ -1,7 +1,6 @@
 import AccountModel, { IAccount } from '../../models/account.model';
 import { Dispatch } from '../store';
-import { message } from 'antd';
-import { getAccount, authenticate, addFundsToAccount } from '../../utils/api/accounts';
+import { getAccount, addFundsToAccount } from '../../utils/api/accounts';
 import { isObjectWithFields } from '../../utils/utils/type-checking';
 
 const initialState = {
@@ -46,15 +45,6 @@ export const session = {
     },
   },
   effects: (dispatch: Dispatch) => ({
-    async authenticate ({ email, passphrase }: any) {
-      try {
-        const result = await authenticate(email, passphrase);
-        console.log(result);
-        dispatch.session.setAccount(result)
-      } catch (e) {
-        message.error('authentication failed | Dummy profile set')
-      }
-    },
     async setValidAccount (account: AccountModel) {
       const onChainAccount = await this.findAccount(account.address);
       if (isObjectWithFields(onChainAccount)) {

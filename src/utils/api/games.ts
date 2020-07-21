@@ -1,6 +1,6 @@
-import { BASE_URI, request } from './request';
+import { API_BASE_URI, request } from './request';
 
-const URI = `${BASE_URI}/games`
+const URI = `${API_BASE_URI}/games`
 
 export const getGames = async () => {
   return request({
