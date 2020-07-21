@@ -14,7 +14,7 @@ interface ContainerProps {
 
 export const GameDetailsPageRooms: React.FC<ContainerProps> = ({ game }) => {
   const [rooms, setRooms] = useState<RoomModel[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect( () => {
     async function fetchData() {

@@ -3,13 +3,14 @@ import { getGames } from '../../utils/api/games';
 import { Loading } from '../../components/Loading';
 import { message } from 'antd';
 import { HomePageGames } from './HomePageGames';
+import GameModel from '../../models/game.model';
 
 interface ContainerProps {
 }
 
 const HomePage: React.FC<ContainerProps> = () => {
-  const [games, setGames] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [games, setGames] = useState<GameModel[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect( () => {
     async function fetchData() {

@@ -22,8 +22,8 @@ export const LoginPage: React.FC<ContainerProps> = ({ history }: ContainerProps)
   const isValidAndLoading = useSelector((state: iRootState) => state.session.isValidAndLoading);
   const dispatch = useDispatch<Dispatch>();
 
-  const [showPassphrase, setShowPassphrase] = useState(false);
-  const [passphrase, setPassphrase] = useState('' as string);
+  const [showPassphrase, setShowPassphrase] = useState<boolean>(false);
+  const [passphrase, setPassphrase] = useState<string>('');
 
   useEffect(() => {
     if(isValidAndSynced) {

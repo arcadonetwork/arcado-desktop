@@ -15,10 +15,10 @@ interface ContainerProps {
 
 export const RoomDetailsPageHeaderStopModal: React.FC<ContainerProps> = ({ room, refresh, intendsToStop, setIntendsToStop }) => {
   const account = useSelector((state: iRootState) => state.session.account);
-  const [first, setFirstPlace] = useState('');
-  const [second, setSecondPlace] = useState('');
-  const [third, setThirdPlace] = useState('');
-  const [selectableAddresses, setSelectableAddresses] = useState(room.addresses);
+  const [first, setFirstPlace] = useState<string>('');
+  const [second, setSecondPlace] = useState<string>('');
+  const [third, setThirdPlace] = useState<string>('');
+  const [selectableAddresses, setSelectableAddresses] = useState<string[]>(room.addresses);
 
   useEffect(() => {
     const filteredAddresses = room.addresses.filter(address => address !== first && address !== second && address !== third)

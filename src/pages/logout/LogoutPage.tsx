@@ -9,7 +9,7 @@ interface ContainerProps {
 }
 
 export const LogoutPage: React.FC<ContainerProps> = () => {
-  const [loggedOut, setLoggedOut] = useState(false);
+  const [loggedOut, setLoggedOut] = useState<boolean>(false);
   const dispatch = useDispatch<Dispatch>();
 
   useEffect(() => {
