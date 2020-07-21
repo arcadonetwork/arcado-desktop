@@ -5,6 +5,7 @@ import GameModel from '../../models/game.model';
 import { Loading } from '../../components/Loading';
 import { GameDetailsPageRoomsItem } from './GameDetailsPageRoomsItem';
 import { isArrayWithElements } from '../../utils/utils/type-checking';
+import RoomModel from '../../models/room.model';
 
 
 interface ContainerProps {
@@ -12,7 +13,7 @@ interface ContainerProps {
 }
 
 export const GameDetailsPageRooms: React.FC<ContainerProps> = ({ game }) => {
-  const [rooms, setRooms] = useState([]);
+  const [rooms, setRooms] = useState<RoomModel[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect( () => {

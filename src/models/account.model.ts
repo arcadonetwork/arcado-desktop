@@ -22,7 +22,7 @@ export default class AccountModel implements IAccount {
       this.email = account.email;
       this.address = account.address;
       this.publicKey = account.publicKey;
-      this.balance = account.balance;
+      this.balance = account.balance || "0";
       this.win = account.win;
       this.loss = account.loss;
       this.passphrase = account.passphrase;

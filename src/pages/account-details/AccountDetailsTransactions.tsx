@@ -5,6 +5,7 @@ import AccountModel from '../../models/account.model';
 import { AccountDetailsTransactionsItem } from './AccountDetailsTransactionsItem';
 import { isArrayWithElements } from '../../utils/utils/type-checking';
 import { AccountDetailsTransactionsNotFound } from './AccountDetailsTransactionsNotFound';
+import TransactionModel from '../../models/transaction.model';
 
 
 interface ContainerProps {
@@ -12,8 +13,8 @@ interface ContainerProps {
 }
 
 export const AccountDetailsTransactions: React.FC<ContainerProps> = ({ account }) => {
-  const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [transactions, setTransactions] = useState<TransactionModel[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect( () => {
     async function fetchData() {
@@ -54,7 +55,7 @@ export const AccountDetailsTransactions: React.FC<ContainerProps> = ({ account }
             <AccountDetailsTransactionsItem
               key={index}
               transaction={transaction}
-              isLastChild={index === transaction.length - 1}
+              isLastChild={index === transactions.length - 1}
             />
         )
       }

@@ -8,7 +8,7 @@ const initialState = {
     address: "813630206057921731L",
     passphrase: "decade draw witness sadness suit junk theory trophy perfect chair sadness wheel",
     publicKey: "d46e9b6487255b4fd2cc112c521b4cde5acc34e3657a2d46f74d4a43326a46b7",
-    balance: "100000"
+    balance: "0"
   }),
   isValidAndSynced: true,
   isValidAndLoading: false

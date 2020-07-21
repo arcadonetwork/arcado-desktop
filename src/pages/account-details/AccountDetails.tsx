@@ -6,6 +6,7 @@ import { getAccount } from '../../utils/api/accounts';
 import { AccountDetailsTransactions } from './AccountDetailsTransactions';
 import { isObjectWithFields } from '../../utils/utils/type-checking';
 import { AccountDetailsNotFound } from './AccountDetailsNotFound';
+import AccountModel from '../../models/account.model';
 
 interface MatchParams {
   address: string;
@@ -17,8 +18,8 @@ interface ContainerProps extends RouteComponentProps<MatchParams> {
 
 export const AccountDetails: React.FC<ContainerProps> = ({ match }) => {
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [account, setAccount] = useState(undefined);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [account, setAccount] = useState<AccountModel>(undefined);
   const { address } = match.params;
 
   async function getAccountDetails () {

@@ -4,6 +4,7 @@ import { TransactionDetailsPropertyItem } from './TransactionDetailsPropertyItem
 import { Loading } from '../../components/Loading';
 import { getTransactionById } from '../../utils/api/transactions';
 import { getFormattedNumber } from '../../utils/numbers';
+import TransactionModel from '../../models/transaction.model';
 
 interface MatchParams {
   txId: string;
@@ -16,8 +17,8 @@ interface ContainerProps extends RouteComponentProps<MatchParams> {
 export const TransactionDetails: React.FC<ContainerProps> = ({ match }) => {
 
   const { txId } = match.params;
-  const [isLoading, setIsLoading] = useState(true);
-  const [transaction, setTransaction] = useState(undefined);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [transaction, setTransaction] = useState<TransactionModel>(undefined);
 
   async function fetchTransaction () {
     const transactionModel = await getTransactionById(txId);

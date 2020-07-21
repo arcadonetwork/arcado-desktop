@@ -8,7 +8,7 @@ interface ContainerProps {
 }
 
 export const GameDetailsPageHeader: React.FC<ContainerProps> = ({ game }) => {
-  const [isCreatingRoom, setIsCreatingRoom] = useState(false);
+  const [isCreatingRoom, setIsCreatingRoom] = useState<boolean>(false);
   return (
     <>
       <div className="flex-c mb50">

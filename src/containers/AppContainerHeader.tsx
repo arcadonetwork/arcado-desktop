@@ -13,6 +13,7 @@ interface ContainerProps {
 
 export const AppContainerHeader: React.FC<ContainerProps> = () => {
 
+  const isOnline = useSelector((state: iRootState) => state.network.online);
   const isLoading = useSelector((state: iRootState) => state.session.isValidAndLoading);
   const isValidAndSynced = useSelector((state: iRootState) => state.session.isValidAndSynced);
 
@@ -24,6 +25,23 @@ export const AppContainerHeader: React.FC<ContainerProps> = () => {
             <Logo />
           </div>
         </Link>
+        <div className="ml25 pl25 br-l">
+          {
+            isOnline
+              ? (
+                <div className="flex-c">
+                  <div className="circle square-10 bgc-green" />
+                  <div className="ml5">connected with <span className="ffm-bold fc-black">mainnet</span></div>
+                </div>
+              )
+              : (
+                <div className="flex-c">
+                  <div className="circle square-10 bgc-red" />
+                  <div className="ml5">disconnected</div>
+                </div>
+              )
+          }
+        </div>
         {
           isLoading
           ? <AppContainerHeaderAccountLoading />

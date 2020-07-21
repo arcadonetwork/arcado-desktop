@@ -19,9 +19,9 @@ interface ContainerProps extends RouteComponentProps<MatchParams> {
 const menu = ['Rooms'];
 
 export const GameDetailsPage: React.FC<ContainerProps> = ({ match }) => {
-  const [page, setPage] = useState(menu[0])
-  const [game, setGame] = useState(new GameModel(undefined))
-  const [loading, setLoading] = useState(true)
+  const [page, setPage] = useState<string>(menu[0])
+  const [game, setGame] = useState<GameModel>(undefined)
+  const [loading, setLoading] = useState<boolean>(true)
   const { gameId } = match.params
 
   useEffect( () => {
