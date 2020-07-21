@@ -14,8 +14,8 @@ interface ContainerProps {
 export const AppContainerHeader: React.FC<ContainerProps> = () => {
 
   const isOnline = useSelector((state: iRootState) => state.network.online);
-  const isLoading = useSelector((state: iRootState) => state.session.isValidAndLoading);
-  const isValidAndSynced = useSelector((state: iRootState) => state.session.isValidAndSynced);
+  const isLoading = useSelector((state: iRootState) => state.accounts.isValidAndLoading);
+  const isValidAndSynced = useSelector((state: iRootState) => state.accounts.isValidAndSynced);
 
   return (
     <div className="w100 bgc-white br-b h70--fixed">

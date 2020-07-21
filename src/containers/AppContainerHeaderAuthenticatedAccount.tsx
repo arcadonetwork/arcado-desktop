@@ -11,7 +11,7 @@ interface ContainerProps {
 }
 
 export const AppContainerHeaderAuthenticatedAccount: React.FC<ContainerProps> = () => {
-  const account = useSelector((state: iRootState) => state.session.account);
+  const account = useSelector((state: iRootState) => state.accounts.account);
   const menu = [
     {
       key: 'account',

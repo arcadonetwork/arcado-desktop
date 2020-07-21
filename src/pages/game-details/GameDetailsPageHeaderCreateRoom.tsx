@@ -39,7 +39,7 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
     errors
   } = useForm<RoomData>()
   const [distributionError, setDistributionError] = useState<string>(undefined);
-  const account = useSelector((state: iRootState) => state.session.account);
+  const account = useSelector((state: iRootState) => state.accounts.account);
 
   if (!isCreatingRoom) {
     return <></>;

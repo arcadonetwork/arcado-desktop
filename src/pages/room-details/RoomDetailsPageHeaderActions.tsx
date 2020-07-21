@@ -13,7 +13,7 @@ interface ContainerProps {
 }
 
 export const RoomDetailsPageHeaderActions: React.FC<ContainerProps> = ({ room, refresh }) => {
-  const account = useSelector((state: iRootState) => state.session.account);
+  const account = useSelector((state: iRootState) => state.accounts.account);
   const [intendsToParticipate, setIntendsToParticipate] = useState<boolean>(false);
   const [intendsToStop, setIntendsToStop] = useState<boolean>(false);
 

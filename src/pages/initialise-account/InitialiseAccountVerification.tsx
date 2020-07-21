@@ -14,7 +14,7 @@ interface ContainerProps extends RouteComponentProps {
 export const InitialiseAccountVerification: React.FC<ContainerProps> = ({ history }: ContainerProps) => {
 
   const [hasSavedPassphrase, setHasSavedPassphrase] = useState<boolean>(false);
-  const account = useSelector((state: iRootState) => state.session.account);
+  const account = useSelector((state: iRootState) => state.accounts.account);
 
   async function saveAccount() {
     history.push(ROUTES.HOME)

@@ -1,5 +1,6 @@
 import { Dispatch } from '../store';
 import BlockModel from '../../models/block.model';
+import AccountModel from '../../models/account.model';
 
 
 const initialState = {
@@ -15,8 +16,8 @@ export const blocks = {
 
   },
   effects: (dispatch: Dispatch) => ({
-    newBlockCreated (block: BlockModel) {
-      console.log(block);
+    newBlockCreated (block: BlockModel, account: AccountModel) {
+      dispatch.accounts.checkTransactionsAndUpdateAccount(block.transactions, account);
     }
   }),
 };

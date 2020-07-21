@@ -10,7 +10,6 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { InitialiseAccountVerification } from '../../pages/initialise-account/InitialiseAccountVerification';
 import InitialiseAccount from '../../pages/initialise-account/InitialiseAccount';
 import { LogoutPage } from '../../pages/logout/LogoutPage';
-import { message } from 'antd';
 import { TransactionDetails } from '../../pages/transaction-details/TransactionDetails';
 
 export const ROUTES = {
@@ -26,10 +25,6 @@ export const ROUTES = {
 };
 
 export const getAccountDetailsRoute = (address: string) => {
-  if (address === undefined) {
-    message.info('invalid address');
-    return ROUTES.HOME;
-  }
   return ROUTES.ACCOUNT_DETAILS
     .replace(':address', address);
 }

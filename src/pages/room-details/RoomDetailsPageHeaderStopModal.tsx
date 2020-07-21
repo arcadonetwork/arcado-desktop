@@ -14,7 +14,7 @@ interface ContainerProps {
 }
 
 export const RoomDetailsPageHeaderStopModal: React.FC<ContainerProps> = ({ room, refresh, intendsToStop, setIntendsToStop }) => {
-  const account = useSelector((state: iRootState) => state.session.account);
+  const account = useSelector((state: iRootState) => state.accounts.account);
   const [first, setFirstPlace] = useState<string>('');
   const [second, setSecondPlace] = useState<string>('');
   const [third, setThirdPlace] = useState<string>('');
