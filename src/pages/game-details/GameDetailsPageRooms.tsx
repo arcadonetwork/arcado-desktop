@@ -55,7 +55,7 @@ export const GameDetailsPageRooms: React.FC<ContainerProps> = ({ game }) => {
               />
           )
             : (
-              <div className="p15 flex-c br5 bgc-white">
+              <div className="p15-25 flex-c br5 bgc-xxl-grey fs-s">
                 There are no rooms created for this game
               </div>
             )

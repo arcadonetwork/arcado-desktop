@@ -5,6 +5,7 @@ import { Loading } from '../../components/Loading';
 import { getTransactionById } from '../../utils/api/transactions';
 import { getFormattedNumber } from '../../utils/numbers';
 import TransactionModel from '../../models/transaction.model';
+import { getFormattedDate } from '../../utils/dates';
 
 interface MatchParams {
   txId: string;
@@ -25,6 +26,10 @@ export const TransactionDetails: React.FC<ContainerProps> = ({ match }) => {
     setTransaction(transactionModel);
     setIsLoading(false);
   }
+
+  useEffect(() => {
+    return window.scrollTo(0, 0)
+  }, [])
 
   useEffect(() => {
     fetchTransaction();
@@ -52,7 +57,7 @@ export const TransactionDetails: React.FC<ContainerProps> = ({ match }) => {
         />
         <TransactionDetailsPropertyItem
           label="Age"
-          value={transaction.timestamp}
+          value={getFormattedDate(transaction.timestamp)}
         />
         <TransactionDetailsPropertyItem
           label="From"
@@ -60,11 +65,11 @@ export const TransactionDetails: React.FC<ContainerProps> = ({ match }) => {
         />
         <TransactionDetailsPropertyItem
           label="To"
-          value={transaction.recipientId}
+          value={transaction.asset.recipientId}
         />
         <TransactionDetailsPropertyItem
           label="Value"
-          value={`${getFormattedNumber(transaction.amount)} LSK`}
+          value={`${getFormattedNumber(transaction.asset.amount)} LSK`}
           isLastChild={true}
         />
       </div>

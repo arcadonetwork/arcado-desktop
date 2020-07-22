@@ -35,6 +35,8 @@ export const AccountDetailsTransactions: React.FC<ContainerProps> = ({ account }
     return <Loading />
   }
 
+  console.log(transactions);
+
   return (
     <>
       <div className="mb25">

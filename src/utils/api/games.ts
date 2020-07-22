@@ -15,10 +15,3 @@ export const getGame = async (gameId: string) => {
     method: 'GET'
   });
 };
-
-export const getTransactions = async (address: string) => {
-  return request({
-    url: `${URI}/transactions/${address}`,
-    method: 'GET'
-  });
-};

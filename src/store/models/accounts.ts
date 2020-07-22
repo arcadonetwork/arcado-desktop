@@ -6,7 +6,7 @@ import TransactionModel from '../../models/transaction.model';
 
 const initialState = {
   account: new AccountModel({
-    address: "11237980039345381032L",
+    address: "813630206057921731L",
     passphrase: "decade draw witness sadness suit junk theory trophy perfect chair sadness wheel",
     publicKey: "d46e9b6487255b4fd2cc112c521b4cde5acc34e3657a2d46f74d4a43326a46b7",
     balance: "0"
@@ -84,8 +84,8 @@ export const accounts = {
     checkTransactionsAndUpdateAccount (transactions: TransactionModel[], account: AccountModel) {
       if (!isArrayWithElements(transactions)) return;
       const relevantTxs = transactions
-        .filter((tx) => isObjectWithFields(tx) ? account.address === tx.recipientId || account.address === tx.senderId : false);
-
+        .filter((tx) => isObjectWithFields(tx) ? account.address === tx.asset?.recipientId || account.address === tx.senderId : false);
+      console.log(relevantTxs);
       if (isArrayWithElements(relevantTxs)) {
         dispatch.accounts.setValidAccount(account);
       }

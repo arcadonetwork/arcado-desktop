@@ -49,6 +49,7 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   }
 
   useEffect( () => {
+    window.scrollTo(0, 0)
     getRoomDetails();
     return () => ''
   }, []);

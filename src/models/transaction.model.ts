@@ -1,15 +1,15 @@
+import AssetModel from './asset.model';
+
 export interface ITransaction {
   id: string;
   height: number;
   blockId: string;
   type: number;
-  timestamp: string;
-  amount?: string;
+  timestamp: number;
   senderPublicKey: string;
-  recipientPublicKey: string;
   senderId: string;
-  recipientId: string;
   signature: string;
+  asset: AssetModel;
 }
 
 export default class TransactionModel implements ITransaction {
@@ -17,13 +17,11 @@ export default class TransactionModel implements ITransaction {
   height: number;
   blockId: string;
   type: number;
-  timestamp: string;
+  timestamp: number;
   senderPublicKey: string;
-  recipientPublicKey: string;
-  amount?: string;
   senderId: string;
-  recipientId: string;
   signature: string;
+  asset: AssetModel;
 
   constructor(transaction: ITransaction) {
     if (transaction) {
@@ -33,11 +31,9 @@ export default class TransactionModel implements ITransaction {
       this.type = transaction.type;
       this.timestamp = transaction.timestamp;
       this.senderPublicKey = transaction.senderPublicKey;
-      this.recipientPublicKey = transaction.recipientPublicKey;
-      this.amount = transaction.amount;
       this.senderId = transaction.senderId;
-      this.recipientId = transaction.recipientId;
       this.signature = transaction.signature;
+      this.asset = transaction.asset;
     }
   }
 }

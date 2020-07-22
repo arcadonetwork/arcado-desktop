@@ -12,17 +12,18 @@ const HomePage: React.FC<ContainerProps> = () => {
   const [games, setGames] = useState<GameModel[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect( () => {
-    async function fetchData() {
-      try {
-        const { games } = await getGames();
-        setGames(games);
-        setLoading(false);
-      } catch (e) {
-        message.error('can not load games')
-        setLoading(false);
-      }
+  async function fetchData() {
+    try {
+      const { games } = await getGames();
+      setGames(games);
+      setLoading(false);
+    } catch (e) {
+      message.error('can not load games')
+      setLoading(false);
     }
+  }
+
+  useEffect( () => {
     fetchData();
     return () => ''
   }, []);
