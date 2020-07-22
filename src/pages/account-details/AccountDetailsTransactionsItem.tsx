@@ -19,10 +19,10 @@ export const AccountDetailsTransactionsItem: React.FC<ContainerProps> = ({ trans
       </span>
       <span className="w15">{getFormattedDate(transaction.timestamp)}</span>
       <span className="w20">
-        <Link className="fc-blue" to={getAccountDetailsRoute(transaction.asset.recipientId)}>{transaction.senderId}</Link>
+        <Link className="fc-blue" to={getAccountDetailsRoute(transaction.senderId)}>{transaction.senderId}</Link>
       </span>
       <span className="w20">
-        <Link className="fc-blue" to={getAccountDetailsRoute(transaction.senderId)}>{transaction.asset.recipientId}</Link>
+        <Link className="fc-blue" to={getAccountDetailsRoute(transaction.asset.recipientId)}>{transaction.asset.recipientId}</Link>
       </span>
       <span className="w15">{getFormattedNumber(transaction.asset.amount)} LSK</span>
     </div>
