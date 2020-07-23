@@ -7,11 +7,17 @@ interface ContainerProps {
   setValidPassphrase(passphrase: string): void
 }
 
+type ErrorData = {
+  validationError: string;
+  partialPassphraseError: boolean[];
+  passphraseIsInvalid: boolean;
+}
+
 export const PassphraseInput: React.FC<ContainerProps> = ({ showPassphrase, setValidPassphrase }) => {
 
-  const [focus, setFocus] = useState(-1);
-  const [passphrase, setPassphrase] = useState([]);
-  const [errors, setErrors] = useState({ validationError: '', partialPassphraseError : [], passphraseIsInvalid: false });
+  const [focus, setFocus] = useState<number>(-1);
+  const [passphrase, setPassphrase] = useState<string[]>([]);
+  const [errors, setErrors] = useState<ErrorData>({ validationError: '', partialPassphraseError : [], passphraseIsInvalid: false });
 
   function handleChange (event: ChangeEvent<HTMLInputElement>) {
     const index = parseInt(event.target.dataset.index, 10);

@@ -8,12 +8,12 @@ interface ContainerProps {
 }
 
 export const GameDetailsPageHeader: React.FC<ContainerProps> = ({ game }) => {
-  const [isCreatingRoom, setIsCreatingRoom] = useState(false);
+  const [isCreatingRoom, setIsCreatingRoom] = useState<boolean>(false);
   return (
     <>
       <div className="flex-c mb50">
-        <div className="bgc-lgrey br5 game-image img--150 mr50" >
-          <img src={game.image} />
+        <div className="bgc-lgrey game-image img--150 mr50" >
+          <img className="br5" src={game.image} />
         </div>
         <div className="w50">
           <div className="fs-l fc-black ffm-bold">{game.name}</div>

@@ -20,13 +20,13 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "baseUrl": ".",
-    "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true
+    "isolatedModules": true
   },
   "exclude": [
     "node_modules",
@@ -38,6 +38,7 @@
     "src/setupTests.ts"
   ],
   "include": [
-    "src"
+    "src",
+    "typings/*.d.ts"
   ]
 }

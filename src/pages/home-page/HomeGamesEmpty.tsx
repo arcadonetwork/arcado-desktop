@@ -3,7 +3,7 @@ import React from 'react';
 interface ContainerProps {
 }
 
-export const HomePageGamesEmpty: React.FC<ContainerProps> = () => {
+export const HomeGamesEmpty: React.FC<ContainerProps> = () => {
   return (
     <div className="">
       No games found

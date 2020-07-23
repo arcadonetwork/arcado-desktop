@@ -18,12 +18,12 @@ interface ContainerProps {
 
 export const LoginPage: React.FC<ContainerProps> = ({ history }: ContainerProps) => {
 
-  const isValidAndSynced = useSelector((state: iRootState) => state.session.isValidAndSynced);
-  const isValidAndLoading = useSelector((state: iRootState) => state.session.isValidAndLoading);
+  const isValidAndSynced = useSelector((state: iRootState) => state.accounts.isValidAndSynced);
+  const isValidAndLoading = useSelector((state: iRootState) => state.accounts.isValidAndLoading);
   const dispatch = useDispatch<Dispatch>();
 
-  const [showPassphrase, setShowPassphrase] = useState(false);
-  const [passphrase, setPassphrase] = useState('' as string);
+  const [showPassphrase, setShowPassphrase] = useState<boolean>(false);
+  const [passphrase, setPassphrase] = useState<string>('');
 
   useEffect(() => {
     if(isValidAndSynced) {
@@ -36,13 +36,13 @@ export const LoginPage: React.FC<ContainerProps> = ({ history }: ContainerProps)
     try  {
       const account = getAccountByPassphrase(passphrase);
       if (isObjectWithFields(account)) {
-        await dispatch.session.setAccountLoading(true);
-        dispatch.session.setValidAccount(account);
+        await dispatch.accounts.setAccountLoading(true);
+        dispatch.accounts.syncAccount(account);
       } else {
 
       }
     } catch (e) {
-      dispatch.session.logout();
+      dispatch.accounts.logout();
     }
   }
 

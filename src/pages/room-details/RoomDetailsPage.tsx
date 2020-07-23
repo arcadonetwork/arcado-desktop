@@ -28,9 +28,9 @@ interface ContainerProps extends RouteComponentProps<MatchParams> {
 }
 
 export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
-  const [room, setRoom] = useState(new RoomModel(undefined));
-  const [page, setPage] = useState(menu[0]);
-  const [loading, setLoading] = useState(true);
+  const [room, setRoom] = useState<RoomModel>(undefined);
+  const [page, setPage] = useState<string>(menu[0]);
+  const [loading, setLoading] = useState<boolean>(true);
   const { gameId, roomId } = match.params;
 
   async function getRoomDetails () {
@@ -49,6 +49,7 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   }
 
   useEffect( () => {
+    window.scrollTo(0, 0)
     getRoomDetails();
     return () => ''
   }, []);

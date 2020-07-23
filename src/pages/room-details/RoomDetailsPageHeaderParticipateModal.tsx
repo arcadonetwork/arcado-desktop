@@ -14,7 +14,7 @@ interface ContainerProps {
 }
 
 export const RoomDetailsPageHeaderParticipateModal: React.FC<ContainerProps> = ({ room, refresh, intendsToParticipate, setIntendsToParticipate }) => {
-  const account = useSelector((state: iRootState) => state.session.account);
+  const account = useSelector((state: iRootState) => state.accounts.account);
 
   async function participate () {
     try {

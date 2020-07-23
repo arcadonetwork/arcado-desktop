@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import HomePage from '../../pages/home-page/HomePage'
+import Home from '../../pages/home-page/Home'
 import { LoginPage } from '../../pages/login/LoginPage'
 import { GameDetailsPage } from '../../pages/game-details/GameDetailsPage'
 import { AccountDetails } from '../../pages/account-details/AccountDetails'
@@ -10,7 +10,6 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { InitialiseAccountVerification } from '../../pages/initialise-account/InitialiseAccountVerification';
 import InitialiseAccount from '../../pages/initialise-account/InitialiseAccount';
 import { LogoutPage } from '../../pages/logout/LogoutPage';
-import { message } from 'antd';
 import { TransactionDetails } from '../../pages/transaction-details/TransactionDetails';
 
 export const ROUTES = {
@@ -26,10 +25,6 @@ export const ROUTES = {
 };
 
 export const getAccountDetailsRoute = (address: string) => {
-  if (address === undefined) {
-    message.info('invalid address');
-    return ROUTES.HOME;
-  }
   return ROUTES.ACCOUNT_DETAILS
     .replace(':address', address);
 }
@@ -57,7 +52,7 @@ export default () => {
       <ProtectedRoute
         exact
         path={ROUTES.HOME}
-        component={HomePage}
+        component={Home}
       />
 
       <Route

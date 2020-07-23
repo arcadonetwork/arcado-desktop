@@ -14,7 +14,7 @@ export const getTransactionsByAddress = async (address: string) => {
   if (isArrayWithElements(data)) {
     return data.map((item: any) => {
       const transaction = new TransactionModel(item);
-      transaction.amount = fromRawLsk(Number(transaction.amount));
+      transaction.asset.amount = fromRawLsk(Number(transaction.asset.amount));
       return transaction;
     })
   }
@@ -28,7 +28,7 @@ export const getTransactionById = async (txId: string) => {
   if (isArrayWithElements(data)) {
     const element = data[0];
     const transaction = new TransactionModel(element);
-    transaction.amount = fromRawLsk(Number(transaction.amount));
+    transaction.asset.amount = fromRawLsk(Number(transaction.asset.amount));
     return transaction;
   } else {
     return undefined;

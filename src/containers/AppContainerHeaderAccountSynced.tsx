@@ -8,16 +8,12 @@ interface ContainerProps {
 
 export const AppContainerHeaderAccountSynced: React.FC<ContainerProps> = () => {
 
-  const account = useSelector((state: iRootState) => state.session.account);
-  //const isOnline = useSelector((state: iRootState) => state.network.online);
+  const account = useSelector((state: iRootState) => state.accounts.account);
   const dispatch = useDispatch<Dispatch>();
 
   return (
     <div className="ml-auto flex-c">
-      {/*<div className="fc-grey fs-s mr15 pr15 br-r">
-        {isOnline ? "connected" : "no connection"}
-      </div>*/}
-      <div onClick={() => dispatch.session.addFunds(account.address)} className="click fc-blue fs-s mr25 ffm-bold">
+      <div onClick={() => dispatch.accounts.addFunds(account.address)} className="click fc-blue fs-s mr25 ffm-bold">
         add funds
       </div>
       <AppContainerHeaderAuthenticatedAccount />

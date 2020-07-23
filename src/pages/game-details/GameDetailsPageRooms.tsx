@@ -5,6 +5,7 @@ import GameModel from '../../models/game.model';
 import { Loading } from '../../components/Loading';
 import { GameDetailsPageRoomsItem } from './GameDetailsPageRoomsItem';
 import { isArrayWithElements } from '../../utils/utils/type-checking';
+import RoomModel from '../../models/room.model';
 
 
 interface ContainerProps {
@@ -12,8 +13,8 @@ interface ContainerProps {
 }
 
 export const GameDetailsPageRooms: React.FC<ContainerProps> = ({ game }) => {
-  const [rooms, setRooms] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [rooms, setRooms] = useState<RoomModel[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect( () => {
     async function fetchData() {
@@ -54,7 +55,7 @@ export const GameDetailsPageRooms: React.FC<ContainerProps> = ({ game }) => {
               />
           )
             : (
-              <div className="p15 flex-c br5 bgc-white">
+              <div className="p15-25 flex-c br5 bgc-xxl-grey fs-s">
                 There are no rooms created for this game
               </div>
             )

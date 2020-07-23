@@ -27,7 +27,7 @@ const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
     try {
       const result = await createAccount();
       console.log(result);
-      await dispatch.session.setAccount(new AccountModel(result))
+      await dispatch.accounts.setAccount(new AccountModel(result))
       history.push(ROUTES.ACCOUNT_VERIFICATION)
     } catch (e) {
       console.error(e);
