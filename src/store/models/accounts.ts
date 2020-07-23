@@ -3,6 +3,7 @@ import { Dispatch } from '../store';
 import { getAccount, addFundsToAccount } from '../../utils/api/accounts';
 import { isArrayWithElements, isObjectWithFields } from '../../utils/utils/type-checking';
 import TransactionModel from '../../models/transaction.model';
+import { message } from 'antd';
 
 const initialState = {
   account: new AccountModel({
@@ -46,7 +47,7 @@ export const accounts = {
     },
   },
   effects: (dispatch: Dispatch) => ({
-    async setValidAccount (account: AccountModel) {
+    async syncAccount (account: AccountModel) {
       const onChainAccount = await this.findAccount(account.address);
       if (isObjectWithFields(onChainAccount)) {
         account = {
@@ -81,13 +82,13 @@ export const accounts = {
     logout () {
       dispatch.accounts.setAccount(new AccountModel(undefined))
     },
-    checkTransactionsAndUpdateAccount (transactions: TransactionModel[], account: AccountModel) {
+    async checkTransactionsAndUpdateAccount ({ transactions, account } : { transactions: TransactionModel[], account: AccountModel }) {
       if (!isArrayWithElements(transactions)) return;
       const relevantTxs = transactions
-        .filter((tx) => isObjectWithFields(tx) ? account.address === tx.asset?.recipientId || account.address === tx.senderId : false);
-      console.log(relevantTxs);
+        .filter((tx) => isObjectWithFields(tx) ? (account.address === tx.asset.recipientId || account.address === tx.senderId) : false);
       if (isArrayWithElements(relevantTxs)) {
-        dispatch.accounts.setValidAccount(account);
+        await dispatch.accounts.syncAccount(account);
+        message.success('Incoming account state change')
       }
 
     }

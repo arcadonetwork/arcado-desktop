@@ -31,7 +31,7 @@ export default ({ children }: { children: any }) => {
     });
 
     socket.on('blocks/change', (block: BlockModel) => {
-      dispatch.blocks.newBlockCreated(block, account);
+      dispatch.blocks.newBlockCreated({ block, account });
     });
 
     ws = {

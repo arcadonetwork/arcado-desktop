@@ -37,7 +37,7 @@ export const LoginPage: React.FC<ContainerProps> = ({ history }: ContainerProps)
       const account = getAccountByPassphrase(passphrase);
       if (isObjectWithFields(account)) {
         await dispatch.accounts.setAccountLoading(true);
-        dispatch.accounts.setValidAccount(account);
+        dispatch.accounts.syncAccount(account);
       } else {
 
       }

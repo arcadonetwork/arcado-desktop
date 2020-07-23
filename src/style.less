@@ -164,6 +164,13 @@ body {
   margin: auto;
 }
 
+.grid-xl {
+  min-width: 1024px;
+  max-width: 1366px;
+  width: 80%;
+  margin: auto;
+}
+
 .w100 {
   width: 100%;
 }
@@ -230,6 +237,11 @@ body {
 
 .h150--fixed {
   height: 150px;
+}
+
+
+.h200--fixed {
+  height: 200px;
 }
 
 .vh100minus60 {
@@ -450,6 +462,10 @@ body {
   padding-bottom: 15px;
 }
 
+.p25 {
+  padding: 25px;
+}
+
 .pr25 {
   padding-right: 25px;
 }
@@ -539,6 +555,14 @@ body {
   grid-column-gap: 2%;
 }
 
+.grid-games {
+  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 31% 31% 31%;
+  grid-column-gap: 2%;
+  grid-row-gap: 3em;
+}
+
 .click {
   cursor: pointer;
 }
@@ -576,6 +600,14 @@ body {
 }
 .br5 {
   border-radius: 5px;
+}
+.br5-top {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.br5-bottom {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .br20 {
@@ -691,12 +723,10 @@ input:not(.passphrase-input) {
 }
 
 .game-image {
-  border: 1px solid #efefef;
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 5px;
   }
 }
 
@@ -715,4 +745,16 @@ input:not(.passphrase-input) {
 .primary-tag {
   background: #fff7e6;
   border-color: #ffd591;
+}
+
+.shadow {
+  box-shadow: 0 1px 2px rgba(25, 25, 25, 0.2);
+}
+
+.shadow-light {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.shadow__hover:hover {
+  box-shadow: 0 1px 2px rgba(25, 25, 25, 0.65);
 }

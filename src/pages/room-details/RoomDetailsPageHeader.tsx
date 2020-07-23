@@ -14,8 +14,8 @@ export const RoomDetailsPageHeader: React.FC<ContainerProps> = ({ room, refresh 
   const gameUri = getGamesItemRoute(room.gameId);
   return (
     <div className="flex-c mb25">
-      <div className="bgc-lgrey game-image br5 img--150 mr50">
-        <img src={room.game.image} />
+      <div className="bgc-lgrey game-image img--150 mr50">
+        <img className="br5"  src={room.game.image} />
       </div>
 
       <div>

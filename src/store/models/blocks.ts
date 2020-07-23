@@ -16,8 +16,10 @@ export const blocks = {
 
   },
   effects: (dispatch: Dispatch) => ({
-    newBlockCreated (block: BlockModel, account: AccountModel) {
-      dispatch.accounts.checkTransactionsAndUpdateAccount(block.transactions, account);
+    newBlockCreated ({ block, account }: { block: BlockModel, account: AccountModel }) {
+      dispatch.accounts.checkTransactionsAndUpdateAccount({
+        transactions: block.transactions, account
+      });
     }
   }),
 };

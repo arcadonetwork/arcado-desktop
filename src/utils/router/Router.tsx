@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import HomePage from '../../pages/home-page/HomePage'
+import Home from '../../pages/home-page/Home'
 import { LoginPage } from '../../pages/login/LoginPage'
 import { GameDetailsPage } from '../../pages/game-details/GameDetailsPage'
 import { AccountDetails } from '../../pages/account-details/AccountDetails'
@@ -52,7 +52,7 @@ export default () => {
       <ProtectedRoute
         exact
         path={ROUTES.HOME}
-        component={HomePage}
+        component={Home}
       />
 
       <Route

@@ -1,17 +1,17 @@
-import { API_BASE_URI, request } from './request';
-import AccountModel from '../../models/account.model';
+import { API_BASE_URI, NETWORK_BASE_URI, request } from './request';
 import { fromRawLsk } from '../utils/lsk';
-import { isObjectWithFields } from '../utils/type-checking';
+import { isArrayWithElements } from '../utils/type-checking';
 
 const URI = `${API_BASE_URI}/accounts`
+const NETWORK_URI = `${NETWORK_BASE_URI}/accounts`
 
 export const getAccount = async (address: string) => {
   const { data } = await request({
-    url: `${URI}/${encodeURI(address)}`,
+    url: `${NETWORK_URI}?address=${encodeURI(address)}`,
     method: 'GET'
   });
-  if (isObjectWithFields(data)) {
-    const account = new AccountModel(data);
+  if (isArrayWithElements(data)) {
+    const account = data[0];
     account.balance = fromRawLsk(Number(account.balance));
     return account;
   } else {

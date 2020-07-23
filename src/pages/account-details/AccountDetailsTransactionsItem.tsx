@@ -13,7 +13,7 @@ interface ContainerProps {
 export const AccountDetailsTransactionsItem: React.FC<ContainerProps> = ({ transaction, isLastChild }) => {
   const clazz = !isLastChild ? 'br-b' : ''
   return (
-    <div className={`fs-s flex-c pb15 pt15 ${clazz}`}>
+    <div className={`flex-c pb15 pt15 ${clazz}`}>
       <span className="w20">
         <Link className="fc-blue" to={getTransactionDetailsRoute(transaction.id)}>{transaction.id}</Link>
       </span>
