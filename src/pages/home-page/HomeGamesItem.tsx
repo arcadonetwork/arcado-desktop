@@ -11,8 +11,8 @@ interface ContainerProps {
 export const HomeGamesItem: React.FC<ContainerProps> = ({ game, index }) => {
   const uri = getGamesItemRoute(game.id);
   return (
-    <Link to={uri} className=" br5 shadow shadow__hover">
-      <div className="game-image br5-top w100 h200--fixed br-b">
+    <Link to={uri} className=" br5 br shadow shadow__hover">
+      <div className="game-image br5-top w100 h150--fixed br-b">
         <img className="br5-top" src={game.image} />
       </div>
       <div className="p25 flex-fs">
