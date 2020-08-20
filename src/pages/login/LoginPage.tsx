@@ -58,7 +58,7 @@ export const LoginPage: React.FC<ContainerProps> = ({ history }: ContainerProps)
     <div className="w50 m-auto">
       <div className="mb50 flex-c flex-jc-c flex-column mt125">
         <h1 className="fs-xxl ffm-bold p0 m0">Welcome to <span className="fc-primary ffm-bold">Arcado</span></h1>
-        <h2 className="fs-m fc-grey p0 m0">Sign in with a username and passphrase</h2>
+        <h2 className="fs-m fc-grey p0 m0">Sign in with a passphrase</h2>
       </div>
 
       <div className="w100 mb50">
@@ -70,7 +70,7 @@ export const LoginPage: React.FC<ContainerProps> = ({ history }: ContainerProps)
               <span className="ml10">{showPassphrase ? "Hide" : "Show"}</span>
             </div>
           </div>
-          <div className="fs-n fc-grey mb50">Your passphrase is the gateway to our your gaming profile</div>
+          <div className="fs-n fc-grey mb50">Your passphrase is the gateway to our gaming universe</div>
         </div>
         <PassphraseInput
           setValidPassphrase={setPassphrase}

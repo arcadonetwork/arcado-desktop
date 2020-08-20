@@ -34,6 +34,11 @@ export const AccountDetails: React.FC<ContainerProps> = ({ match }) => {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0)
+    return () => ''
+  }, [])
+
+  useEffect(() => {
     getAccountDetails();
     return () => setIsLoading(true);
   }, [address])

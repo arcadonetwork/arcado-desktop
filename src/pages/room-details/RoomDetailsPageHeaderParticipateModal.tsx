@@ -23,9 +23,9 @@ export const RoomDetailsPageHeaderParticipateModal: React.FC<ContainerProps> = (
         message.error('You are already participating')
         return;
       }
-      await joinRoom(room.gameId, room.id, {
+      await joinRoom(room.gameId, room.roomId, {
         address: account.address,
-        roomId: room.id,
+        roomId: room.roomId,
         passphrase: account.passphrase
       });
       message.success('successfully joined the room')

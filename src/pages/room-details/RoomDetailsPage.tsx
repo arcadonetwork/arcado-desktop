@@ -9,10 +9,7 @@ import { RoomDetailsPageParticipants } from './RoomDetailsPageParticipants';
 import { PageNavigation } from '../../components/PageNavigation';
 import { getGame } from '../../utils/api/games';
 import { RoomDetailsPagePrizeDistribution } from './RoomDetailsPagePrizeDistribution';
-//import socketIOClient from "socket.io-client";
-//const ENDPOINT = "http://localhost:3000";
-
-//const socket = socketIOClient(ENDPOINT);
+//import { isArrayWithElements } from '../../utils/utils/type-checking';
 
 const menu = [
   'Participants'
@@ -39,6 +36,10 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
         getRoom(gameId, roomId),
         getGame(gameId)
       ])
+      /*if (isArrayWithElements(data) && data.length === 1) {
+        //const room = data[0];
+
+      }*/
       room.game = game;
       setRoom(new RoomModel(room));
       setLoading(false);
@@ -50,9 +51,13 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
 
   useEffect( () => {
     window.scrollTo(0, 0)
-    getRoomDetails();
     return () => ''
   }, []);
+
+  useEffect( () => {
+    getRoomDetails();
+    return () => ''
+  }, [gameId, roomId]);
 
   async function refresh () {
     await setLoading(true);

@@ -23,11 +23,12 @@ export default ({ children }: { children: any }) => {
     });
 
     socket.on('disconnect', () => {
+      console.log(('disconnecting'))
       dispatch.network.setStatusUpdate({ online: false });
     });
 
     socket.on('reconnect', () => {
-      dispatch.network.setStatusUpdate({ online: false });
+      dispatch.network.setStatusUpdate({ online: true });
     });
 
     socket.on('blocks/change', (block: BlockModel) => {

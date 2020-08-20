@@ -12,10 +12,10 @@ export type NetworkState = {
 export const network = {
   state: initialState,
   reducers: {
-    setStatusUpdateState: (state: NetworkState, payload: boolean) => {
+    setStatusUpdateState: (state: NetworkState, payload: any) => {
       return {
         ...state,
-        online: payload
+        online: payload.online
       }
     },
   },

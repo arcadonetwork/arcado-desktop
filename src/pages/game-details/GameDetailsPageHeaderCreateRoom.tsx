@@ -61,8 +61,8 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
         address: account.address,
         passphrase: account.passphrase
       }
-      const { room } = await createRoom(game.id, body);
-      const uri = getGameRoomItemRoute(game.id, room.id);
+      const { roomId, gameId } = await createRoom(game.id, body);
+      const uri = getGameRoomItemRoute(gameId, roomId);
       message.success('new room created');
       history.push(uri);
     } catch (e) {

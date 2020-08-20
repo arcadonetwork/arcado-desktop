@@ -20,6 +20,8 @@ export const GameDetailsPageRooms: React.FC<ContainerProps> = ({ game }) => {
     async function fetchData() {
       try {
         const { rooms } = await getRooms(game.id);
+        //const rooms = data.map((item: any) => item.asset);
+        console.log(rooms);
         setRooms(rooms);
         setLoading(false);
       } catch (e) {
@@ -48,7 +50,7 @@ export const GameDetailsPageRooms: React.FC<ContainerProps> = ({ game }) => {
           ? rooms.map(
             (room, index) =>
               <GameDetailsPageRoomsItem
-                key={room.id}
+                key={room.roomId}
                 gameId={game.id}
                 room={room}
                 isLastChild={index === rooms.length - 1}

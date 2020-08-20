@@ -23,9 +23,9 @@ export const RoomDetailsPageHeaderActions: React.FC<ContainerProps> = ({ room, r
       return;
     }
     try {
-      await startRoom(room.gameId, room.id, {
+      await startRoom(room.gameId, room.roomId, {
         address: account.address,
-        roomId: room.id,
+        roomId: room.roomId,
         passphrase: account.passphrase
       });
       message.success('successfully started the room')

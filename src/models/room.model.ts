@@ -3,7 +3,7 @@ import PriceDistributionModel, { IPriceDistribution } from './price-distribution
 import EndResultModel, { IEndResult } from './end-result.model';
 
 export interface IRoom {
-  id: string;
+  roomId: string;
   name: string;
   maxPlayers: number;
   entryFee?: number;
@@ -17,7 +17,7 @@ export interface IRoom {
 }
 
 export default class RoomModel implements IRoom {
-  id: string;
+  roomId: string;
   name: string;
   maxPlayers: number;
   entryFee?: number;
@@ -31,7 +31,7 @@ export default class RoomModel implements IRoom {
 
   constructor(room: IRoom) {
     if (room) {
-      this.id = room.id;
+      this.roomId = room.roomId;
       this.name = room.name;
       this.maxPlayers = room.maxPlayers;
       this.game = room.game;

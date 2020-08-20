@@ -36,6 +36,7 @@
     "antd": "3.19.8",
     "bignumber.js": "^9.0.0",
     "craco-less": "^1.16.0",
+    "lisk-elements": "^2.4.3",
     "lodash": "^4.17.19",
     "moment": "2.25.3",
     "momentjs": "^2.0.0",

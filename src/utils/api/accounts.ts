@@ -3,7 +3,7 @@ import { fromRawLsk } from '../utils/lsk';
 import { isArrayWithElements } from '../utils/type-checking';
 
 const URI = `${API_BASE_URI}/accounts`
-const NETWORK_URI = `${NETWORK_BASE_URI}/accounts`
+const NETWORK_URI = `${NETWORK_BASE_URI}/api/accounts`
 
 export const getAccount = async (address: string) => {
   const { data } = await request({

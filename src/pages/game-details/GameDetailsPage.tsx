@@ -24,6 +24,11 @@ export const GameDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   const [loading, setLoading] = useState<boolean>(true)
   const { gameId } = match.params
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    return () => ''
+  }, [])
+
   useEffect( () => {
     async function fetchData() {
       try {

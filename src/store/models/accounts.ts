@@ -5,7 +5,7 @@ import { isArrayWithElements, isObjectWithFields } from '../../utils/utils/type-
 import TransactionModel from '../../models/transaction.model';
 import { message } from 'antd';
 
-const initialState = {
+/*const initialState = {
   account: new AccountModel({
     address: "813630206057921731L",
     passphrase: "decade draw witness sadness suit junk theory trophy perfect chair sadness wheel",
@@ -13,19 +13,22 @@ const initialState = {
     balance: "0"
   }),
   isValidAndSynced: true,
-  isValidAndLoading: false
-}
+  isValidAndLoading: false,
+  isFundingAccount: false,
+}*/
 
-/*const initialState = {
+const initialState = {
   account: new AccountModel(undefined),
   isValidAndSynced: false,
-  isValidAndLoading: false
-}*/
+  isValidAndLoading: false,
+  isFundingAccount: false
+}
 
 export type SessionState = {
   account: IAccount,
   isValidAndSynced: boolean,
-  syncingAccount: boolean
+  syncingAccount: boolean,
+  isFundingAccount: boolean
 }
 
 export const accounts = {
@@ -45,6 +48,12 @@ export const accounts = {
         isValidAndLoading: payload
       }
     },
+    setFundingAccountState: (state: SessionState, payload: boolean) => {
+      return {
+        ...state,
+        isFundingAccount: payload
+      }
+    },
   },
   effects: (dispatch: Dispatch) => ({
     async syncAccount (account: AccountModel) {
@@ -60,6 +69,9 @@ export const accounts = {
     setAccountLoading (loading: boolean) {
       dispatch.accounts.setAccountLoadingState(loading);
     },
+    setFundingAccount (isFundingAccount: boolean) {
+      dispatch.accounts.setFundingAccount(isFundingAccount);
+    },
     async findAccount (address: string) {
       try {
         return await getAccount(address)
@@ -69,9 +81,10 @@ export const accounts = {
       }
     },
     addFunds (address: string) {
+      dispatch.accounts.setFundingAccountState(true);
       addFundsToAccount(address)
         .then(({ data }) => {
-
+          dispatch.accounts.setFundingAccountState(false);
         }).catch(() => {
 
         });

@@ -12,7 +12,7 @@ interface ContainerProps {
 
 export const GameDetailsPageRoomsItem: React.FC<ContainerProps> = ({ gameId, room, isLastChild }) => {
   const clazz = !isLastChild ? 'br-b' : ''
-  const uri = getGameRoomItemRoute(gameId, room.id);
+  const uri = getGameRoomItemRoute(gameId, room.roomId);
   return (
     <div className={`p15 flex-c br5 ${clazz}`}>
       <span className="w40">

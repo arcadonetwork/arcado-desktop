@@ -28,9 +28,9 @@ export const RoomDetailsPageHeaderStopModal: React.FC<ContainerProps> = ({ room,
 
   async function stop () {
     try {
-      await stopRoom(room.gameId, room.id, {
+      await stopRoom(room.gameId, room.roomId, {
         address: account.address,
-        roomId: room.id,
+        roomId: room.roomId,
         first,
         second,
         third,

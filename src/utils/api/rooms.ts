@@ -48,3 +48,12 @@ export const getRoom = async (gameId: string, roomId: string) => {
     method: 'GET'
   });
 };
+
+/*
+
+export const getRoom = async (roomId: string) => {
+  return request({
+    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=roomId&contains=${roomId}`,
+    method: 'GET'
+  });
+};*/
