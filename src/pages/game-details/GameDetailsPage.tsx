@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import GameModel from '../../models/game.model';
+import { GameModel } from '../../models/game.model';
 import { getGame } from '../../utils/api/games';
 import { message } from 'antd';
 import { Loading } from '../../components/Loading';
 import { RouteComponentProps } from 'react-router';
 import { GameDetailsPageHeader } from './GameDetailsPageHeader';
 import { GameDetailsPageRooms } from './GameDetailsPageRooms';
-import { PageNavigation } from '../../components/PageNavigation';
 
 interface MatchParams {
   gameId: string;
@@ -16,7 +15,7 @@ interface ContainerProps extends RouteComponentProps<MatchParams> {
 
 }
 
-const menu = ['Rooms'];
+const menu = ['Tournaments'];
 
 export const GameDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   const [page, setPage] = useState<string>(menu[0])
@@ -50,14 +49,16 @@ export const GameDetailsPage: React.FC<ContainerProps> = ({ match }) => {
 
 
   return (
-    <div className="grid mt75">
-      <GameDetailsPageHeader game={game} />
-      <PageNavigation
+    <div className="">
+      <GameDetailsPageHeader
+        game={game}
+        page={page}
+        setPage={setPage}
         menu={menu}
-        activePage={page}
-        setPage={(page) => setPage(page)}
       />
-      <GameDetailsPageRooms game={game} />
+      <div className="grid mt50">
+        <GameDetailsPageRooms game={game} />
+      </div>
     </div>
   )
 }

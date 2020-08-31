@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Loading } from '../../components/Loading';
 import { RoomDetailsPageHeader } from './RoomDetailsPageHeader';
-import RoomModel from '../../models/room.model';
-import { getRoom } from '../../utils/api/rooms';
+import { RoomModel } from '../../models/room.model';
+import { getPlayers, getRoom } from '../../utils/api/rooms';
 import { message } from 'antd';
 import { RoomDetailsPageParticipants } from './RoomDetailsPageParticipants';
 import { PageNavigation } from '../../components/PageNavigation';
@@ -32,16 +32,13 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
 
   async function getRoomDetails () {
     try {
-      const [{ room }, { game }] = await Promise.all([
-        getRoom(gameId, roomId),
-        getGame(gameId)
+      const [room, { game }] = await Promise.all([
+        getRoom(roomId),
+        getGame(gameId),
+        getPlayers(roomId)
       ])
-      /*if (isArrayWithElements(data) && data.length === 1) {
-        //const room = data[0];
-
-      }*/
       room.game = game;
-      setRoom(new RoomModel(room));
+      setRoom(room);
       setLoading(false);
     }catch (e) {
       message.error('Can not fetch room');
@@ -81,7 +78,7 @@ export const RoomDetailsPage: React.FC<ContainerProps> = ({ match }) => {
         setPage={(page) => setPage(page)}
       />
       <RoomDetailsPageParticipants
-        addresses={room.addresses}
+        addresses={[]}
       />
     </div>
   )

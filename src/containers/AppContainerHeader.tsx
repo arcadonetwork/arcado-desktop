@@ -18,7 +18,7 @@ export const AppContainerHeader: React.FC<ContainerProps> = () => {
   const isValidAndSynced = useSelector((state: iRootState) => state.accounts.isValidAndSynced);
 
   return (
-    <div className="w100 bgc-white br-b h70--fixed">
+    <div className="w100 bgc-xxl-grey br-b h70--fixed">
       <div className="w90 h100 m-auto flex-c">
         <Link to={ROUTES.HOME} className="">
           <div className=" w75--fixed" >

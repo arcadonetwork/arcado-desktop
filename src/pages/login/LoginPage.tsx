@@ -8,7 +8,7 @@ import { Dispatch, iRootState } from '../../store/store';
 import { PassphraseInput } from '../../components/PassphraseInput';
 import Icon from 'antd/es/icon';
 import { getAccountByPassphrase } from '../../utils/passphrase';
-import { isObjectWithFields } from '../../utils/utils/type-checking';
+import { isObjectWithFields } from '../../utils/type-checking';
 import { Loading } from '../../components/Loading';
 
 interface ContainerProps {

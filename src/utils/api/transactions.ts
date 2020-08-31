@@ -1,7 +1,8 @@
 import { EXTENDED_NETWORK_BASE_URI, NETWORK_BASE_URI, request } from './request';
-import { fromRawLsk } from '../utils/lsk';
-import { isArrayWithElements } from '../utils/type-checking';
-import TransactionModel from '../../models/transaction.model';
+import { fromRawLsk } from '../lsk';
+import { isArrayWithElements } from '../type-checking';
+import { TransactionModel } from '../../models/transaction.model';
+import { AssetModel } from '../../models/asset.model';
 
 const URI = `${EXTENDED_NETWORK_BASE_URI}/transactions`
 const NETWORK_URI = `${NETWORK_BASE_URI}/api/transactions`
@@ -13,9 +14,10 @@ export const getTransactionsByAddress = async (address: string) => {
     method: 'GET'
   });
   if (isArrayWithElements(data)) {
-    return data.map((item: any) => {
-      const transaction = new TransactionModel(item);
-      transaction.asset.amount = fromRawLsk(Number(transaction.asset.amount));
+    return data.map((transaction: TransactionModel) => {
+      const asset = transaction.asset as AssetModel;
+      asset.amount = fromRawLsk(Number(asset.amount));
+      transaction.asset = asset;
       return transaction;
     })
   }
@@ -27,9 +29,10 @@ export const getTransactionById = async (txId: string) => {
     method: 'GET'
   });
   if (isArrayWithElements(data)) {
-    const element = data[0];
-    const transaction = new TransactionModel(element);
-    transaction.asset.amount = fromRawLsk(Number(transaction.asset.amount));
+    const transaction: TransactionModel = data[0];
+    const asset = transaction.asset as AssetModel;
+    asset.amount = fromRawLsk(Number(asset.amount));
+    transaction.asset = asset;
     return transaction;
   } else {
     return undefined;

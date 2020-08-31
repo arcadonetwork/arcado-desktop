@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { getRooms } from '../../utils/api/rooms';
 import { message } from 'antd';
-import GameModel from '../../models/game.model';
+import { GameModel } from '../../models/game.model';
 import { Loading } from '../../components/Loading';
 import { GameDetailsPageRoomsItem } from './GameDetailsPageRoomsItem';
-import { isArrayWithElements } from '../../utils/utils/type-checking';
-import RoomModel from '../../models/room.model';
+import { isArrayWithElements } from '../../utils/type-checking';
+import { RoomModel } from '../../models/room.model';
 
 
 interface ContainerProps {
@@ -19,9 +19,8 @@ export const GameDetailsPageRooms: React.FC<ContainerProps> = ({ game }) => {
   useEffect( () => {
     async function fetchData() {
       try {
-        const { rooms } = await getRooms(game.id);
+        const rooms = await getRooms(game.id);
         //const rooms = data.map((item: any) => item.asset);
-        console.log(rooms);
         setRooms(rooms);
         setLoading(false);
       } catch (e) {

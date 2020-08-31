@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import RoomModel from '../../models/room.model';
+import { RoomModel } from '../../models/room.model';
 import { Button, message } from 'antd';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
@@ -13,12 +13,15 @@ interface ContainerProps {
 }
 
 export const RoomDetailsPageHeaderActions: React.FC<ContainerProps> = ({ room, refresh }) => {
+
   const account = useSelector((state: iRootState) => state.accounts.account);
   const [intendsToParticipate, setIntendsToParticipate] = useState<boolean>(false);
   const [intendsToStop, setIntendsToStop] = useState<boolean>(false);
 
+  const addresses: string[] = []
+
   async function start () {
-    if (room.addresses.length !== Number(room.maxPlayers)) {
+    if (addresses.length !== Number(room.maxPlayers)) {
       message.error('The room isn\'t full');
       return;
     }
@@ -69,8 +72,8 @@ export const RoomDetailsPageHeaderActions: React.FC<ContainerProps> = ({ room, r
       )
     }
   } else {
-    const hasJoined = !!(room.addresses.find(item => item === account.address))
-    if (hasJoined || Number(room.maxPlayers) === room.addresses.length) {
+    const hasJoined = !!(addresses.find(item => item === account.address))
+    if (hasJoined || Number(room.maxPlayers) === addresses.length) {
       actions.push(
         <Button
           disabled

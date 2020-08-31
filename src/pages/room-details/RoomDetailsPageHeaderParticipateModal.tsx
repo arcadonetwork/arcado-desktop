@@ -1,10 +1,10 @@
-import RoomModel from '../../models/room.model';
+import { RoomModel } from '../../models/room.model';
 import React from 'react';
 import { message, Modal } from 'antd';
 import { joinRoom } from '../../utils/api/rooms';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
-import { fromRawLsk } from '../../utils/utils/lsk';
+import { fromRawLsk } from '../../utils/lsk';
 
 interface ContainerProps {
   room: RoomModel,
@@ -18,16 +18,12 @@ export const RoomDetailsPageHeaderParticipateModal: React.FC<ContainerProps> = (
 
   async function participate () {
     try {
-      const isPresent = (room.addresses || []).find(address => address === account.address)
+      const isPresent = [].find(address => address === account.address)
       if (isPresent) {
         message.error('You are already participating')
         return;
       }
-      await joinRoom(room.gameId, room.roomId, {
-        address: account.address,
-        roomId: room.roomId,
-        passphrase: account.passphrase
-      });
+      await joinRoom(room.gameId, room.roomId, account.passphrase);
       message.success('successfully joined the room')
       refresh();
     } catch (e) {
@@ -35,6 +31,7 @@ export const RoomDetailsPageHeaderParticipateModal: React.FC<ContainerProps> = (
       message.error('something went wrong')
     }
   }
+
 
   return (
     <Modal

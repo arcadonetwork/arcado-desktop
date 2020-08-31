@@ -2,7 +2,7 @@ import React, { createContext } from 'react'
 import io from 'socket.io-client';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, iRootState } from '../../store/store';
-import BlockModel from '../../models/block.model';
+import { BlockModel } from '../../models/block.model';
 
 const WebSocketContext = createContext(null)
 

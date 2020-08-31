@@ -3,7 +3,7 @@ import * as passphrase from '@liskhq/lisk-passphrase';
 
 import * as cryptography from '@liskhq/lisk-cryptography';
 import { inDictionary } from './similarWord';
-import AccountModel from '../models/account.model';
+import { AccountModel } from '../models/account.model';
 
 const { Mnemonic } = passphrase;
 
@@ -64,9 +64,10 @@ export const getAccountByPassphrase = (passphrase: string) => {
     passphrase
   );
   const address = cryptography.getAddressFromPublicKey(keys.publicKey);
-  return new AccountModel({
+  const account: AccountModel = {
     address,
     passphrase: passphrase,
     publicKey: keys.publicKey
-  })
+  }
+  return account;
 };

@@ -15,3 +15,17 @@ export const getGame = async (gameId: string) => {
     method: 'GET'
   });
 };
+
+/*
+export const getGame = async (gameId: string) => {
+  const { data } = await request({
+    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=gameId&contains=${gameId}`,
+    method: 'GET'
+  });
+  if (isArrayWithElements(data)) {
+    const game: GameModel = data[0];
+    return game;
+  } else {
+    return undefined;
+  }
+};*/

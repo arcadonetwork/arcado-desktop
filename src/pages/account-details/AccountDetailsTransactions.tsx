@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { getTransactionsByAddress } from '../../utils/api/transactions';
 import { Loading } from '../../components/Loading';
-import AccountModel from '../../models/account.model';
+import { AccountModel } from '../../models/account.model';
 import { AccountDetailsTransactionsItem } from './AccountDetailsTransactionsItem';
-import { isArrayWithElements } from '../../utils/utils/type-checking';
+import { isArrayWithElements } from '../../utils/type-checking';
 import { AccountDetailsTransactionsNotFound } from './AccountDetailsTransactionsNotFound';
-import TransactionModel from '../../models/transaction.model';
+import { TransactionModel } from '../../models/transaction.model';
 
 
 interface ContainerProps {

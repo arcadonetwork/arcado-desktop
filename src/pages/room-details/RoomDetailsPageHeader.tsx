@@ -1,9 +1,9 @@
 import React from 'react';
-import RoomModel from '../../models/room.model';
+import { RoomModel } from '../../models/room.model';
 import { getGamesItemRoute } from '../../utils/router/Router';
 import { Link } from 'react-router-dom';
 import { RoomDetailsPageHeaderActions } from './RoomDetailsPageHeaderActions';
-import { fromRawLsk } from '../../utils/utils/lsk';
+import { fromRawLsk } from '../../utils/lsk';
 
 interface ContainerProps {
   room: RoomModel,
@@ -24,7 +24,7 @@ export const RoomDetailsPageHeader: React.FC<ContainerProps> = ({ room, refresh 
         <div className="flex-fs">
           <div className="flex-c flex-jc-fe mr50">
             <div className="mr50">Buyin:{'  '}<span className="fc-black ffm-bold">{fromRawLsk(room.entryFee)} LSK</span></div>
-            <div className="mr50">Players:{'  '}<span className="fc-black ffm-bold">{(room.addresses ||[]).length} / {room.maxPlayers}</span></div>
+            <div className="mr50">Players:{'  '}<span className="fc-black ffm-bold">{[].length} / {room.maxPlayers}</span></div>
           </div>
         </div>
       </div>

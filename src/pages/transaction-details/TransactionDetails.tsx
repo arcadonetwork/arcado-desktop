@@ -4,8 +4,9 @@ import { TransactionDetailsPropertyItem } from './TransactionDetailsPropertyItem
 import { Loading } from '../../components/Loading';
 import { getTransactionById } from '../../utils/api/transactions';
 import { getFormattedNumber } from '../../utils/numbers';
-import TransactionModel from '../../models/transaction.model';
+import { TransactionModel } from '../../models/transaction.model';
 import { getFormattedDate } from '../../utils/dates';
+import { AssetModel } from '../../models/asset.model';
 
 interface MatchParams {
   txId: string;
@@ -44,6 +45,9 @@ export const TransactionDetails: React.FC<ContainerProps> = ({ match }) => {
     )
   }
 
+
+  const asset = transaction.asset as AssetModel;
+
   return (
     <div className="grid mt75">
       <div className="w100 mb25 br-b pb25">
@@ -65,11 +69,11 @@ export const TransactionDetails: React.FC<ContainerProps> = ({ match }) => {
         />
         <TransactionDetailsPropertyItem
           label="To"
-          value={transaction.asset.recipientId}
+          value={asset.recipientId}
         />
         <TransactionDetailsPropertyItem
           label="Value"
-          value={`${getFormattedNumber(transaction.asset.amount)} LSK`}
+          value={`${getFormattedNumber(asset.amount)} LSK`}
           isLastChild={true}
         />
       </div>

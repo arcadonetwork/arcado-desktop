@@ -1,6 +1,6 @@
 import React from 'react';
-import RoomModel from '../../models/room.model';
-import { fromRawLsk } from '../../utils/utils/lsk';
+import { RoomModel } from '../../models/room.model';
+import { fromRawLsk } from '../../utils/lsk';
 import { RoomDetailsPagePrizeDistributionItem } from './RoomDetailsPagePrizeDistributionItem';
 
 interface ContainerProps {

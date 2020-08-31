@@ -1,8 +1,8 @@
 import React from 'react';
-import RoomModel from '../../models/room.model';
+import { RoomModel } from '../../models/room.model';
 import { Link } from 'react-router-dom';
 import { getGameRoomItemRoute } from '../../utils/router/Router';
-import { fromRawLsk } from '../../utils/utils/lsk';
+import { fromRawLsk } from '../../utils/lsk';
 
 interface ContainerProps {
   gameId: string,
@@ -19,7 +19,7 @@ export const GameDetailsPageRoomsItem: React.FC<ContainerProps> = ({ gameId, roo
         <Link to={uri} className="ffm-bold fc-black">{room.name}</Link>
       </span>
       <span className="w20">{fromRawLsk(room.entryFee)}</span>
-      <span className="w20">{(room.addresses ||[]).length} / {room.maxPlayers}</span>
+      <span className="w20">{[].length} / {room.maxPlayers}</span>
       <Link to={uri} className="ml-auto">enter</Link>
     </div>
   )

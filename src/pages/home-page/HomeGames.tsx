@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import GameModel from '../../models/game.model';
-import { isArrayWithElements } from '../../utils/utils/type-checking';
+import { GameModel } from '../../models/game.model';
+import { isArrayWithElements } from '../../utils/type-checking';
 import { HomeGamesItem } from './HomeGamesItem';
 import { HomeGamesEmpty } from './HomeGamesEmpty';
 import { getGames } from '../../utils/api/games';

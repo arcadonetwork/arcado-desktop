@@ -36,7 +36,7 @@ export const AppContainerHeaderAuthenticatedAccount: React.FC<ContainerProps> = 
       placement="bottomRight"
     >
       <div className="click flex-c flex-jc-c">
-        <div className="br flex-c p5 br20">
+        <div className="br flex-c p5 bgc-white br20">
           <span className="mr10 fs-s fc-black ffm-bold ml15">{getFormattedNumber(account.balance)} LSK</span>
           <div className="ml15 arcado-avatar">
             <LiskAvatar

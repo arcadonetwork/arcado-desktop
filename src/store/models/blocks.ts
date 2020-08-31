@@ -1,6 +1,6 @@
 import { Dispatch } from '../store';
-import BlockModel from '../../models/block.model';
-import AccountModel from '../../models/account.model';
+import { BlockModel } from '../../models/block.model';
+import { AccountModel } from '../../models/account.model';
 
 
 const initialState = {

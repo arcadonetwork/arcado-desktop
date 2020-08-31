@@ -1,4 +1,4 @@
-import RoomModel from '../../models/room.model';
+import { RoomModel } from '../../models/room.model';
 import React, { useEffect, useState } from 'react';
 import { message, Modal } from 'antd';
 import { stopRoom } from '../../utils/api/rooms';
@@ -18,10 +18,10 @@ export const RoomDetailsPageHeaderStopModal: React.FC<ContainerProps> = ({ room,
   const [first, setFirstPlace] = useState<string>('');
   const [second, setSecondPlace] = useState<string>('');
   const [third, setThirdPlace] = useState<string>('');
-  const [selectableAddresses, setSelectableAddresses] = useState<string[]>(room.addresses);
+  const [selectableAddresses, setSelectableAddresses] = useState<string[]>([]);
 
   useEffect(() => {
-    const filteredAddresses = room.addresses.filter(address => address !== first && address !== second && address !== third)
+    const filteredAddresses = [].filter(address => address !== first && address !== second && address !== third)
     setSelectableAddresses(filteredAddresses);
     return () => ''
   }, [first, second, third])

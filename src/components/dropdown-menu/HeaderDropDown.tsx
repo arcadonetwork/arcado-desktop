@@ -3,7 +3,7 @@ import React from 'react'
 import { HeaderDropDownItem } from './HeaderDropDownItem'
 import { HeaderDropDownReactLink } from './HeaderDropDownReactLink'
 import { getAccountDetailsRoute, ROUTES } from '../../utils/router/Router';
-import AccountModel from '../../models/account.model';
+import { AccountModel } from '../../models/account.model';
 
 export const renderMenuItem = (item: any, index: number, account: AccountModel) => {
   if (item.path && item.path.includes(ROUTES.ACCOUNT_DETAILS)) {

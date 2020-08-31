@@ -1,6 +1,6 @@
 import { API_BASE_URI, NETWORK_BASE_URI, request } from './request';
-import { fromRawLsk } from '../utils/lsk';
-import { isArrayWithElements } from '../utils/type-checking';
+import { fromRawLsk } from '../lsk';
+import { isArrayWithElements } from '../type-checking';
 
 const URI = `${API_BASE_URI}/accounts`
 const NETWORK_URI = `${NETWORK_BASE_URI}/api/accounts`

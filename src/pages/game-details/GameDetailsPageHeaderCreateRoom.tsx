@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import GameModel from '../../models/game.model';
+import { GameModel } from '../../models/game.model';
 import Modal from 'antd/es/modal';
 import { TextInputField } from 'src/components/TextInputField';
 import { NumberInputField } from 'src/components/NumberInputField';
@@ -10,7 +10,9 @@ import { createRoom } from '../../utils/api/rooms';
 import { iRootState } from '../../store/store';
 import { useSelector } from 'react-redux';
 import { getGameRoomItemRoute } from '../../utils/router/Router';
-import { toRawLsk } from '../../utils/utils/lsk';
+import { toRawLsk } from '../../utils/lsk';
+import { RoomModel } from '../../models/room.model';
+import { generateUUID } from '../../utils/uuid';
 
 type DistributionData = {
   first: number;
@@ -55,14 +57,16 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
       setDistributionError(undefined)
     }
     try {
+      const roomId = generateUUID();
       roomData.entryFee = toRawLsk(roomData.entryFee);
-      const body = {
+      const body: RoomModel = {
         ...roomData,
-        address: account.address,
-        passphrase: account.passphrase
-      }
-      const { roomId, gameId } = await createRoom(game.id, body);
-      const uri = getGameRoomItemRoute(gameId, roomId);
+        gameId: game.id,
+        roomId
+      };
+
+      await createRoom(game.id, body, account.passphrase);
+      const uri = getGameRoomItemRoute(game.id, roomId);
       message.success('new room created');
       history.push(uri);
     } catch (e) {

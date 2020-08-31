@@ -23,9 +23,16 @@ export const AppContainerHeaderAccountSynced: React.FC<ContainerProps> = () => {
               <span className="ml15">sending fund transaction</span>
             </div>
           )
-        : <div onClick={() => dispatch.accounts.addFunds(account.address)} className="click fc-blue fs-s mr25 ffm-bold">
-            add funds
-          </div>
+        : (
+          <>
+            <div onClick={() => dispatch.accounts.addFunds(account.address)} className="click fc-blue fs-s mr25 ffm-bold">
+              Add funds
+            </div>
+            <div onClick={() => dispatch.accounts.addFunds(account.address)} className="click fc-blue fs-s mr25 ffm-bold">
+              Create Game
+            </div>
+          </>
+          )
       }
       <AppContainerHeaderAuthenticatedAccount />
     </div>

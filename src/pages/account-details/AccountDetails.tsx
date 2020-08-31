@@ -4,9 +4,9 @@ import { Loading } from '../../components/Loading';
 import { RouteComponentProps } from 'react-router';
 import { getAccount } from '../../utils/api/accounts';
 import { AccountDetailsTransactions } from './AccountDetailsTransactions';
-import { isObjectWithFields } from '../../utils/utils/type-checking';
+import { isObjectWithFields } from '../../utils/type-checking';
 import { AccountDetailsNotFound } from './AccountDetailsNotFound';
-import AccountModel from '../../models/account.model';
+import { AccountModel } from '../../models/account.model';
 
 interface MatchParams {
   address: string;

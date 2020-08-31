@@ -1,5 +1,5 @@
 import { init, RematchDispatch, RematchRootState } from '@rematch/core';
-import { accounts } from './models/accounts';
+import { account } from './models/account';
 import { network } from './models/network';
 import { blocks } from './models/blocks';
 import { createBrowserHistory } from 'history';
@@ -7,13 +7,13 @@ import { createBrowserHistory } from 'history';
 export const history = createBrowserHistory();
 
 export interface RootModel {
-  accounts: typeof accounts,
+  accounts: typeof account,
   network: typeof network,
   blocks: typeof blocks
 }
 
 const models: RootModel = {
-  accounts,
+  accounts: account,
   network,
   blocks
 }
