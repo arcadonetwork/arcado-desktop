@@ -3,7 +3,6 @@ import { Dispatch } from '../store';
 import { getAccount, addFundsToAccount } from '../../utils/api/accounts';
 import { isArrayWithElements, isObjectWithFields } from '../../utils/type-checking';
 import { TransactionModel } from '../../models/transaction.model';
-import { message } from 'antd';
 import { AssetModel } from '../../models/asset.model';
 
 const initialState: SessionState = {
@@ -14,7 +13,7 @@ const initialState: SessionState = {
     balance: "0"
   },
   isValidAndSynced: true,
-  isValidAndLoading: false,
+  isValidAndLoading: true,
   isFundingAccount: false,
 }
 
@@ -58,6 +57,7 @@ export const account = {
   },
   effects: (dispatch: Dispatch) => ({
     async syncAccount (account: AccountModel) {
+      if (!isObjectWithFields(account)) return;
       const onChainAccount = await this.findAccount(account.address);
       if (isObjectWithFields(onChainAccount)) {
         account = {
@@ -68,10 +68,10 @@ export const account = {
       this.setAccount(account);
     },
     setAccountLoading (loading: boolean) {
-      dispatch.accounts.setAccountLoadingState(loading);
+      dispatch.account.setAccountLoadingState(loading);
     },
     setFundingAccount (isFundingAccount: boolean) {
-      dispatch.accounts.setFundingAccount(isFundingAccount);
+      dispatch.account.setFundingAccount(isFundingAccount);
     },
     async findAccount (address: string) {
       try {
@@ -82,30 +82,29 @@ export const account = {
       }
     },
     addFunds (address: string) {
-      dispatch.accounts.setFundingAccountState(true);
+      dispatch.account.setFundingAccountState(true);
       addFundsToAccount(address)
         .then(({ data }) => {
-          dispatch.accounts.setFundingAccountState(false);
+          dispatch.account.setFundingAccountState(false);
         }).catch(() => {
 
         });
     },
     setAccount (account: AccountModel) {
-      dispatch.accounts.setAccountState(account);
+      dispatch.account.setAccountState(account);
     },
     logout () {
-      dispatch.accounts.setAccount(undefined)
+      dispatch.account.setAccount(undefined)
     },
     async checkTransactionsAndUpdateAccount ({ transactions, account } : { transactions: TransactionModel[], account: AccountModel }) {
-      if (!isArrayWithElements(transactions)) return;
+      if (!isObjectWithFields(account)) return;
       const relevantTxs = transactions
         .filter((tx) => {
           const asset = tx.asset as AssetModel;
-          return isObjectWithFields(tx) ? (account.address === asset.recipientId || account.address === tx.senderId) : false;
+          return account.address === asset.recipientId || account.address === tx.senderId;
         });
       if (isArrayWithElements(relevantTxs)) {
-        await dispatch.accounts.syncAccount(account);
-        message.success('Incoming account state change')
+        await dispatch.account.syncAccount(account);
       }
 
     }

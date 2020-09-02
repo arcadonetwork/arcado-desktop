@@ -1,7 +1,7 @@
 import React, { createContext } from 'react'
 import io from 'socket.io-client';
-import { useDispatch, useSelector } from 'react-redux';
-import { Dispatch, iRootState } from '../../store/store';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from '../../store/store';
 import { BlockModel } from '../../models/block.model';
 
 const WebSocketContext = createContext(null)
@@ -13,10 +13,12 @@ export default ({ children }: { children: any }) => {
   let ws;
 
   const dispatch = useDispatch<Dispatch>();
-  const account = useSelector((state: iRootState) => state.accounts.account);
+
+  console.log('WebSocketContext');
 
   if (!socket) {
     socket = io(`http://localhost:4000`, { transports: ['websocket'] })
+
 
     socket.on('connect', () => {
       dispatch.network.setStatusUpdate({ online: true });
@@ -32,7 +34,7 @@ export default ({ children }: { children: any }) => {
     });
 
     socket.on('blocks/change', (block: BlockModel) => {
-      dispatch.blocks.newBlockCreated({ block, account });
+      dispatch.network.newBlockCreated({ block });
     });
 
     ws = {

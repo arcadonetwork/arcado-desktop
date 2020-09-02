@@ -6,7 +6,7 @@ interface ContainerProps {
   isLastChild: boolean
 }
 
-export const RoomDetailsPageParticipantsItem: React.FC<ContainerProps> = ({ address, isLastChild }) => {
+export const TournamentPageParticipantsItem: React.FC<ContainerProps> = ({ address, isLastChild }) => {
   const clazz = !isLastChild ? 'br-b' : ''
   return (
     <div className={`flex-c p15 ${clazz}`}>

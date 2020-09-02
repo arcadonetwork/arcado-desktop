@@ -8,7 +8,7 @@ interface ContainerProps {
   isLastChild: boolean
 }
 
-export const RoomDetailsPagePrizeDistributionItem: React.FC<ContainerProps> = ({ label, value, bgColor, isLastChild }) => {
+export const TournamentPagePrizeDistributionItem: React.FC<ContainerProps> = ({ label, value, bgColor, isLastChild }) => {
   return (
     <div className={`w100 flex-c flex-jc-c fs-s p10 ${!isLastChild ? ' br-r': ''}`}>
       <div className={`flex-c flex-jc-c img--30 ${bgColor} fc-black mr15`}>

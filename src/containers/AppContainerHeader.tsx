@@ -13,35 +13,17 @@ interface ContainerProps {
 
 export const AppContainerHeader: React.FC<ContainerProps> = () => {
 
-  const isOnline = useSelector((state: iRootState) => state.network.online);
-  const isLoading = useSelector((state: iRootState) => state.accounts.isValidAndLoading);
-  const isValidAndSynced = useSelector((state: iRootState) => state.accounts.isValidAndSynced);
+  const isLoading = useSelector((state: iRootState) => state.account.isValidAndLoading);
+  const isValidAndSynced = useSelector((state: iRootState) => state.account.isValidAndSynced);
 
   return (
-    <div className="w100 bgc-xxl-grey br-b h70--fixed">
-      <div className="w90 h100 m-auto flex-c">
-        <Link to={ROUTES.HOME} className="">
-          <div className=" w75--fixed" >
+    <div className="w100 bgc-xxl-grey br-b h60--fixed">
+      <div className="grid-xl h60--fixed m-auto flex-c">
+        <Link to={ROUTES.HOME} className="p0 m0">
+          <div className="p0 m0 h100 w75--fixed" >
             <Logo />
           </div>
         </Link>
-        <div className="ml25 pl25 br-l">
-          {
-            isOnline
-              ? (
-                <div className="flex-c">
-                  <div className="circle square-10 bgc-green" />
-                  <div className="ml5">connected with <span className="ffm-bold fc-black">mainnet</span></div>
-                </div>
-              )
-              : (
-                <div className="flex-c">
-                  <div className="circle square-10 bgc-red" />
-                  <div className="ml5">disconnected</div>
-                </div>
-              )
-          }
-        </div>
         {
           isLoading
           ? <AppContainerHeaderAccountLoading />

@@ -1,20 +1,20 @@
-import { RoomModel } from '../../models/room.model';
+import { TournamentModel } from '../../models/tournament.model';
 import React from 'react';
 import { message, Modal } from 'antd';
-import { joinRoom } from '../../utils/api/rooms';
+import { joinTournament } from '../../utils/api/tournaments';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
 import { fromRawLsk } from '../../utils/lsk';
 
 interface ContainerProps {
-  room: RoomModel,
+  tournament: TournamentModel,
   refresh(): void,
   setIntendsToParticipate(value: boolean): void,
   intendsToParticipate: boolean
 }
 
-export const RoomDetailsPageHeaderParticipateModal: React.FC<ContainerProps> = ({ room, refresh, intendsToParticipate, setIntendsToParticipate }) => {
-  const account = useSelector((state: iRootState) => state.accounts.account);
+export const TournamentPageHeaderParticipateModal: React.FC<ContainerProps> = ({ tournament, refresh, intendsToParticipate, setIntendsToParticipate }) => {
+  const account = useSelector((state: iRootState) => state.account.account);
 
   async function participate () {
     try {
@@ -23,8 +23,8 @@ export const RoomDetailsPageHeaderParticipateModal: React.FC<ContainerProps> = (
         message.error('You are already participating')
         return;
       }
-      await joinRoom(room.gameId, room.roomId, account.passphrase);
-      message.success('successfully joined the room')
+      await joinTournament(tournament.gameId, tournament.tournamentId, account.passphrase);
+      message.success('successfully joined the tournament')
       refresh();
     } catch (e) {
       console.error(e);
@@ -42,8 +42,8 @@ export const RoomDetailsPageHeaderParticipateModal: React.FC<ContainerProps> = (
       okText="Participate"
     >
       <div className="flex-c flex-column flex-jc-c fs-m">
-        <div className="">You are about to participate in the <span className="fc-black ffm-bold">{room.name}</span> room.</div>
-        <div>Do you agree on adding <span className="fc-black ffm-bold">{fromRawLsk(room.entryFee)} LSK</span> from your balance to the prize pool?</div>
+        <div className="">You are about to participate in the <span className="fc-black ffm-bold">{tournament.name}</span> tournament.</div>
+        <div>Do you agree on adding <span className="fc-black ffm-bold">{fromRawLsk(tournament.entryFee)} LSK</span> from your balance to the prize pool?</div>
       </div>
     </Modal>
   )

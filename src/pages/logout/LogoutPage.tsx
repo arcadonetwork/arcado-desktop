@@ -14,7 +14,7 @@ export const LogoutPage: React.FC<ContainerProps> = () => {
 
   useEffect(() => {
     async function logout() {
-      await dispatch.accounts.logout();
+      await dispatch.account.logout();
       setLoggedOut(true);
       return () => ''
     }

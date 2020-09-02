@@ -81,7 +81,7 @@ body {
 }
 
 .bgc-xl-grey {
-  background-color: #ddd;
+  background-color: #f0f0f0;
 }
 
 .bgc-xxl-grey {
@@ -227,6 +227,11 @@ body {
   border-radius: 50%;
 }
 
+.img--40 {
+  width: 40px;
+  height: 40px;
+}
+
 .img--50 {
   width: 50px;
   height: 50px;
@@ -319,6 +324,10 @@ body {
 
 .m-auto {
   margin: auto;
+}
+
+.mt-minus15 {
+  margin-top: -15px;
 }
 
 .m0 {
@@ -424,6 +433,10 @@ body {
 
 .pt10 {
   padding-top: 10px;
+}
+
+.pt35 {
+  padding-top: 35px;
 }
 
 .pt50 {
@@ -570,9 +583,10 @@ body {
 .grid-games {
   justify-content: space-between;
   display: grid;
-  grid-template-columns: 23% 23% 23% 23%;
+  grid-template-columns: 18% 18% 18% 18% 18%;
   grid-column-gap: 2%;
   grid-row-gap: 3em;
+  grid-auto-rows: 1fr
 }
 
 .click {
@@ -620,6 +634,14 @@ body {
 .br5-bottom {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+
+.br8 {
+  border-radius: 7px;
+}
+
+.br10 {
+  border-radius: 10px;
 }
 
 .br20 {
@@ -735,10 +757,26 @@ input:not(.passphrase-input) {
 }
 
 .game-image {
+  position: relative;
+
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  .game-image-logo {
+    position: absolute;
+    left: 0;
+    bottom: -20px;
+    z-index: 1000;
+  }
+
+  .game-image-content {
+    position: relative;
+    bottom: 0;
+    top: 0;
+    padding-top: 75px !important;
   }
 }
 
@@ -760,7 +798,7 @@ input:not(.passphrase-input) {
 }
 
 .shadow {
-  box-shadow: 0 1px 2px rgba(25, 25, 25, 0.2);
+  box-shadow: 0 1px 3px rgba(25, 25, 25, 0.2);
 }
 
 .shadow-light {
@@ -769,4 +807,23 @@ input:not(.passphrase-input) {
 
 .shadow__hover:hover {
   box-shadow: 0 1px 2px rgba(25, 25, 25, 0.65);
+}
+
+@keyframes fade {
+  from { opacity: 1.0; }
+  50% { opacity: 0.3; }
+  to { opacity: 1.0; }
+}
+
+@-webkit-keyframes fade {
+  from { opacity: 1.0; }
+  50% { opacity: 0.3; }
+  to { opacity: 1.0; }
+}
+
+.balance-updated {
+  border: 1px solid @primary-color-xl;
+  background-color: #fff8ea;
+  animation:fade 1000ms infinite;
+  -webkit-animation:fade 1000ms infinite;
 }

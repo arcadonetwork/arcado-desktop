@@ -11,7 +11,7 @@ interface ContainerProps {
 }
 
 export const ProtectedRoute = ({ component: Component, exact, path,  ...rest } : ContainerProps) => {
-  const isValidAndSynced = useSelector((state: iRootState) => state.accounts.isValidAndSynced);
+  const isValidAndSynced = useSelector((state: iRootState) => state.account.isValidAndSynced);
   return (
     <Route {...rest} render={
       props => {

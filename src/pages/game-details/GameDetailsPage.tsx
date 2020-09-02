@@ -5,7 +5,7 @@ import { message } from 'antd';
 import { Loading } from '../../components/Loading';
 import { RouteComponentProps } from 'react-router';
 import { GameDetailsPageHeader } from './GameDetailsPageHeader';
-import { GameDetailsPageRooms } from './GameDetailsPageRooms';
+import { GameDetailsPageTournaments } from './GameDetailsPageTournaments';
 
 interface MatchParams {
   gameId: string;
@@ -56,8 +56,10 @@ export const GameDetailsPage: React.FC<ContainerProps> = ({ match }) => {
         setPage={setPage}
         menu={menu}
       />
-      <div className="grid mt50">
-        <GameDetailsPageRooms game={game} />
+      <div className="grid-xl mt50">
+        <GameDetailsPageTournaments
+          game={game}
+        />
       </div>
     </div>
   )

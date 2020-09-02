@@ -9,8 +9,8 @@ interface ContainerProps {
 
 export const AppContainerHeaderAccountSynced: React.FC<ContainerProps> = () => {
 
-  const account = useSelector((state: iRootState) => state.accounts.account);
-  const isFundingAccount = useSelector((state: iRootState) => state.accounts.isFundingAccount);
+  const account = useSelector((state: iRootState) => state.account.account);
+  const isFundingAccount = useSelector((state: iRootState) => state.account.isFundingAccount);
   const dispatch = useDispatch<Dispatch>();
 
   return (
@@ -25,16 +25,18 @@ export const AppContainerHeaderAccountSynced: React.FC<ContainerProps> = () => {
           )
         : (
           <>
-            <div onClick={() => dispatch.accounts.addFunds(account.address)} className="click fc-blue fs-s mr25 ffm-bold">
+            <div onClick={() => dispatch.account.addFunds(account.address)} className="click fc-blue fs-s mr25 ffm-bold">
               Add funds
             </div>
-            <div onClick={() => dispatch.accounts.addFunds(account.address)} className="click fc-blue fs-s mr25 ffm-bold">
+            <div onClick={() => dispatch.account.addFunds(account.address)} className="click fc-blue fs-s mr25 ffm-bold">
               Create Game
             </div>
           </>
           )
       }
-      <AppContainerHeaderAuthenticatedAccount />
+      <AppContainerHeaderAuthenticatedAccount
+        account={account}
+      />
     </div>
   )
 }

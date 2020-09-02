@@ -1,7 +1,7 @@
 import { TransactionModel } from './transaction.model';
 
 export type BlockModel = {
-  height: string;
+  height: number;
   version: number;
   totalAmount: string;
   totalFee: string;

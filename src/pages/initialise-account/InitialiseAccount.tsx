@@ -25,7 +25,7 @@ const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
   async function onSubmit (data: UserData) {
     try {
       const result = await createAccount();
-      await dispatch.accounts.setAccount(result)
+      await dispatch.account.setAccount(result)
       history.push(ROUTES.ACCOUNT_VERIFICATION)
     } catch (e) {
       console.error(e);

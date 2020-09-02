@@ -1,30 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { getRooms } from '../../utils/api/rooms';
+import { getTournaments } from '../../utils/api/tournaments';
 import { message } from 'antd';
 import { GameModel } from '../../models/game.model';
 import { Loading } from '../../components/Loading';
-import { GameDetailsPageRoomsItem } from './GameDetailsPageRoomsItem';
+import { GameDetailsPageTournamentsItem } from './GameDetailsPageTournamentsItem';
 import { isArrayWithElements } from '../../utils/type-checking';
-import { RoomModel } from '../../models/room.model';
+import { TournamentModel } from '../../models/tournament.model';
 
 
 interface ContainerProps {
   game: GameModel
 }
 
-export const GameDetailsPageRooms: React.FC<ContainerProps> = ({ game }) => {
-  const [rooms, setRooms] = useState<RoomModel[]>([]);
+export const GameDetailsPageTournaments: React.FC<ContainerProps> = ({ game }) => {
+  const [tournaments, setTournaments] = useState<TournamentModel[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect( () => {
     async function fetchData() {
       try {
-        const rooms = await getRooms(game.id);
-        //const rooms = data.map((item: any) => item.asset);
-        setRooms(rooms);
+        const tournaments = await getTournaments(game.id);
+        setTournaments(tournaments);
         setLoading(false);
       } catch (e) {
-        message.error('can not load rooms')
+        message.error('can not load tournaments')
         setLoading(false);
       }
     }
@@ -45,19 +44,19 @@ export const GameDetailsPageRooms: React.FC<ContainerProps> = ({ game }) => {
       </div>
       <div className="bgc-white br br5">
         {
-          isArrayWithElements(rooms)
-          ? rooms.map(
-            (room, index) =>
-              <GameDetailsPageRoomsItem
-                key={room.roomId}
+          isArrayWithElements(tournaments)
+          ? tournaments.map(
+            (tournament, index) =>
+              <GameDetailsPageTournamentsItem
+                key={tournament.tournamentId}
                 gameId={game.id}
-                room={room}
-                isLastChild={index === rooms.length - 1}
+                tournament={tournament}
+                isLastChild={index === tournaments.length - 1}
               />
           )
             : (
               <div className="p15-25 flex-c br5 bgc-xxl-grey fs-s">
-                There are no rooms created for this game
+                There are no tournaments created for this game
               </div>
             )
         }

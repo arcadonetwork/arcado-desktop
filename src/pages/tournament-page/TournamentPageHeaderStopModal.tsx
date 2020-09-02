@@ -1,20 +1,20 @@
-import { RoomModel } from '../../models/room.model';
+import { TournamentModel } from '../../models/tournament.model';
 import React, { useEffect, useState } from 'react';
 import { message, Modal } from 'antd';
-import { stopRoom } from '../../utils/api/rooms';
+import { stopTournament } from '../../utils/api/tournaments';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
 import { SelectInputField } from '../../components/SelectInputField';
 
 interface ContainerProps {
-  room: RoomModel,
+  tournament: TournamentModel,
   refresh(): void,
   setIntendsToStop(value: boolean): void,
   intendsToStop: boolean
 }
 
-export const RoomDetailsPageHeaderStopModal: React.FC<ContainerProps> = ({ room, refresh, intendsToStop, setIntendsToStop }) => {
-  const account = useSelector((state: iRootState) => state.accounts.account);
+export const TournamentPageHeaderStopModal: React.FC<ContainerProps> = ({ tournament, refresh, intendsToStop, setIntendsToStop }) => {
+  const account = useSelector((state: iRootState) => state.account.account);
   const [first, setFirstPlace] = useState<string>('');
   const [second, setSecondPlace] = useState<string>('');
   const [third, setThirdPlace] = useState<string>('');
@@ -28,15 +28,12 @@ export const RoomDetailsPageHeaderStopModal: React.FC<ContainerProps> = ({ room,
 
   async function stop () {
     try {
-      await stopRoom(room.gameId, room.roomId, {
-        address: account.address,
-        roomId: room.roomId,
+      await stopTournament(tournament.gameId, tournament.tournamentId, {
         first,
         second,
-        third,
-        passphrase: account.address
-      });
-      message.success('successfully joined the room')
+        third
+      }, account.passphrase);
+      message.success('successfully joined the tournament')
       refresh();
     } catch (e) {
       console.error(e);
@@ -54,7 +51,7 @@ export const RoomDetailsPageHeaderStopModal: React.FC<ContainerProps> = ({ room,
       okText="End"
     >
       <div className="flex-c flex-column flex-jc-c fs-m">
-        <div className="mb25">You are about to stop the game for <span className="fc-black ffm-bold">{room.name}</span>.</div>
+        <div className="mb25">You are about to stop the game for <span className="fc-black ffm-bold">{tournament.name}</span>.</div>
         <div className="w100 mb15">
           <SelectInputField
             label="First place"

@@ -36,6 +36,7 @@
     "@types/socket.io-client": "^1.4.33",
     "antd": "3.19.8",
     "bignumber.js": "^9.0.0",
+    "connected-react-router": "^6.8.0",
     "craco-less": "^1.16.0",
     "lisk-elements": "^2.4.3",
     "lodash": "^4.17.19",
@@ -51,7 +52,7 @@
     "react-redux": "7.2.0",
     "react-router": "5.2.0",
     "react-router-dom": "5.2.0",
-    "socket.io-client": "2.2.0"
+    "socket.io-client": "2.3.0"
   },
   "scripts": {
     "start": "PORT=3001 craco start",

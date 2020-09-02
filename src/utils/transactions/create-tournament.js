@@ -1,9 +1,9 @@
 import { BaseTransaction, TransactionError, utils } from '@liskhq/lisk-transactions';
 
 /**
- * Create new room with details
+ * Create new tournament with details
  */
-export class CreateRoomTransaction extends BaseTransaction {
+export class CreateTournamentTransaction extends BaseTransaction {
 
     static get TYPE () {
         return 30;
@@ -45,17 +45,17 @@ export class CreateRoomTransaction extends BaseTransaction {
         const errors = [];
         const genesis = store.account.get("11237980039345381032L");
         let asset = {
-            games: [],
+            tournaments: [],
             ...genesis.asset
         }
 
-        asset.games.push({
+        asset.tournaments.push({
             createdBy: this.asset.address,
             name: this.asset.name,
-            roomId: this.asset.roomId,
+            tournamentId: this.asset.tournamentId,
             gameId: this.asset.gameId,
             entryFee: this.asset.entryFee, // string
-            participants: [this.asset.address],
+            participants: [],
             distribution: this.asset.distribution,
             maxPlayers: this.asset.maxPlayers,
             status: 0 // 0 open to join, 1 started, 2 ended
@@ -88,12 +88,12 @@ export class CreateRoomTransaction extends BaseTransaction {
         const errors = [];
         const genesis = store.account.get("11237980039345381032L");
 
-        const gameIndex = genesis.asset.games.findIndex(game => game.roomId === this.asset.roomId)
+        const gameIndex = genesis.asset.tournaments.findIndex(game => game.tournamentId === this.asset.tournamentId)
 
         let asset = {
             ...genesis.asset
         }
-        asset.games.splice(gameIndex, 1)
+        asset.tournaments.splice(gameIndex, 1)
         const updatedGenesis = {
             ...genesis,
             asset

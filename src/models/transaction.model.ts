@@ -1,5 +1,5 @@
 import { AssetModel } from './asset.model';
-import { RoomModel } from './room.model';
+import { TournamentModel } from './tournament.model';
 import { GameModel } from './game.model';
 
 export type TransactionModel = {
@@ -11,5 +11,5 @@ export type TransactionModel = {
   senderPublicKey: string;
   senderId: string;
   signature: string;
-  asset: AssetModel|RoomModel|GameModel;
+  asset: AssetModel|TournamentModel|GameModel;
 }

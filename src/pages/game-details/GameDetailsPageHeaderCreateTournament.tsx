@@ -6,12 +6,11 @@ import { NumberInputField } from 'src/components/NumberInputField';
 import { message } from 'antd';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { useForm } from 'react-hook-form';
-import { createRoom } from '../../utils/api/rooms';
+import { createTournament } from '../../utils/api/tournaments';
 import { iRootState } from '../../store/store';
 import { useSelector } from 'react-redux';
-import { getGameRoomItemRoute } from '../../utils/router/Router';
 import { toRawLsk } from '../../utils/lsk';
-import { RoomModel } from '../../models/room.model';
+import { TournamentModel } from '../../models/tournament.model';
 import { generateUUID } from '../../utils/uuid';
 
 type DistributionData = {
@@ -20,7 +19,7 @@ type DistributionData = {
   third: number;
 }
 
-type RoomData = {
+type TournamentData = {
   id: string;
   name: string;
   maxPlayers: number;
@@ -30,25 +29,25 @@ type RoomData = {
 
 interface ContainerProps extends RouteComponentProps {
   game: GameModel,
-  setIsCreatingRoom(val: boolean): any,
-  isCreatingRoom: boolean
+  setIsCreatingTournament(val: boolean): any,
+  isCreatingTournament: boolean
 }
 
-const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ game, isCreatingRoom, setIsCreatingRoom, history }) => {
+const GameDetailsPageHeaderCreateTournamentComponent: React.FC<ContainerProps> = ({ game, isCreatingTournament, setIsCreatingTournament, history }) => {
   const {
     register,
     handleSubmit,
     errors
-  } = useForm<RoomData>()
+  } = useForm<TournamentData>()
   const [distributionError, setDistributionError] = useState<string>(undefined);
-  const account = useSelector((state: iRootState) => state.accounts.account);
+  const account = useSelector((state: iRootState) => state.account.account);
 
-  if (!isCreatingRoom) {
+  if (!isCreatingTournament) {
     return <></>;
   }
 
-  async function createOnClick (roomData: RoomData) {
-    let { first, second, third } = roomData.distribution;
+  async function createOnClick (tournamentData: TournamentData) {
+    let { first, second, third } = tournamentData.distribution;
     [first, second, third] = [first, second, third].map(Number);
     if ((first + second + third) !== 100) {
       setDistributionError('Prize Distribution is not equal to 100')
@@ -57,30 +56,31 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
       setDistributionError(undefined)
     }
     try {
-      const roomId = generateUUID();
-      roomData.entryFee = toRawLsk(roomData.entryFee);
-      const body: RoomModel = {
-        ...roomData,
+      const tournamentId = generateUUID();
+      tournamentData.entryFee = toRawLsk(tournamentData.entryFee);
+      const body: TournamentModel = {
+        ...tournamentData,
         gameId: game.id,
-        roomId
+        tournamentId
       };
 
-      await createRoom(game.id, body, account.passphrase);
-      const uri = getGameRoomItemRoute(game.id, roomId);
-      message.success('new room created');
-      history.push(uri);
+      await createTournament(game.id, body, account.passphrase);
+      //const uri = getGameTournamentItemRoute(game.id, tournamentId);
+      message.success('new tournament created');
+      //history.push(uri);
+      setIsCreatingTournament(false);
     } catch (e) {
       console.error(e);
       message.error('something went wrong');
-      setIsCreatingRoom(false)
+      setIsCreatingTournament(false)
     }
   }
 
   return (
     <Modal
-      visible={isCreatingRoom}
-      onCancel={() => setIsCreatingRoom(false)}
-      title={`${game.name} - Create room`}
+      visible={isCreatingTournament}
+      onCancel={() => setIsCreatingTournament(false)}
+      title={`${game.name} - Create tournament`}
       onOk={handleSubmit(createOnClick)}
     >
       <div className="mb15">
@@ -212,4 +212,4 @@ const GameDetailsPageHeaderCreateRoomComponent: React.FC<ContainerProps> = ({ ga
   )
 }
 
-export const GameDetailsPageHeaderCreateRoom = withRouter(GameDetailsPageHeaderCreateRoomComponent);
+export const GameDetailsPageHeaderCreateTournament = withRouter(GameDetailsPageHeaderCreateTournamentComponent);

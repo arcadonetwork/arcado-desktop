@@ -1,37 +1,33 @@
 import React, { useState } from 'react';
-import { RoomModel } from '../../models/room.model';
+import { TournamentModel } from '../../models/tournament.model';
 import { Button, message } from 'antd';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
-import { startRoom } from '../../utils/api/rooms';
-import { RoomDetailsPageHeaderParticipateModal } from './RoomDetailsPageHeaderParticipateModal';
-import { RoomDetailsPageHeaderStopModal } from './RoomDetailsPageHeaderStopModal';
+import { startTournament } from '../../utils/api/tournaments';
+import { TournamentPageHeaderParticipateModal } from './TournamentPageHeaderParticipateModal';
+import { TournamentPageHeaderStopModal } from './TournamentPageHeaderStopModal';
+import { ParticipantModel } from '../../models/participant.model';
 
 interface ContainerProps {
-  room: RoomModel,
-  refresh(): void
+  tournament: TournamentModel,
+  refresh(): void,
+  players: ParticipantModel[]
 }
 
-export const RoomDetailsPageHeaderActions: React.FC<ContainerProps> = ({ room, refresh }) => {
+export const TournamentPageHeaderActions: React.FC<ContainerProps> = ({ tournament, refresh, players }) => {
 
-  const account = useSelector((state: iRootState) => state.accounts.account);
+  const account = useSelector((state: iRootState) => state.account.account);
   const [intendsToParticipate, setIntendsToParticipate] = useState<boolean>(false);
   const [intendsToStop, setIntendsToStop] = useState<boolean>(false);
 
-  const addresses: string[] = []
-
   async function start () {
-    if (addresses.length !== Number(room.maxPlayers)) {
-      message.error('The room isn\'t full');
+    if (players.length !== Number(tournament.maxPlayers)) {
+      message.error('The tournament isn\'t full');
       return;
     }
     try {
-      await startRoom(room.gameId, room.roomId, {
-        address: account.address,
-        roomId: room.roomId,
-        passphrase: account.passphrase
-      });
-      message.success('successfully started the room')
+      await startTournament(tournament.gameId, tournament.tournamentId, account.passphrase);
+      message.success('successfully started the tournament')
       refresh();
     } catch (e) {
       console.error(e);
@@ -41,12 +37,12 @@ export const RoomDetailsPageHeaderActions: React.FC<ContainerProps> = ({ room, r
 
   let actions = [];
 
-  if (room.status === 2) {
+  if (tournament.status === 2) {
     actions.push(<div>
       game is finished
     </div>)
-  } else if (room.createdBy === account.address) {
-    if (room.status === 1) {
+  } else if (tournament.createdBy === account.address) {
+    if (tournament.status === 1) {
       actions.push(
         <div className="flex-fs">
           <Button
@@ -72,18 +68,18 @@ export const RoomDetailsPageHeaderActions: React.FC<ContainerProps> = ({ room, r
       )
     }
   } else {
-    const hasJoined = !!(addresses.find(item => item === account.address))
-    if (hasJoined || Number(room.maxPlayers) === addresses.length) {
+    const hasJoined = !!(players.find(item => item.address === account.address))
+    if (hasJoined || Number(tournament.maxPlayers) === players.length) {
       actions.push(
         <Button
           disabled
           className="h45--fixed"
           type="primary"
         >
-          The room owner will start very soon
+          The tournament owner will start very soon
         </Button>
       )
-    } else if (room.status === 1) {
+    } else if (tournament.status === 1) {
       actions.push(
         <Button
           disabled
@@ -113,14 +109,14 @@ export const RoomDetailsPageHeaderActions: React.FC<ContainerProps> = ({ room, r
           actions
         }
       </div>
-      <RoomDetailsPageHeaderParticipateModal
-        room={room}
+      <TournamentPageHeaderParticipateModal
+        tournament={tournament}
         refresh={refresh}
         intendsToParticipate={intendsToParticipate}
         setIntendsToParticipate={setIntendsToParticipate}
       />
-      <RoomDetailsPageHeaderStopModal
-        room={room}
+      <TournamentPageHeaderStopModal
+        tournament={tournament}
         refresh={refresh}
         intendsToStop={intendsToStop}
         setIntendsToStop={setIntendsToStop}

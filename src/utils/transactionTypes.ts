@@ -1,3 +1,3 @@
 export const TRANSACTION_TYPES = {
-  room: 31
+  tournament: 31
 }
