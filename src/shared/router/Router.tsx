@@ -7,7 +7,6 @@ import { GameDetailsPage } from '../../pages/game-details/GameDetailsPage'
 import { AccountDetails } from '../../pages/account-details/AccountDetails'
 import { TournamentPage } from '../../pages/tournament-page/TournamentPage'
 import { ProtectedRoute } from './ProtectedRoute';
-import { InitialiseAccountVerification } from '../../pages/initialise-account/InitialiseAccountVerification';
 import InitialiseAccount from '../../pages/initialise-account/InitialiseAccount';
 import { LogoutPage } from '../../pages/logout/LogoutPage';
 import { TransactionDetails } from '../../pages/transaction-details/TransactionDetails';
@@ -19,7 +18,6 @@ export const ROUTES = {
   LOGOUT: '/logout',
   TOURNAMENT_PAGE: '/:gameId/tournaments/:tournamentId',
   ACCOUNT_DETAILS: '/address/:address',
-  ACCOUNT_VERIFICATION: '/account-verification',
   INITIALISE: '/initialise',
   TRANSACTION_DETAILS: '/tx/:txId'
 };
@@ -83,12 +81,6 @@ export default () => {
         exact
         path={ROUTES.ACCOUNT_DETAILS}
         component={AccountDetails}
-      />
-
-      <ProtectedRoute
-        exact
-        path={ROUTES.ACCOUNT_VERIFICATION}
-        component={InitialiseAccountVerification}
       />
 
       <ProtectedRoute

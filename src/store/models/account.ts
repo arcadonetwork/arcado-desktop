@@ -35,6 +35,7 @@ export const account = {
   state: initialState,
   reducers: {
     setAccountState: (state: SessionState, payload: AccountModel) => {
+      console.log(payload);
       return {
         ...state,
         account: payload,
@@ -91,6 +92,7 @@ export const account = {
         });
     },
     setAccount (account: AccountModel) {
+      console.log('setAccount', account);
       dispatch.account.setAccountState(account);
     },
     logout () {

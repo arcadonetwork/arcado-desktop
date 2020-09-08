@@ -1,55 +1,66 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
-import { History } from 'history';
 import Checkbox from 'antd/es/checkbox';
-import { ROUTES } from '../../shared/router/Router';
-import { RouteComponentProps } from 'react-router';
-import { useSelector } from 'react-redux';
-import { iRootState } from '../../store/store';
+import { AccountModel } from '../../models/account.model';
+import { CustomIcon } from '../../components/custom-icon/CustomIcon';
 
-interface ContainerProps extends RouteComponentProps {
-  history : History
+interface ContainerProps {
+  confirmAccount(): void,
+  selectedAccount: AccountModel
 }
 
-export const InitialiseAccountVerification: React.FC<ContainerProps> = ({ history }: ContainerProps) => {
+export const InitialiseAccountVerification: React.FC<ContainerProps> = ({ confirmAccount, selectedAccount }) => {
 
   const [hasSavedPassphrase, setHasSavedPassphrase] = useState<boolean>(false);
-  const account = useSelector((state: iRootState) => state.account.account);
-
-  async function saveAccount() {
-    history.push(ROUTES.HOME)
-  }
 
   return (
-    <div className="w50 m-auto flex-c flex-column mt75">
-      <p className="txt-ac">Thank you for registering. The following passphrase is now associated with your
-        email. <span className="ffm-bold fc-black">Please, write down the passhrase.</span></p>
+    <div className="w40 m-auto flex-c flex-column mt75">
 
-      <div className="w100 mt25 mb25 p50 bgc-white br br-c-primary">
-        <div className="w100 mb15">
-          <div className="fs-n ffm-bold">Public Key</div>
-          <div className="fc-black">{account.publicKey}</div>
-        </div>
-        <div className="pb15 br-b mb15">
-          <div className="fs-n ffm-bold">Address</div>
-          <div className="fc-black">{account.address}</div>
-        </div>
-        <div className="">
-          <div className="fs-n ffm-bold">Passphrase</div>
-          <div className="fc-black fs-m">{account.passphrase}</div>
-        </div>
+      <div className="w100 mb25 br-b pb25 flex-fs flex-jc-c flex-column">
+        <h1 className="fs-xl ffm-bold p0 m0 mb5">Almost There!</h1>
+        <h2 className="fs-n fc-grey p0 m0">It is of the utmost importance that you read following paragraph.</h2>
       </div>
 
-      <div className="mb25">
-        <Checkbox value={hasSavedPassphrase} onChange={() => setHasSavedPassphrase(!hasSavedPassphrase)}>I have written
-          down the passphrase</Checkbox>
+      <div className="flex-fs flex-column w100">
+        <div className="flex-c mb5 fc-red ffm-bold">
+          <div className="mr10">
+            <CustomIcon type="warning" />
+          </div>
+          <span>WARNING!</span>
+        </div>
+        <p className="">The <span className="ffm-bold fc-black">Passphrase</span> given at the bottom is the only possible way to access your account. <span className="ffm-bold fc-black">You are the only one who can access the account.</span> Nobody will ever be able to retrieve credentials if you would loose the set given credentials.</p>
+      </div>
+
+      <div className="w100 mt15">
+        <div className="fs-m fc-black ffm-bold">Passphrase</div>
+        <div className="fc-grey mb15">Write down these 12 words and store them in a safe place.</div>
+        <div className="w100 grid-col6 p15-25 br br-c-primary">
+          {selectedAccount.passphrase.split(" ").map((item, idx) => (
+            <div className="flex-c w100">
+              <div className="mr5 fc-lgrey noselect">{idx + 1}.</div>
+              <div className="fs-m fc-black">{item}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="w100 mt15 flex-c flex-jc-fe" >
+        <Button className="" disabled>
+          Copy passphrase
+        </Button>
+        <Button className="ml15" disabled>
+          Download JSON
+        </Button>
+      </div>
+
+      <div className="w100 mb25 mt50 pt25 br-t">
+        <Checkbox value={hasSavedPassphrase} onChange={() => setHasSavedPassphrase(!hasSavedPassphrase)}>My passphrase is secure</Checkbox>
       </div>
       <Button
         disabled={!hasSavedPassphrase}
-        onClick={() => saveAccount()}
-        className="w175--fixed h45--fixed"
+        onClick={() => confirmAccount()}
+        className="w100 h45--fixed"
         type="primary">
-        Start exploring
+        Enter the Arcado ecosystem
       </Button>
     </div>
   )
