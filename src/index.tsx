@@ -8,8 +8,8 @@ import { Provider } from 'react-redux';
 import { store, history } from './store/store';
 
 import { AppContainer } from './containers/AppContainer';
-import AppRoutes from './utils/router/Router';
-import WebSocketProvider from './utils/websocket-context/WebSocketContext';
+import AppRoutes from './shared/router/Router';
+import WebSocketProvider from './providers/WebSocketProvider';
 import { ConnectedRouter } from 'connected-react-router';
 
 ReactDOM.render(

@@ -1,20 +1,18 @@
 import React, { createContext } from 'react'
 import io from 'socket.io-client';
 import { useDispatch } from 'react-redux';
-import { Dispatch } from '../../store/store';
-import { BlockModel } from '../../models/block.model';
+import { Dispatch } from '../store/store';
+import { BlockModel } from '../models/block.model';
 
-const WebSocketContext = createContext(null)
+const WebSocketProvider = createContext(null)
 
-export { WebSocketContext }
+export { WebSocketProvider }
 
 export default ({ children }: { children: any }) => {
   let socket;
   let ws;
 
   const dispatch = useDispatch<Dispatch>();
-
-  console.log('WebSocketContext');
 
   if (!socket) {
     socket = io(`http://localhost:4000`, { transports: ['websocket'] })
@@ -43,8 +41,8 @@ export default ({ children }: { children: any }) => {
   }
 
   return (
-    <WebSocketContext.Provider value={ws}>
+    <WebSocketProvider.Provider value={ws}>
       {children}
-    </WebSocketContext.Provider>
+    </WebSocketProvider.Provider>
   )
 }

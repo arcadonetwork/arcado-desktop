@@ -2,7 +2,7 @@ import { RouteComponentProps } from 'react-router';
 import React, { useEffect, useState } from 'react';
 import { TransactionDetailsPropertyItem } from './TransactionDetailsPropertyItem';
 import { Loading } from '../../components/Loading';
-import { getTransactionById } from '../../utils/api/transactions';
+import { getTransactionById } from '../../shared/api/transactions';
 import { getFormattedNumber } from '../../utils/numbers';
 import { TransactionModel } from '../../models/transaction.model';
 import { getFormattedDate } from '../../utils/dates';

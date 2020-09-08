@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { History } from 'history';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../utils/router/Router';
+import { ROUTES } from '../../shared/router/Router';
 import { Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, iRootState } from '../../store/store';

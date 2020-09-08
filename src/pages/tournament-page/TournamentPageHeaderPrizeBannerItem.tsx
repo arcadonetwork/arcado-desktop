@@ -4,13 +4,12 @@ import { Icon } from 'antd';
 interface ContainerProps {
   label: string,
   value: number,
-  bgColor: string,
-  isLastChild: boolean
+  bgColor: string
 }
 
-export const TournamentPagePrizeDistributionItem: React.FC<ContainerProps> = ({ label, value, bgColor, isLastChild }) => {
+export const TournamentPageHeaderPrizeBannerItem: React.FC<ContainerProps> = ({ label, value, bgColor }) => {
   return (
-    <div className={`w100 flex-c flex-jc-c fs-s p10 ${!isLastChild ? ' br-r': ''}`}>
+    <div className="w100 flex-c fs-s">
       <div className={`flex-c flex-jc-c img--30 ${bgColor} fc-black mr15`}>
         <Icon type="trophy" />
       </div>

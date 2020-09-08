@@ -1,16 +1,19 @@
 import { NETWORK_BASE_URI, EXTENDED_NETWORK_BASE_URI, request } from './request';
-import { isArrayWithElements } from '../type-checking';
+import { isArrayWithElements } from '../../utils/type-checking';
 import { TransactionModel } from '../../models/transaction.model';
 import { TournamentModel } from '../../models/tournament.model';
-import { CreateTournamentTransaction } from '../transactions/create-tournament';
 import { getAddressAndPublicKeyFromPassphrase } from '@liskhq/lisk-cryptography';
 import { config } from '../../config';
 import { APIClient } from 'lisk-elements';
-import { JoinTournamentTransaction } from '../transactions/join-tournament';
-import { utils } from '@liskhq/lisk-transactions';
-import { StartTournamentTransaction } from '../transactions/start-tournament';
-import { StopTournamentTransaction } from '../transactions/stop-tournament';
 import { ParticipantModel } from '../../models/participant.model';
+import { createNetworkTs } from '../../utils/dates';
+import {
+  CreateTournamentTransaction,
+  JoinTournamentTransaction,
+  StartTournamentTransaction,
+  StopTournamentTransaction, utils } from '@arcado/arcado-transactions';
+
+const { TRANSACTION_TYPES } = utils;
 
 const api = new APIClient([NETWORK_BASE_URI]);
 
@@ -24,17 +27,17 @@ export const createTournament = async (gameId: string, tournament: TournamentMod
       gameId: tournament.gameId,
       entryFee: tournament.entryFee,
       distribution: {
-        first: 50,
-        second: 30,
-        third: 20
+        first: Number(tournament.distribution.first),
+        second: Number(tournament.distribution.second),
+        third: Number(tournament.distribution.third)
       },
       maxPlayers: tournament.maxPlayers,
-      address: address,
+      createdBy: address,
       recipientId: address
     },
     senderPublicKey: publicKey,
     networkIdentifier: config.NETWORK_IDENTIFIER,
-    timestamp: utils.getTimeFromBlockchainEpoch(Number(new Date()) - 10000)
+    timestamp: createNetworkTs()
   });
 
   tx.sign(passphrase);
@@ -52,7 +55,7 @@ export const joinTournament = async (gameId: string, tournamentId: string, passp
     },
     senderPublicKey: publicKey,
     networkIdentifier: config.NETWORK_IDENTIFIER,
-    timestamp: utils.getTimeFromBlockchainEpoch(Number(new Date()) - 10000)
+    timestamp: createNetworkTs()
   });
   tx.sign(passphrase);
   return api.transactions.broadcast(tx.toJSON());
@@ -68,7 +71,7 @@ export const startTournament = async (gameId: string, tournamentId: string, pass
     },
     senderPublicKey: publicKey,
     networkIdentifier: config.NETWORK_IDENTIFIER,
-    timestamp: utils.getTimeFromBlockchainEpoch(Number(new Date()) - 10000)
+    timestamp: createNetworkTs()
   });
 
   tx.sign(passphrase);
@@ -89,7 +92,7 @@ export const stopTournament = async (gameId: string, tournamentId: string,  tour
     },
     senderPublicKey: publicKey,
     networkIdentifier: config.NETWORK_IDENTIFIER,
-    timestamp: utils.getTimeFromBlockchainEpoch(Number(new Date()) - 10000)
+    timestamp: createNetworkTs()
   });
 
   tx.sign(passphrase);
@@ -99,7 +102,7 @@ export const stopTournament = async (gameId: string, tournamentId: string,  tour
 
 export const getTournaments = async (gameId: string) => {
   const { data } = await request({
-    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=gameId&contains=${gameId}&type=30`,
+    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=gameId&contains=${gameId}&type=${TRANSACTION_TYPES.TOURNAMENTS}`,
     method: 'GET'
   });
   if (isArrayWithElements(data)) {
@@ -109,7 +112,7 @@ export const getTournaments = async (gameId: string) => {
 
 export const getTournament = async (tournamentId: string) => {
   const { data } = await request({
-    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=tournamentId&contains=${tournamentId}`,
+    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=tournamentId&contains=${tournamentId}&type=${TRANSACTION_TYPES.TOURNAMENTS}`,
     method: 'GET'
   });
   if (isArrayWithElements(data)) {
@@ -119,9 +122,29 @@ export const getTournament = async (tournamentId: string) => {
   return undefined;
 };
 
-export const getPlayers = async (tournamentId: string) => {
+export const getTournamentState = async (tournament: TournamentModel, address: string) => {
+  const tournamentId = tournament.tournamentId;
+  const { data: endGame } = await request({
+    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=tournamentId&contains=${tournamentId}&type=${TRANSACTION_TYPES.STOP_TOURNAMENT}`,
+    method: 'GET'
+  });
+  if (isArrayWithElements(endGame)) return { type: 4, endResult: endGame[0].asset }; // FINISHED
+
+  const { data: startGame } = await request({
+    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=tournamentId&contains=${tournamentId}&type=${TRANSACTION_TYPES.START_TOURNAMENT}`,
+    method: 'GET'
+  });
+  if (isArrayWithElements(startGame)) return { type: 3 }; // STARTED
+
+  const participants = await getParticipants(tournamentId);
+  if (isArrayWithElements(participants) && participants.length === Number(tournament.maxPlayers)) return { type: 2 }; // CAN START
+  if (isArrayWithElements(participants) && participants.map((item: ParticipantModel) => item.address).includes(address)) return { type: 1 }; // ALREADY JOINED
+  return { type: 0 }; // CAN JOIN
+};
+
+export const getParticipants = async (tournamentId: string) => {
   const { data } = await request({
-    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=tournamentId&contains=${tournamentId}&type=31`,
+    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=tournamentId&contains=${tournamentId}&type=${TRANSACTION_TYPES.JOIN_TOURNAMENT}`,
     method: 'GET'
   });
   if (isArrayWithElements(data)) {

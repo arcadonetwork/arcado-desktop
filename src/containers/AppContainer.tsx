@@ -10,7 +10,7 @@ export const AppContainer: React.FC<ContainerProps> = ({ children }) => (
   <>
     <AppContainerHeader />
     <AppContainerSecondary />
-    <div className="w100 vh100minus60">
+    <div className="w100">
       {children}
     </div>
   </>

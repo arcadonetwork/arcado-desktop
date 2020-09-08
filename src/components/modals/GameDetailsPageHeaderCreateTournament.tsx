@@ -6,7 +6,7 @@ import { NumberInputField } from 'src/components/NumberInputField';
 import { message } from 'antd';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { useForm } from 'react-hook-form';
-import { createTournament } from '../../utils/api/tournaments';
+import { createTournament } from '../../shared/api/tournaments';
 import { iRootState } from '../../store/store';
 import { useSelector } from 'react-redux';
 import { toRawLsk } from '../../utils/lsk';
@@ -60,14 +60,12 @@ const GameDetailsPageHeaderCreateTournamentComponent: React.FC<ContainerProps> =
       tournamentData.entryFee = toRawLsk(tournamentData.entryFee);
       const body: TournamentModel = {
         ...tournamentData,
-        gameId: game.id,
+        gameId: game.gameId,
         tournamentId
       };
 
-      await createTournament(game.id, body, account.passphrase);
-      //const uri = getGameTournamentItemRoute(game.id, tournamentId);
+      await createTournament(game.gameId, body, account.passphrase);
       message.success('new tournament created');
-      //history.push(uri);
       setIsCreatingTournament(false);
     } catch (e) {
       console.error(e);

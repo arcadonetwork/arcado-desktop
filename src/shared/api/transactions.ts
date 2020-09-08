@@ -1,6 +1,6 @@
 import { EXTENDED_NETWORK_BASE_URI, NETWORK_BASE_URI, request } from './request';
-import { fromRawLsk } from '../lsk';
-import { isArrayWithElements } from '../type-checking';
+import { fromRawLsk } from '../../utils/lsk';
+import { isArrayWithElements } from '../../utils/type-checking';
 import { TransactionModel } from '../../models/transaction.model';
 import { AssetModel } from '../../models/asset.model';
 

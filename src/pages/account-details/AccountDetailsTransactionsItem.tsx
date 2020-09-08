@@ -1,7 +1,7 @@
 import React from 'react';
 import { TransactionModel } from '../../models/transaction.model';
 import { Link } from 'react-router-dom';
-import { getAccountDetailsRoute, getTransactionDetailsRoute } from '../../utils/router/Router';
+import { getAccountDetailsRoute, getTransactionDetailsRoute } from '../../shared/router/Router';
 import { getFormattedNumber } from '../../utils/numbers';
 import { getFormattedDate } from '../../utils/dates';
 import { AssetModel } from '../../models/asset.model';

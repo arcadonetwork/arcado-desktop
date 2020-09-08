@@ -1,11 +1,11 @@
 import { AccountModel }  from '../../models/account.model';
 import { Dispatch } from '../store';
-import { getAccount, addFundsToAccount } from '../../utils/api/accounts';
+import { getAccount, addFundsToAccount } from '../../shared/api/accounts';
 import { isArrayWithElements, isObjectWithFields } from '../../utils/type-checking';
 import { TransactionModel } from '../../models/transaction.model';
 import { AssetModel } from '../../models/asset.model';
 
-const initialState: SessionState = {
+/*const initialState: SessionState = {
   account: {
     address: "813630206057921731L",
     passphrase: "decade draw witness sadness suit junk theory trophy perfect chair sadness wheel",
@@ -13,16 +13,16 @@ const initialState: SessionState = {
     balance: "0"
   },
   isValidAndSynced: true,
-  isValidAndLoading: true,
+  isValidAndLoading: false,
   isFundingAccount: false,
-}
+}*/
 
-/*const initialState: SessionState = {
+const initialState: SessionState = {
   account: undefined,
   isValidAndSynced: false,
   isValidAndLoading: false,
   isFundingAccount: false
-};*/
+};
 
 export type SessionState = {
   account: AccountModel,

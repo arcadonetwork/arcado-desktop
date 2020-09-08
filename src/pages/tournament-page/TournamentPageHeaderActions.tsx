@@ -1,49 +1,60 @@
 import React, { useState } from 'react';
 import { TournamentModel } from '../../models/tournament.model';
 import { Button, message } from 'antd';
-import { useSelector } from 'react-redux';
-import { iRootState } from '../../store/store';
-import { startTournament } from '../../utils/api/tournaments';
-import { TournamentPageHeaderParticipateModal } from './TournamentPageHeaderParticipateModal';
-import { TournamentPageHeaderStopModal } from './TournamentPageHeaderStopModal';
+import { startTournament } from '../../shared/api/tournaments';
+import { TournamentPageHeaderParticipateModal } from '../../components/modals/TournamentPageHeaderParticipateModal';
+import { TournamentPageHeaderStopModal } from '../../components/modals/TournamentPageHeaderStopModal';
 import { ParticipantModel } from '../../models/participant.model';
+import { CustomIcon } from '../../components/custom-icon/CustomIcon';
+import { AccountModel } from '../../models/account.model';
+import { TournamentStateModel } from '../../models/tournament-state.model';
 
 interface ContainerProps {
   tournament: TournamentModel,
-  refresh(): void,
-  players: ParticipantModel[]
+  players: ParticipantModel[],
+  account: AccountModel,
+  tournamentState: TournamentStateModel
 }
 
-export const TournamentPageHeaderActions: React.FC<ContainerProps> = ({ tournament, refresh, players }) => {
+/**
+* ------ LOBBY STATES ------
+* 0 - Not Started + Joinable
+* 1 - Not Started + Already Joined
+* 2 - Not Started + Not Joinable
+* 3 - Started
+* 4 - Finished
+* */
 
-  const account = useSelector((state: iRootState) => state.account.account);
+export const TournamentPageHeaderActions: React.FC<ContainerProps> = ({ players, tournament, account, tournamentState }) => {
+
   const [intendsToParticipate, setIntendsToParticipate] = useState<boolean>(false);
   const [intendsToStop, setIntendsToStop] = useState<boolean>(false);
 
   async function start () {
-    if (players.length !== Number(tournament.maxPlayers)) {
-      message.error('The tournament isn\'t full');
-      return;
-    }
     try {
       await startTournament(tournament.gameId, tournament.tournamentId, account.passphrase);
       message.success('successfully started the tournament')
-      refresh();
     } catch (e) {
       console.error(e);
       message.error('something went wrong')
     }
   }
 
-  let actions = [];
+  const isOwner = tournament.createdBy === account.address;
+  let Component;
 
-  if (tournament.status === 2) {
-    actions.push(<div>
-      game is finished
-    </div>)
-  } else if (tournament.createdBy === account.address) {
-    if (tournament.status === 1) {
-      actions.push(
+  if (tournamentState.type === 4) {
+    Component = (
+      <div className="w100 flex-c flex-jc-c fc-lb">
+          <div className="mr15">
+            <CustomIcon type="finish" className="" />
+          </div>
+          <span className="">Finished</span>
+      </div>
+    )
+  } else if (tournamentState.type === 3) {
+    if (isOwner) {
+      Component = (
         <div className="flex-fs">
           <Button
             className="w175--fixed h45--fixed"
@@ -55,10 +66,16 @@ export const TournamentPageHeaderActions: React.FC<ContainerProps> = ({ tourname
         </div>
       )
     } else {
-      actions.push(
+      Component = <div>
+        Game is ongoing
+      </div>
+    }
+  } else if (tournamentState.type === 2) {
+    if (isOwner) {
+      Component = (
         <div className="flex-fs">
           <Button
-            className="w175--fixed h45--fixed"
+            className="w175--fixed h40--fixed"
             type="primary"
             onClick={start}
           >
@@ -66,61 +83,60 @@ export const TournamentPageHeaderActions: React.FC<ContainerProps> = ({ tourname
           </Button>
         </div>
       )
-    }
-  } else {
-    const hasJoined = !!(players.find(item => item.address === account.address))
-    if (hasJoined || Number(tournament.maxPlayers) === players.length) {
-      actions.push(
-        <Button
-          disabled
-          className="h45--fixed"
-          type="primary"
-        >
-          The tournament owner will start very soon
-        </Button>
-      )
-    } else if (tournament.status === 1) {
-      actions.push(
-        <Button
-          disabled
-          className="w175--fixed h45--fixed"
-          type="primary"
-        >
-          The game is about to start
-        </Button>
-      )
     } else {
-      actions.push(
+      Component = (
+        <div className="flex-c flex-column p15-25 br5 bgc-xl-grey">
+          <span className="fs-s">Maximum amount of players reached.</span>
+          <span className="fs-s">Game is about to start</span>
+        </div>
+      )
+    }
+  } else if (tournamentState.type === 1) {
+    Component = (
+      <div className="flex-c flex-column p15-25 br5 bgc-xl-grey">
+        <span className="fs-s">Waiting on other players</span>
+      </div>
+    )
+  } else {
+    Component = (
+      <div className="w100 mb5 flex-c flex-jc-c fc-lb">
         <Button
           onClick={() => setIntendsToParticipate(true)}
-          className="w175--fixed h45--fixed"
+          className=""
           type="primary"
         >
-          Join Game
+          Participate
         </Button>
-      )
-    }
+      </div>
+    )
   }
 
   return (
     <>
-      <div className="flex-c">
-        {
-          actions
-        }
-      </div>
-      <TournamentPageHeaderParticipateModal
-        tournament={tournament}
-        refresh={refresh}
-        intendsToParticipate={intendsToParticipate}
-        setIntendsToParticipate={setIntendsToParticipate}
-      />
-      <TournamentPageHeaderStopModal
-        tournament={tournament}
-        refresh={refresh}
-        intendsToStop={intendsToStop}
-        setIntendsToStop={setIntendsToStop}
-      />
+      {Component}
+      {
+        intendsToParticipate
+        ? (
+            <TournamentPageHeaderParticipateModal
+              tournament={tournament}
+              intendsToParticipate={intendsToParticipate}
+              setIntendsToParticipate={setIntendsToParticipate}
+            />
+          )
+        : <></>
+      }
+      {
+        intendsToStop
+        ? (
+            <TournamentPageHeaderStopModal
+              players={players}
+              tournament={tournament}
+              intendsToStop={intendsToStop}
+              setIntendsToStop={setIntendsToStop}
+            />
+          )
+        : <></>
+      }
     </>
   )
 }

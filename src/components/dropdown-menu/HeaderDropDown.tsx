@@ -2,7 +2,7 @@ import React from 'react'
 
 import { HeaderDropDownItem } from './HeaderDropDownItem'
 import { HeaderDropDownReactLink } from './HeaderDropDownReactLink'
-import { getAccountDetailsRoute, ROUTES } from '../../utils/router/Router';
+import { getAccountDetailsRoute, ROUTES } from '../../shared/router/Router';
 import { AccountModel } from '../../models/account.model';
 
 export const renderMenuItem = (item: any, index: number, account: AccountModel) => {

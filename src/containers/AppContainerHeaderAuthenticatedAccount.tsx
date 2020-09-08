@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Dropdown, Menu } from 'antd';
-import { ROUTES } from '../utils/router/Router';
+import { ROUTES } from '../shared/router/Router';
 import { LiskAvatar } from '../components/lisk-avatar/LiskAvatar';
 import { renderMenuItem } from '../components/dropdown-menu/HeaderDropDown';
 import { getFormattedNumber } from '../utils/numbers';
@@ -24,7 +24,6 @@ export const AppContainerHeaderAuthenticatedAccount: React.FC<ContainerProps> = 
       path: ROUTES.LOGOUT
     }
   ]
-
 
   const balanceRef: any = useRef(null);
 

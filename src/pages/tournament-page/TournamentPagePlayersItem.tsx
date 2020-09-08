@@ -1,12 +1,14 @@
 import React from 'react';
 import { LiskAvatar } from '../../components/lisk-avatar/LiskAvatar';
+import { Link } from 'react-router-dom';
+import { getAccountDetailsRoute } from '../../shared/router/Router';
 
 interface ContainerProps {
   address: string,
   isLastChild: boolean
 }
 
-export const TournamentPageParticipantsItem: React.FC<ContainerProps> = ({ address, isLastChild }) => {
+export const TournamentPagePlayersItem: React.FC<ContainerProps> = ({ address, isLastChild }) => {
   const clazz = !isLastChild ? 'br-b' : ''
   return (
     <div className={`flex-c p15 ${clazz}`}>
@@ -16,7 +18,7 @@ export const TournamentPageParticipantsItem: React.FC<ContainerProps> = ({ addre
           size="s"
         />
       </div>
-      <span className="w40 fc-black">{address}</span>
+      <Link to={getAccountDetailsRoute(address)} className="w40 fc-grey">{address}</Link>
     </div>
   )
 }

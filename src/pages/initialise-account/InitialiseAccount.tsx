@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { History } from 'history';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from '../../store/store';
-import { ROUTES } from '../../utils/router/Router';
+import { ROUTES } from '../../shared/router/Router';
 import { Link } from 'react-router-dom';
 import { createAccount } from '../../utils/passphrase';
 

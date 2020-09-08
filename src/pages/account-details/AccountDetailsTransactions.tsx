@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getTransactionsByAddress } from '../../utils/api/transactions';
+import { getTransactionsByAddress } from '../../shared/api/transactions';
 import { Loading } from '../../components/Loading';
 import { AccountModel } from '../../models/account.model';
 import { AccountDetailsTransactionsItem } from './AccountDetailsTransactionsItem';
@@ -34,8 +34,6 @@ export const AccountDetailsTransactions: React.FC<ContainerProps> = ({ account }
   if(loading) {
     return <Loading />
   }
-
-  console.log(transactions);
 
   return (
     <>

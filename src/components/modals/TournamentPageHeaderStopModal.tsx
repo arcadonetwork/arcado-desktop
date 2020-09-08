@@ -1,19 +1,20 @@
 import { TournamentModel } from '../../models/tournament.model';
 import React, { useEffect, useState } from 'react';
 import { message, Modal } from 'antd';
-import { stopTournament } from '../../utils/api/tournaments';
+import { stopTournament } from '../../shared/api/tournaments';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
-import { SelectInputField } from '../../components/SelectInputField';
+import { SelectInputField } from '../SelectInputField';
+import { ParticipantModel } from '../../models/participant.model';
 
 interface ContainerProps {
   tournament: TournamentModel,
-  refresh(): void,
   setIntendsToStop(value: boolean): void,
-  intendsToStop: boolean
+  intendsToStop: boolean,
+  players: ParticipantModel[]
 }
 
-export const TournamentPageHeaderStopModal: React.FC<ContainerProps> = ({ tournament, refresh, intendsToStop, setIntendsToStop }) => {
+export const TournamentPageHeaderStopModal: React.FC<ContainerProps> = ({ tournament, intendsToStop, setIntendsToStop, players }) => {
   const account = useSelector((state: iRootState) => state.account.account);
   const [first, setFirstPlace] = useState<string>('');
   const [second, setSecondPlace] = useState<string>('');
@@ -21,10 +22,16 @@ export const TournamentPageHeaderStopModal: React.FC<ContainerProps> = ({ tourna
   const [selectableAddresses, setSelectableAddresses] = useState<string[]>([]);
 
   useEffect(() => {
-    const filteredAddresses = [].filter(address => address !== first && address !== second && address !== third)
+    const filteredAddresses = players
+      .filter((player) => player.address !== first && player.address !== second && player.address !== third)
+      .map(item => item.address)
     setSelectableAddresses(filteredAddresses);
-    return () => ''
   }, [first, second, third])
+
+  useEffect(() => {
+    const addresses = players.map((item: ParticipantModel) => item.address);
+    setSelectableAddresses(addresses);
+  }, [players])
 
   async function stop () {
     try {
@@ -33,8 +40,7 @@ export const TournamentPageHeaderStopModal: React.FC<ContainerProps> = ({ tourna
         second,
         third
       }, account.passphrase);
-      message.success('successfully joined the tournament')
-      refresh();
+      message.success('Finish successful')
     } catch (e) {
       console.error(e);
       message.error('something went wrong')

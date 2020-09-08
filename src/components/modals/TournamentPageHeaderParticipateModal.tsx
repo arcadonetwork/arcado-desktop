@@ -1,19 +1,18 @@
 import { TournamentModel } from '../../models/tournament.model';
 import React from 'react';
 import { message, Modal } from 'antd';
-import { joinTournament } from '../../utils/api/tournaments';
+import { joinTournament } from '../../shared/api/tournaments';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
 import { fromRawLsk } from '../../utils/lsk';
 
 interface ContainerProps {
   tournament: TournamentModel,
-  refresh(): void,
   setIntendsToParticipate(value: boolean): void,
   intendsToParticipate: boolean
 }
 
-export const TournamentPageHeaderParticipateModal: React.FC<ContainerProps> = ({ tournament, refresh, intendsToParticipate, setIntendsToParticipate }) => {
+export const TournamentPageHeaderParticipateModal: React.FC<ContainerProps> = ({ tournament, intendsToParticipate, setIntendsToParticipate }) => {
   const account = useSelector((state: iRootState) => state.account.account);
 
   async function participate () {
@@ -25,7 +24,6 @@ export const TournamentPageHeaderParticipateModal: React.FC<ContainerProps> = ({
       }
       await joinTournament(tournament.gameId, tournament.tournamentId, account.passphrase);
       message.success('successfully joined the tournament')
-      refresh();
     } catch (e) {
       console.error(e);
       message.error('something went wrong')

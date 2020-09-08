@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from 'antd';
 import { History } from 'history';
 import Checkbox from 'antd/es/checkbox';
-import { ROUTES } from '../../utils/router/Router';
+import { ROUTES } from '../../shared/router/Router';
 import { RouteComponentProps } from 'react-router';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
