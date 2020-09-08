@@ -24,7 +24,7 @@ interface PageNavigationContainerProps {
 
 export const PageNavigation: React.FC<PageNavigationContainerProps> = ({ menu, activePage, setPage }) => {
   return (
-    <div className="flex-c br-b mb25">
+    <div className="flex-c br-b">
       {
         menu.map(item =>
           <PageNavigationItem

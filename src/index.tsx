@@ -5,22 +5,22 @@ import './style.less';
 
 import { Provider } from 'react-redux';
 
-import { store } from './store/store';
+import { store, history } from './store/store';
 
 import { AppContainer } from './containers/AppContainer';
-import AppRoutes from './utils/router/Router';
-import WebSocketProvider from './utils/websocket-context/WebSocketContext';
-import { BrowserRouter } from 'react-router-dom';
+import AppRoutes from './shared/router/Router';
+import WebSocketProvider from './providers/WebSocketProvider';
+import { ConnectedRouter } from 'connected-react-router';
 
 ReactDOM.render(
   <Provider store={store}>
-    <WebSocketProvider>
-      <BrowserRouter>
-        <AppContainer>
-          <AppRoutes />
-        </AppContainer>
-      </BrowserRouter>
-    </WebSocketProvider>
+    <ConnectedRouter history={history}>
+      <WebSocketProvider>
+          <AppContainer>
+            <AppRoutes />
+          </AppContainer>
+      </WebSocketProvider>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 )

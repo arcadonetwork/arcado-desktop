@@ -1,26 +1,35 @@
-import { init, RematchDispatch, RematchRootState } from '@rematch/core';
-import { accounts } from './models/accounts';
+import { init, RematchDispatch, RematchRootState,  } from '@rematch/core';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { account } from './models/account';
 import { network } from './models/network';
-import { blocks } from './models/blocks';
+import { games } from './models/games';
 import { createBrowserHistory } from 'history';
 
 export const history = createBrowserHistory();
 
 export interface RootModel {
-  accounts: typeof accounts,
+  account: typeof account,
   network: typeof network,
-  blocks: typeof blocks
+  games: typeof games
 }
 
 const models: RootModel = {
-  accounts,
+  account,
   network,
-  blocks
+  games
 }
 
 export const store = init({
   models,
+  redux: {
+    reducers: {
+      router: connectRouter(history)
+    },
+    middlewares:[routerMiddleware(history)],
+  },
 });
+
+export const getState = store.getState;
 
 export type Dispatch = RematchDispatch<RootModel>
 export type iRootState = RematchRootState<RootModel>

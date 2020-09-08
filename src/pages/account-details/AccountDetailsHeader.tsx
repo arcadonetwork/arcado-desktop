@@ -1,5 +1,5 @@
 import React from 'react';
-import AccountModel from '../../models/account.model';
+import { AccountModel } from '../../models/account.model';
 import { LiskAvatar } from '../../components/lisk-avatar/LiskAvatar';
 import { Button } from 'antd';
 import { AccountDetailsHeaderItem } from './AccountDetailsHeaderItem';

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Dispatch } from '../../store/store';
 import { Loading } from '../../components/Loading';
 import { Redirect } from 'react-router';
-import { ROUTES } from '../../utils/router/Router';
+import { ROUTES } from '../../shared/router/Router';
 
 interface ContainerProps {
 }
@@ -14,7 +14,7 @@ export const LogoutPage: React.FC<ContainerProps> = () => {
 
   useEffect(() => {
     async function logout() {
-      await dispatch.accounts.logout();
+      await dispatch.account.logout();
       setLoggedOut(true);
       return () => ''
     }

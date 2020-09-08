@@ -12,13 +12,13 @@ interface ContainerProps {
 export const TextInputField: React.FC<ContainerProps> = ({ label, reference, name, error, placeholder }) => {
   return (
     <>
-      <div className="mb10 flex-c flex-jc-sb">
+      <div className="mb5 flex-c flex-jc-sb">
         <span>{label}</span>
         {error ? <span className="fc-red fs-s">{error}</span> : ''}
       </div>
       <div className="mb10">
         <input
-          className={error ? 'error-input' : ''}
+          className={`text-input ${error ? 'error-input' : ''}`}
           name={name}
           placeholder={placeholder}
           ref={reference}

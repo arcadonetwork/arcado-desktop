@@ -1,17 +1,17 @@
-import { iRootState } from '../store/store';
 import * as React from 'react';
-import { useSelector } from 'react-redux';
 import { Dropdown, Menu } from 'antd';
-import { ROUTES } from '../utils/router/Router';
+import { ROUTES } from '../shared/router/Router';
 import { LiskAvatar } from '../components/lisk-avatar/LiskAvatar';
 import { renderMenuItem } from '../components/dropdown-menu/HeaderDropDown';
 import { getFormattedNumber } from '../utils/numbers';
+import { AccountModel } from '../models/account.model';
+import { useEffect, useRef } from 'react';
 
 interface ContainerProps {
+  account: AccountModel
 }
 
-export const AppContainerHeaderAuthenticatedAccount: React.FC<ContainerProps> = () => {
-  const account = useSelector((state: iRootState) => state.accounts.account);
+export const AppContainerHeaderAuthenticatedAccount: React.FC<ContainerProps> = ({ account }) => {
   const menu = [
     {
       key: 'account',
@@ -25,6 +25,18 @@ export const AppContainerHeaderAuthenticatedAccount: React.FC<ContainerProps> = 
     }
   ]
 
+  const balanceRef: any = useRef(null);
+
+  useEffect(() => {
+    const balanceNode = balanceRef.current;
+    if (balanceNode && balanceNode.classList && account.balance !== "0") {
+      balanceNode.classList.add('balance-updated');
+      setTimeout(() => {
+        balanceNode.classList.remove('balance-updated');
+      }, 3000);
+    }
+  }, [account.balance])
+
   return (
     <Dropdown
       overlay={
@@ -36,7 +48,7 @@ export const AppContainerHeaderAuthenticatedAccount: React.FC<ContainerProps> = 
       placement="bottomRight"
     >
       <div className="click flex-c flex-jc-c">
-        <div className="br flex-c p5 br20">
+        <div ref={balanceRef} className="br flex-c p5 bgc-white br20">
           <span className="mr10 fs-s fc-black ffm-bold ml15">{getFormattedNumber(account.balance)} LSK</span>
           <div className="ml15 arcado-avatar">
             <LiskAvatar

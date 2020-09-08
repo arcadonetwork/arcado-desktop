@@ -1,12 +1,11 @@
 import React from 'react';
 import { Button, Icon, message } from 'antd';
 import { TextInputField } from '../../components/TextInputField';
-import AccountModel from '../../models/account.model';
 import { useForm } from "react-hook-form";
 import { History } from 'history';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from '../../store/store';
-import { ROUTES } from '../../utils/router/Router';
+import { ROUTES } from '../../shared/router/Router';
 import { Link } from 'react-router-dom';
 import { createAccount } from '../../utils/passphrase';
 
@@ -26,8 +25,7 @@ const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
   async function onSubmit (data: UserData) {
     try {
       const result = await createAccount();
-      console.log(result);
-      await dispatch.accounts.setAccount(new AccountModel(result))
+      await dispatch.account.setAccount(result)
       history.push(ROUTES.ACCOUNT_VERIFICATION)
     } catch (e) {
       console.error(e);

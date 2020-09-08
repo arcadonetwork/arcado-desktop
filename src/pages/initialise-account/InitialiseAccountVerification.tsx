@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from 'antd';
 import { History } from 'history';
 import Checkbox from 'antd/es/checkbox';
-import { ROUTES } from '../../utils/router/Router';
+import { ROUTES } from '../../shared/router/Router';
 import { RouteComponentProps } from 'react-router';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
@@ -14,7 +14,7 @@ interface ContainerProps extends RouteComponentProps {
 export const InitialiseAccountVerification: React.FC<ContainerProps> = ({ history }: ContainerProps) => {
 
   const [hasSavedPassphrase, setHasSavedPassphrase] = useState<boolean>(false);
-  const account = useSelector((state: iRootState) => state.accounts.account);
+  const account = useSelector((state: iRootState) => state.account.account);
 
   async function saveAccount() {
     history.push(ROUTES.HOME)

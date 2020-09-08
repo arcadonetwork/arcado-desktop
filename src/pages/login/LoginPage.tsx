@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { History } from 'history';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../utils/router/Router';
+import { ROUTES } from '../../shared/router/Router';
 import { Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, iRootState } from '../../store/store';
 import { PassphraseInput } from '../../components/PassphraseInput';
 import Icon from 'antd/es/icon';
 import { getAccountByPassphrase } from '../../utils/passphrase';
-import { isObjectWithFields } from '../../utils/utils/type-checking';
+import { isObjectWithFields } from '../../utils/type-checking';
 import { Loading } from '../../components/Loading';
 
 interface ContainerProps {
@@ -18,8 +18,8 @@ interface ContainerProps {
 
 export const LoginPage: React.FC<ContainerProps> = ({ history }: ContainerProps) => {
 
-  const isValidAndSynced = useSelector((state: iRootState) => state.accounts.isValidAndSynced);
-  const isValidAndLoading = useSelector((state: iRootState) => state.accounts.isValidAndLoading);
+  const isValidAndSynced = useSelector((state: iRootState) => state.account.isValidAndSynced);
+  const isValidAndLoading = useSelector((state: iRootState) => state.account.isValidAndLoading);
   const dispatch = useDispatch<Dispatch>();
 
   const [showPassphrase, setShowPassphrase] = useState<boolean>(false);
@@ -36,13 +36,13 @@ export const LoginPage: React.FC<ContainerProps> = ({ history }: ContainerProps)
     try  {
       const account = getAccountByPassphrase(passphrase);
       if (isObjectWithFields(account)) {
-        await dispatch.accounts.setAccountLoading(true);
-        dispatch.accounts.syncAccount(account);
+        await dispatch.account.setAccountLoading(true);
+        dispatch.account.syncAccount(account);
       } else {
 
       }
     } catch (e) {
-      dispatch.accounts.logout();
+      dispatch.account.logout();
     }
   }
 
@@ -58,7 +58,7 @@ export const LoginPage: React.FC<ContainerProps> = ({ history }: ContainerProps)
     <div className="w50 m-auto">
       <div className="mb50 flex-c flex-jc-c flex-column mt125">
         <h1 className="fs-xxl ffm-bold p0 m0">Welcome to <span className="fc-primary ffm-bold">Arcado</span></h1>
-        <h2 className="fs-m fc-grey p0 m0">Sign in with a username and passphrase</h2>
+        <h2 className="fs-m fc-grey p0 m0">Sign in with a passphrase</h2>
       </div>
 
       <div className="w100 mb50">
@@ -70,7 +70,7 @@ export const LoginPage: React.FC<ContainerProps> = ({ history }: ContainerProps)
               <span className="ml10">{showPassphrase ? "Hide" : "Show"}</span>
             </div>
           </div>
-          <div className="fs-n fc-grey mb50">Your passphrase is the gateway to our your gaming profile</div>
+          <div className="fs-n fc-grey mb50">Your passphrase is the gateway to our gaming universe</div>
         </div>
         <PassphraseInput
           setValidPassphrase={setPassphrase}

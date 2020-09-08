@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import GameModel from '../../models/game.model';
-import { getGame } from '../../utils/api/games';
+import { GameModel } from '../../models/game.model';
+import { getGame } from '../../shared/api/games';
 import { message } from 'antd';
 import { Loading } from '../../components/Loading';
 import { RouteComponentProps } from 'react-router';
 import { GameDetailsPageHeader } from './GameDetailsPageHeader';
-import { GameDetailsPageRooms } from './GameDetailsPageRooms';
-import { PageNavigation } from '../../components/PageNavigation';
+import { GameDetailsPageTournaments } from './GameDetailsPageTournaments';
 
 interface MatchParams {
   gameId: string;
@@ -16,7 +15,7 @@ interface ContainerProps extends RouteComponentProps<MatchParams> {
 
 }
 
-const menu = ['Rooms'];
+const menu = ['Tournaments'];
 
 export const GameDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   const [page, setPage] = useState<string>(menu[0])
@@ -24,10 +23,15 @@ export const GameDetailsPage: React.FC<ContainerProps> = ({ match }) => {
   const [loading, setLoading] = useState<boolean>(true)
   const { gameId } = match.params
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    return () => ''
+  }, [])
+
   useEffect( () => {
     async function fetchData() {
       try {
-        const { game } = await getGame(gameId)
+        const game = await getGame(gameId)
         setGame(game)
         setLoading(false)
       } catch (e) {
@@ -45,14 +49,16 @@ export const GameDetailsPage: React.FC<ContainerProps> = ({ match }) => {
 
 
   return (
-    <div className="grid mt75">
-      <GameDetailsPageHeader game={game} />
-      <PageNavigation
+    <div className="">
+      <GameDetailsPageHeader
+        game={game}
+        page={page}
+        setPage={setPage}
         menu={menu}
-        activePage={page}
-        setPage={(page) => setPage(page)}
       />
-      <GameDetailsPageRooms game={game} />
+      <GameDetailsPageTournaments
+        game={game}
+      />
     </div>
   )
 }

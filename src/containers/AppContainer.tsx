@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { AppContainerHeader } from './AppContainerHeader';
+import { AppContainerSecondary } from './AppContainerHeaderSecondary';
 
 interface ContainerProps {
   children: any
@@ -8,7 +9,8 @@ interface ContainerProps {
 export const AppContainer: React.FC<ContainerProps> = ({ children }) => (
   <>
     <AppContainerHeader />
-    <div className="w100 vh100minus60">
+    <AppContainerSecondary />
+    <div className="w100">
       {children}
     </div>
   </>
