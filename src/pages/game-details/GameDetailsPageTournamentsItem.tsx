@@ -16,7 +16,7 @@ export const GameDetailsPageTournamentsItem: React.FC<ContainerProps> = ({ gameI
     <Link to={uri} className="tournament-tile bgc-xxl-grey mb10 flex-fs flex-column br5 br game-item">
       <div className="w100 mb25">
         <div className="tournament-tile-img w100 pt50 pb50 br5-top flex-c flex-column flex-jc-c">
-          <span className="ffm-bold fc-white fs-m">DEATHMATCH</span>
+          <span className="ffm-bold fc-white fs-m">TOURNAMENT</span>
         </div>
       </div>
       <div className="w100 pl15 pr15 pb15 flex-fs flex-column">
