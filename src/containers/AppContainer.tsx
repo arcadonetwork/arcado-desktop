@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { AppContainerHeader } from './AppContainerHeader';
-import { AppContainerSecondary } from './AppContainerHeaderSecondary';
+import { AppContainerSecondary } from './AppContainerHeaderNetwork';
 
 interface ContainerProps {
   children: any

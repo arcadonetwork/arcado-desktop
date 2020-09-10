@@ -28,7 +28,7 @@ export const AppContainerSecondary: React.FC<ContainerProps> = () => {
               ? (
                 <div className="flex-c">
                   <div className="circle square-10 bgc-green" />
-                  <div className="ml5">connected with <span className="ffm-bold fc-black">mainnet</span></div>
+                  <div className="ml5">connected with <span className="ffm-bold fc-black">{targetNetwork.name}</span></div>
                 </div>
               )
               : (
