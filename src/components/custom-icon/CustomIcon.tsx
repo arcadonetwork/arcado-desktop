@@ -1,5 +1,5 @@
 import React from 'react'
-import Icon from 'antd/es/icon'
+import Icon from '@ant-design/icons'
 import {LiskIcon} from "./LiskIcon";
 import { FinishIcon } from './FinishIcon';
 
@@ -15,5 +15,5 @@ export const CustomIcon = (props: any) => {
 		return <CustomIconType className={props.className} />
 	}
 	const type = props.type ? props.type : 'question'
-	return <Icon type={type} className={props.className} theme={props.theme} />
+	return <Icon type={type} className={props.className} />
 }

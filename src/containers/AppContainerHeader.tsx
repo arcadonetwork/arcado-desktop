@@ -6,6 +6,7 @@ import { Logo } from '../assets/Logo'
 import { ROUTES } from '../shared/router/Router';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../store/store';
+import { AppContainerHeaderNetworkSetup } from './AppContainerHeaderNetworkSetup';
 
 interface ContainerProps {
 }
@@ -25,7 +26,7 @@ export const AppContainerHeader: React.FC<ContainerProps> = () => {
         {
            isValidAndSynced
               ? <AppContainerHeaderAuthenticated />
-              : <></>
+              : <AppContainerHeaderNetworkSetup  />
         }
       </div>
     </div>

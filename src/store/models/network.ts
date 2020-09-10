@@ -2,18 +2,21 @@ import { Dispatch, getState } from '../store';
 import { BlockModel } from '../../models/block.model';
 import { isArrayWithElements } from '../../utils/type-checking';
 import { TransactionModel } from '../../models/transaction.model';
+import { NetworkModel } from '../../models/network.model';
 
 
 const initialState: NetworkState = {
   online: false,
   blockHeight: 0,
-  newTransactions: []
+  newTransactions: [],
+  targetNetwork: undefined
 }
 
 export type NetworkState = {
   online: boolean,
   blockHeight: number,
-  newTransactions: []
+  newTransactions: [],
+  targetNetwork: NetworkModel
 }
 
 export const network = {
@@ -35,6 +38,12 @@ export const network = {
       return {
         ...state,
         newTransactions: payload
+      }
+    },
+    setTargetNetwork: (state: NetworkState, payload: NetworkModel) => {
+      return {
+        ...state,
+        targetNetwork: payload
       }
     },
   },

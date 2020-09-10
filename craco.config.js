@@ -7,14 +7,15 @@ module.exports = {
       plugin: CracoLessPlugin,
       options: {
         lessLoaderOptions: {
-          noIeCompat: true,
-          relativeUrls: false,
-          modifyVars: {
-            '@primary-color': '#f74603',
-            '@primary-color-xl': '#ffe3d9',
-            'border-radius-base': '3px'
-          },
-          javascriptEnabled: true,
+          lessOptions: {
+            relativeUrls: false,
+            modifyVars: {
+              '@primary-color': '#f74603',
+              '@primary-color-xl': '#ffe3d9',
+              'border-radius-base': '3px'
+            },
+            javascriptEnabled: true,
+          }
         }
       },
     },

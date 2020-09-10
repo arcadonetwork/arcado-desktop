@@ -3,6 +3,4 @@ export type AccountModel = {
   passphrase: string;
   publicKey: string;
   balance?: string;
-  win?: number;
-  loss?: number;
 }

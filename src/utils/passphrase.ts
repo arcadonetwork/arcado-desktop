@@ -1,6 +1,4 @@
-// @ts-ignore
 import * as passphrase from '@liskhq/lisk-passphrase';
-
 import * as cryptography from '@liskhq/lisk-cryptography';
 import { inDictionary } from './similarWord';
 import { AccountModel } from '../models/account.model';
@@ -8,7 +6,6 @@ import { AccountModel } from '../models/account.model';
 const { Mnemonic } = passphrase;
 
 export const createAccount = () => {
-
   const passphrase = Mnemonic.generateMnemonic();
   const keys = cryptography.getPrivateAndPublicKeyFromPassphrase(
     passphrase
@@ -24,7 +21,7 @@ export const createAccount = () => {
 };
 
 export const isValidPassphrase = (passphrase: string[]) => {
-  const normalizedValue = passphrase.join(' ');
+  const normalizedValue = passphrase.join(' ')  || "";
   let isValid;
   try {
     isValid = passphrase.length >= 12 && Mnemonic.validateMnemonic(normalizedValue);
@@ -61,13 +58,14 @@ export const getPassphraseValidationErrors = (passphrase: string[]) => {
 
 export const getAccountByPassphrase = (passphrase: string) => {
   const keys = cryptography.getPrivateAndPublicKeyFromPassphrase(
-    passphrase
+    passphrase || ''
   );
-  const address = cryptography.getAddressFromPublicKey(keys.publicKey);
+  const address = cryptography.getAddressFromPublicKey(keys.publicKey  || '');
   const account: AccountModel = {
     address,
     passphrase: passphrase,
-    publicKey: keys.publicKey
+    publicKey: keys.publicKey,
+    balance: "0"
   }
   return account;
 };

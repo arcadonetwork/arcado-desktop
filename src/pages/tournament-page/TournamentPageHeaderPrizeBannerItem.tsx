@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from 'antd';
+import { TrophyOutlined } from '@ant-design/icons';
 
 interface ContainerProps {
   label: string,
@@ -11,7 +11,7 @@ export const TournamentPageHeaderPrizeBannerItem: React.FC<ContainerProps> = ({ 
   return (
     <div className="w100 flex-c fs-s">
       <div className={`flex-c flex-jc-c img--30 ${bgColor} fc-black mr15`}>
-        <Icon type="trophy" />
+        <TrophyOutlined />
       </div>
       <div className="flex flex-column">
         <div className="fc-black fs-s">{label}</div>

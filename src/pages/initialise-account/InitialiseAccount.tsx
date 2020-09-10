@@ -35,7 +35,8 @@ const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
 
   async function confirmAccount () {
     try {
-      dispatch.account.setAccount(selectedAccount)
+      await dispatch.account.setAccount(selectedAccount)
+      dispatch.account.setAccountSynced(true)
       history.push(ROUTES.HOME)
     } catch (e) {
       console.error(e);

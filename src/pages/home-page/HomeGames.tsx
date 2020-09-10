@@ -38,15 +38,17 @@ export const HomeGames: React.FC<ContainerProps> = () => {
     return () => ''
   }, [arrayContains(newTransactions, TRANSACTION_TYPES.GAMES)]);
 
+  if (loading) {
+    return <Loading />
+  }
+
   return (
     <>
       <div className="mb25 br-b pb15">
         <div className="fs-l p0 m0 fc-black ffm-bold">Games</div>
       </div>
       {
-        loading
-          ? <Loading />
-          : !isArrayWithElements(games)
+        !isArrayWithElements(games)
           ? <HomeGamesEmpty />
           : (
             <div className="grid-col5">

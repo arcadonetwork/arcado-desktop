@@ -1,8 +1,9 @@
 import React, { createContext } from 'react'
 import io from 'socket.io-client';
-import { useDispatch } from 'react-redux';
-import { Dispatch } from '../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch, iRootState } from '../store/store';
 import { BlockModel } from '../models/block.model';
+import { isObjectWithFields } from '../utils/type-checking';
 
 const WebSocketProvider = createContext(null)
 
@@ -12,10 +13,17 @@ export default ({ children }: { children: any }) => {
   let socket;
   let ws;
 
+  const targetNetwork = useSelector((state: iRootState) => state.network.targetNetwork);
   const dispatch = useDispatch<Dispatch>();
 
-  if (!socket) {
-    socket = io(`http://localhost:4000`, { transports: ['websocket'] })
+  console.log(targetNetwork);
+
+  if (!isObjectWithFields(targetNetwork)){
+    return <>{children}</>;
+  }
+
+  if (!socket && isObjectWithFields(targetNetwork)) {
+    socket = io(targetNetwork.nodeUrl, { transports: ['websocket'] })
 
 
     socket.on('connect', () => {

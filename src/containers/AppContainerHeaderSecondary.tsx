@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { useSelector } from 'react-redux';
 import { iRootState } from '../store/store';
+import { isObjectWithFields } from '../utils/type-checking';
 
 interface ContainerProps {
 }
@@ -10,6 +11,9 @@ export const AppContainerSecondary: React.FC<ContainerProps> = () => {
 
   const isOnline = useSelector((state: iRootState) => state.network.online);
   const blockHeight = useSelector((state: iRootState) => state.network.blockHeight);
+  const targetNetwork = useSelector((state: iRootState) => state.network.targetNetwork);
+
+  if (!isObjectWithFields(targetNetwork)) return <></>
 
   return (
     <div className="w100 bgc-xxl-grey br-b">

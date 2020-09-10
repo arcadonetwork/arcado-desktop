@@ -19,6 +19,7 @@ import { AssetModel } from '../../models/asset.model';
 
 const initialState: SessionState = {
   account: undefined,
+  hasAuthenticated: false,
   isValidAndSynced: false,
   isValidAndLoading: false,
   isFundingAccount: false
@@ -26,6 +27,7 @@ const initialState: SessionState = {
 
 export type SessionState = {
   account: AccountModel,
+  hasAuthenticated: boolean,
   isValidAndSynced: boolean,
   isValidAndLoading: boolean,
   isFundingAccount: boolean
@@ -34,19 +36,27 @@ export type SessionState = {
 export const account = {
   state: initialState,
   reducers: {
-    setAccountState: (state: SessionState, payload: AccountModel) => {
-      console.log(payload);
+    setAccount: (state: SessionState, payload: AccountModel) => {
       return {
         ...state,
         account: payload,
-        isValidAndSynced: (isObjectWithFields(payload) && payload.address),
+        hasAuthenticated: (isObjectWithFields(payload) && payload.address),
         isValidAndLoading: false,
       }
     },
-    setAccountLoadingState: (state: SessionState, payload: boolean) => {
+    logoutState: (state: SessionState, payload: AccountModel) => {
+      return initialState
+    },
+    setAccountLoading: (state: SessionState, payload: boolean) => {
       return {
         ...state,
         isValidAndLoading: payload
+      }
+    },
+    setAccountSynced: (state: SessionState, payload: boolean) => {
+      return {
+        ...state,
+        isValidAndSynced: payload
       }
     },
     setFundingAccountState: (state: SessionState, payload: boolean) => {
@@ -66,19 +76,14 @@ export const account = {
           ...onChainAccount
         }
       }
-      this.setAccount(account);
-    },
-    setAccountLoading (loading: boolean) {
-      dispatch.account.setAccountLoadingState(loading);
-    },
-    setFundingAccount (isFundingAccount: boolean) {
-      dispatch.account.setFundingAccount(isFundingAccount);
+      console.log('syncAccount', account);
+      dispatch.account.setAccount(account);
+      dispatch.account.setAccountSynced(true)
     },
     async findAccount (address: string) {
       try {
         return await getAccount(address)
       } catch (e) {
-        console.error(e)
         return undefined;
       }
     },
@@ -91,12 +96,9 @@ export const account = {
 
         });
     },
-    setAccount (account: AccountModel) {
-      console.log('setAccount', account);
-      dispatch.account.setAccountState(account);
-    },
     logout () {
-      dispatch.account.setAccount(undefined)
+      dispatch.account.logoutState(undefined)
+      dispatch.network.setTargetNetwork(undefined)
     },
     async checkTransactionsAndUpdateAccount ({ transactions, account } : { transactions: TransactionModel[], account: AccountModel }) {
       if (!isObjectWithFields(account)) return;

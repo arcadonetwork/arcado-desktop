@@ -2,7 +2,7 @@ import React from 'react';
 import { TournamentModel } from '../../models/tournament.model';
 import { fromRawLsk } from '../../utils/lsk';
 import { TournamentPageHeaderPrizeBannerItem } from './TournamentPageHeaderPrizeBannerItem';
-import { Icon } from 'antd';
+import { ArrowRightOutlined } from '@ant-design/icons';
 import { EndResultModel } from '../../models/end-result.model';
 import { TournamentStateModel } from '../../models/tournament-state.model';
 import { isObjectWithFields } from '../../utils/type-checking';
@@ -29,7 +29,7 @@ export const TournamentPageHeaderPrizeBanner: React.FC<ContainerProps> = ({ tour
           <span className="fc-grey fs-s">Total Prize Pool</span>
         </div>
         <div className="ml50">
-          <Icon type="arrow-right" className="fc-black" />
+          <ArrowRightOutlined className="fc-black" />
         </div>
       </div>
 

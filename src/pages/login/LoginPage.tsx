@@ -6,7 +6,7 @@ import { Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, iRootState } from '../../store/store';
 import { PassphraseInput } from '../../components/PassphraseInput';
-import Icon from 'antd/es/icon';
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { getAccountByPassphrase } from '../../utils/passphrase';
 import { isObjectWithFields } from '../../utils/type-checking';
 import { Loading } from '../../components/Loading';
@@ -35,13 +35,14 @@ export const LoginPage: React.FC<ContainerProps> = ({ history }: ContainerProps)
   async function login () {
     try  {
       const account = getAccountByPassphrase(passphrase);
+      console.log(account);
       if (isObjectWithFields(account)) {
+        await dispatch.account.setAccount(account);
         await dispatch.account.setAccountLoading(true);
-        dispatch.account.syncAccount(account);
-      } else {
-
+        await dispatch.account.syncAccount(account);
       }
     } catch (e) {
+      console.error(e);
       dispatch.account.logout();
     }
   }
@@ -66,7 +67,7 @@ export const LoginPage: React.FC<ContainerProps> = ({ history }: ContainerProps)
           <div className="flex-c flex-jc-sb w100">
             <div className="fs-l fc-lb ffm-bold mb5">Enter Passphrase</div>
             <div onClick={() => setShowPassphrase(!showPassphrase)} className="click">
-              <Icon type={showPassphrase ? "eye-invisible" : "eye"} />
+              {showPassphrase ? <EyeInvisibleOutlined /> : <EyeOutlined />}
               <span className="ml10">{showPassphrase ? "Hide" : "Show"}</span>
             </div>
           </div>
