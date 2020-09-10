@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppContainerHeaderAuthenticatedAccount } from './AppContainerHeaderAuthenticatedAccount';
 import { Loading } from '../components/Loading';
-import { CreateGameModal } from '../components/CreateGameModal';
+import { CreateGameModal } from '../components/modals/create-game/CreateGameModal';
 
 interface ContainerProps {
 }

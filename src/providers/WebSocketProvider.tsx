@@ -15,9 +15,6 @@ export default ({ children }: { children: any }) => {
 
   const targetNetwork = useSelector((state: iRootState) => state.network.targetNetwork);
   const dispatch = useDispatch<Dispatch>();
-
-  console.log(targetNetwork);
-
   if (!isObjectWithFields(targetNetwork)){
     return <>{children}</>;
   }

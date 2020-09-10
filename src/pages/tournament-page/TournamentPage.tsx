@@ -81,7 +81,6 @@ export const TournamentPage: React.FC<ContainerProps> = ({ match }) => {
   useEffect( () => {
     const hasNewPlayers = getHasNewPlayers();
     if (!hasNewPlayers) return;
-    console.log('hasNewPlayers', hasNewPlayers);
     fetchPlayers();
   }, [newTransactions]);
 

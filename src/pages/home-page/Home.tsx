@@ -12,7 +12,7 @@ const Home: React.FC<ContainerProps> = () => {
   }, [])
 
   return (
-    <div className="grid-xl mt75">
+    <div className="grid-xl mt50">
       <HomeGames />
     </div>
   )

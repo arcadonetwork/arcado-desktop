@@ -76,7 +76,6 @@ export const account = {
           ...onChainAccount
         }
       }
-      console.log('syncAccount', account);
       dispatch.account.setAccount(account);
       dispatch.account.setAccountSynced(true)
     },

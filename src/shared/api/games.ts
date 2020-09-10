@@ -30,9 +30,15 @@ export const createGame = async (game: GameModel, passphrase: string) => {
 };
 
 export const getGames = async () => {
-  const { data }: any = await api.transactions.get({ type: TRANSACTION_TYPES.GAMES });
+  let { data, meta }: any = await api.transactions.get({ type: TRANSACTION_TYPES.GAMES });
   if (isArrayWithElements(data)) {
-    return data.map((transaction: TransactionModel) => transaction.asset as GameModel)
+    data = data.map((transaction: TransactionModel) => transaction.asset as GameModel)
+    return { data, meta }
+  }
+  return {
+    data: [],
+    meta: {
+    }
   }
 };
 

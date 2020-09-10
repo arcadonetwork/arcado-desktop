@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GameModel } from '../../models/game.model';
-import { arrayContains, isArrayWithElements } from '../../utils/type-checking';
+import { isArrayWithElements } from '../../utils/type-checking';
 import { HomeGamesItem } from './HomeGamesItem';
 import { HomeGamesEmpty } from './HomeGamesEmpty';
 import { getGames } from '../../shared/api/games';
@@ -18,14 +18,14 @@ interface ContainerProps {
 
 export const HomeGames: React.FC<ContainerProps> = () => {
 
-  const [games, setGames] = useState<GameModel[]>([]);
+  const [gamesResponse, setGamesResponse] = useState<{ data: GameModel[], meta: any }>();
   const [loading, setLoading] = useState<boolean>(true);
   const newTransactions: TransactionModel[] = useSelector((state: iRootState) => state.network.newTransactions);
 
   async function fetchGames() {
     try {
-      const games  = await getGames();
-      setGames(games);
+      const response  = await getGames();
+      setGamesResponse(response);
       setLoading(false);
     } catch (e) {
       message.error('can not load games')
@@ -33,10 +33,14 @@ export const HomeGames: React.FC<ContainerProps> = () => {
     }
   }
 
+  function hasNewGameState () {
+    const txs = newTransactions.filter(item => item.type === TRANSACTION_TYPES.GAMES)
+    return isArrayWithElements(txs);
+  }
+
   useEffect( () => {
     fetchGames();
-    return () => ''
-  }, [arrayContains(newTransactions, TRANSACTION_TYPES.GAMES)]);
+  }, [hasNewGameState()]);
 
   if (loading) {
     return <Loading />
@@ -45,14 +49,14 @@ export const HomeGames: React.FC<ContainerProps> = () => {
   return (
     <>
       <div className="mb25 br-b pb15">
-        <div className="fs-l p0 m0 fc-black ffm-bold">Games</div>
+        <h1 className="fs-xm p0 m0 fc-black ffm-bold">{gamesResponse.meta.count} Games</h1>
       </div>
       {
-        !isArrayWithElements(games)
+        !isArrayWithElements(gamesResponse.data)
           ? <HomeGamesEmpty />
           : (
             <div className="grid-col5">
-              {games.map((game, index) => <HomeGamesItem key={index} game={game} index={index}/>)}
+              {gamesResponse.data.map((game, index) => <HomeGamesItem key={index} game={game} index={index}/>)}
             </div>
           )
       }
