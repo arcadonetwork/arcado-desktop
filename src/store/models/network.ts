@@ -36,7 +36,7 @@ export const network = {
         blockHeight: payload
       }
     },
-    setNewTransactionsState: (state: NetworkState, payload: TransactionModel[]) => {
+    setNewTransactionsState: (state: NetworkState, payload: TransactionModel<any>[]) => {
       return {
         ...state,
         newTransactions: payload

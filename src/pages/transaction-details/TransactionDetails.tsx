@@ -20,7 +20,7 @@ export const TransactionDetails: React.FC<ContainerProps> = ({ match }) => {
 
   const { txId } = match.params;
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [transaction, setTransaction] = useState<TransactionModel>(undefined);
+  const [transaction, setTransaction] = useState<TransactionModel<any>>(undefined);
 
   async function fetchTransaction () {
     const transactionModel = await getTransactionById(txId);

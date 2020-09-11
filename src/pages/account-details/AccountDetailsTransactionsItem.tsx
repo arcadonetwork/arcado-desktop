@@ -7,7 +7,7 @@ import { getFormattedDate } from '../../utils/dates';
 import { AssetModel } from '../../models/asset.model';
 
 interface ContainerProps {
-  transaction: TransactionModel,
+  transaction: TransactionModel<any>,
   isLastChild: boolean
 }
 

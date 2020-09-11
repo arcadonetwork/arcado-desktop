@@ -13,5 +13,5 @@ export type BlockModel = {
   previousBlockId: string;
   generatorPublicKey: string;
   blockSignature: string;
-  transactions: TransactionModel[];
+  transactions: TransactionModel<any>[];
 }

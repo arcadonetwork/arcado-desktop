@@ -13,7 +13,7 @@ interface ContainerProps {
 export const CreateGameModalTxConfirmation: React.FC<ContainerProps> = () => {
   const [isFound, setIsFound] = useState<boolean>(false);
   const dispatch = useDispatch<Dispatch>();
-  const newTransactions: TransactionModel[] = useSelector((state: iRootState) => state.network.newTransactions);
+  const newTransactions: TransactionModel<any>[] = useSelector((state: iRootState) => state.network.newTransactions);
   const account = useSelector((state: iRootState) => state.account.account);
   const actionBroadcast = useSelector((state: iRootState) => state.network.actionBroadcast);
 

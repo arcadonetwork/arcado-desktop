@@ -18,6 +18,7 @@ import { ParticipantModel } from '../../models/participant.model';
 import { TournamentPageDetails } from './TournamentPageDetails';
 import { AccountModel } from '../../models/account.model';
 import { TournamentStateModel } from '../../models/tournament-state.model';
+import { ApiResponseModel } from '../../models/api-response.model';
 
 const menu = [
   'Participants'
@@ -35,15 +36,15 @@ interface ContainerProps extends RouteComponentProps<MatchParams> {
 export const TournamentPage: React.FC<ContainerProps> = ({ match }) => {
   const { gameId, tournamentId } = match.params;
 
-  const [game, setGame] = useState<GameModel>(undefined);
-  const [tournament, setTournament] = useState<TournamentModel>(undefined);
-  const [participants, setParticipants] = useState<ParticipantModel[]>(undefined);
-  const [tournamentState, setTournamentState] = useState<TournamentStateModel>(undefined);
+  const [game, setGame] = useState<GameModel>();
+  const [tournament, setTournament] = useState<TournamentModel>();
+  const [participantsResponse, setParticipantsResponse] = useState<ApiResponseModel<ParticipantModel>>();
+  const [tournamentState, setTournamentState] = useState<TournamentStateModel>();
 
   const [page, setPage] = useState<string>(menu[0]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const newTransactions: TransactionModel[] = useSelector((state: iRootState) => state.network.newTransactions);
+  const newTransactions: TransactionModel<TournamentModel>[] = useSelector((state: iRootState) => state.network.newTransactions);
   const account: AccountModel = useSelector((state: iRootState) => state.account.account);
 
   async function fetchTournament () {
@@ -57,7 +58,7 @@ export const TournamentPage: React.FC<ContainerProps> = ({ match }) => {
 
       setTournament(tournamentResponse);
       setGame(gameResponse);
-      setParticipants(playersResponse);
+      setParticipantsResponse(playersResponse);
 
       const tournamentStateResponse = await getTournamentState(tournamentResponse, account.address)
       setTournamentState(tournamentStateResponse);
@@ -97,8 +98,8 @@ export const TournamentPage: React.FC<ContainerProps> = ({ match }) => {
 
   async function fetchPlayers () {
     try {
-      const players = await getParticipants(tournamentId);
-      setParticipants(players || []);
+      const response = await getParticipants(tournamentId);
+      setParticipantsResponse(response);
       setLoading(false);
     }catch (e) {
       message.error('Can not fetch tournament');
@@ -109,7 +110,7 @@ export const TournamentPage: React.FC<ContainerProps> = ({ match }) => {
   function getHasNewPlayers () {
     const txs = newTransactions.filter(item => (
       item.type === TRANSACTION_TYPES.JOIN_TOURNAMENT
-      && (item.asset as TournamentModel).tournamentId === tournamentId
+      && item.asset.tournamentId === tournamentId
     ))
     return isArrayWithElements(txs);
   }
@@ -129,10 +130,12 @@ export const TournamentPage: React.FC<ContainerProps> = ({ match }) => {
         || item.type === TRANSACTION_TYPES.STOP_TOURNAMENT
         || item.type === TRANSACTION_TYPES.JOIN_TOURNAMENT
       )
-      && (item.asset as TournamentModel).tournamentId === tournamentId
+      && item.asset.tournamentId === tournamentId
     )
     return isArrayWithElements(txs);
   }
+
+  const participants = participantsResponse.data.map(item => item.asset);
 
   return (
     <div className="grid-xl mt50">

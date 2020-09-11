@@ -11,6 +11,7 @@ import { TRANSACTION_TYPES } from '@arcado/arcado-transactions/dist-node/utils';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
 import { TransactionModel } from '../../models/transaction.model';
+import { ApiResponseModel } from '../../models/api-response.model';
 
 
 interface ContainerProps {
@@ -18,21 +19,21 @@ interface ContainerProps {
 }
 
 export const GameDetailsPageTournaments: React.FC<ContainerProps> = ({ game }) => {
-  const [tournaments, setTournaments] = useState<TournamentModel[]>([]);
+  const [tournamentsResponse, setTournamentsResponse] = useState<ApiResponseModel<TournamentModel>>();
   const [loading, setLoading] = useState<boolean>(true);
   const [isCreatingTournament, setIsCreatingTournament] = useState<boolean>(false);
-  const newTransactions: TransactionModel[] = useSelector((state: iRootState) => state.network.newTransactions);
+  const newTransactions: TransactionModel<TournamentModel>[] = useSelector((state: iRootState) => state.network.newTransactions);
 
   function hasGameUpdated () {
     return arrayContains(newTransactions.map(item => item.type), TRANSACTION_TYPES.TOURNAMENTS)
-      && newTransactions.map(item => (item.asset as TournamentModel).gameId === game.gameId);
+      && newTransactions.map(item => item.asset.gameId === game.gameId);
   }
 
   useEffect( () => {
     async function fetchData() {
       try {
-        const tournaments = await getTournaments(game.gameId);
-        setTournaments(tournaments);
+        const response = await getTournaments(game.gameId);
+        setTournamentsResponse(response);
         setLoading(false);
       } catch (e) {
         message.error('can not load tournaments')
@@ -65,17 +66,17 @@ export const GameDetailsPageTournaments: React.FC<ContainerProps> = ({ game }) =
       </div>
       <div className="grid">
           {
-            isArrayWithElements(tournaments)
+            isArrayWithElements(tournamentsResponse.data)
               ? (
                 <div className="w100 grid-col4 flex-jc-sb">
                   {
-                    tournaments.map(
-                      (tournament, index) =>
+                    tournamentsResponse.data.map(
+                      (tx: TransactionModel<TournamentModel>, index: any) =>
                         <GameDetailsPageTournamentsItem
-                          key={tournament.tournamentId}
+                          key={tx.asset.tournamentId}
                           gameId={game.gameId}
-                          tournament={tournament}
-                          isLastChild={index === tournaments.length - 1}
+                          tournament={tx.asset}
+                          isLastChild={index === tournamentsResponse.data.length - 1}
                         />
                     )
                   }

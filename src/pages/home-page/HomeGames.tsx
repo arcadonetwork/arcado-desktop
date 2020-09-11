@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
 import { utils } from '@arcado/arcado-transactions';
 import { TransactionModel } from '../../models/transaction.model';
+import { ApiResponseModel } from '../../models/api-response.model';
 
 const { TRANSACTION_TYPES } = utils;
 
@@ -18,9 +19,9 @@ interface ContainerProps {
 
 export const HomeGames: React.FC<ContainerProps> = () => {
 
-  const [gamesResponse, setGamesResponse] = useState<{ data: GameModel[], meta: any }>();
+  const [gamesResponse, setGamesResponse] = useState<ApiResponseModel<GameModel>>();
   const [loading, setLoading] = useState<boolean>(true);
-  const newTransactions: TransactionModel[] = useSelector((state: iRootState) => state.network.newTransactions);
+  const newTransactions: TransactionModel<GameModel>[] = useSelector((state: iRootState) => state.network.newTransactions);
 
   async function fetchGames() {
     try {
@@ -56,7 +57,7 @@ export const HomeGames: React.FC<ContainerProps> = () => {
           ? <HomeGamesEmpty />
           : (
             <div className="grid-col5">
-              {gamesResponse.data.map((game, index) => <HomeGamesItem key={index} game={game} index={index}/>)}
+              {gamesResponse.data.map((game, index) => <HomeGamesItem key={index} game={game.asset} index={index}/>)}
             </div>
           )
       }

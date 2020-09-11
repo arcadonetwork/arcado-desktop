@@ -12,6 +12,7 @@ import {
   JoinTournamentTransaction,
   StartTournamentTransaction,
   StopTournamentTransaction, utils } from '@arcado/arcado-transactions';
+import { ApiResponseModel } from '../../models/api-response.model';
 
 const { TRANSACTION_TYPES } = utils;
 
@@ -100,24 +101,22 @@ export const stopTournament = async (gameId: string, tournamentId: string,  tour
   return api.transactions.broadcast(tx.toJSON())
 };
 
-export const getTournaments = async (gameId: string) => {
-  const { data } = await request({
+export const getTournaments = async (gameId: string): Promise<ApiResponseModel<TournamentModel>> => {
+  const { data, meta } = await request({
     url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=gameId&contains=${gameId}&type=${TRANSACTION_TYPES.TOURNAMENTS}`,
     method: 'GET'
   });
-  if (isArrayWithElements(data)) {
-    return data.map((transaction: TransactionModel) => transaction.asset as TournamentModel)
-  }
+  return { data, meta }
 };
 
-export const getTournament = async (tournamentId: string) => {
+export const getTournament = async (tournamentId: string): Promise<TournamentModel> => {
   const { data } = await request({
     url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=tournamentId&contains=${tournamentId}&type=${TRANSACTION_TYPES.TOURNAMENTS}`,
     method: 'GET'
   });
   if (isArrayWithElements(data)) {
-    const transaction: TransactionModel = data[0];
-    return transaction.asset as TournamentModel;
+    const transaction: TransactionModel<TournamentModel> = data[0];
+    return transaction.asset;
   }
   return undefined;
 };
@@ -136,19 +135,17 @@ export const getTournamentState = async (tournament: TournamentModel, address: s
   });
   if (isArrayWithElements(startGame)) return { type: 3 }; // STARTED
 
-  const participants = await getParticipants(tournamentId);
+  const participantsTxs = (await getParticipants(tournamentId)).data;
+  const participants = participantsTxs.map(item => item.asset);
   if (isArrayWithElements(participants) && participants.length === Number(tournament.maxPlayers)) return { type: 2 }; // CAN START
   if (isArrayWithElements(participants) && participants.map((item: ParticipantModel) => item.address).includes(address)) return { type: 1 }; // ALREADY JOINED
   return { type: 0 }; // CAN JOIN
 };
 
-export const getParticipants = async (tournamentId: string) => {
-  const { data } = await request({
+export const getParticipants = async (tournamentId: string): Promise<ApiResponseModel<ParticipantModel>> => {
+  const { data, meta } = await request({
     url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=tournamentId&contains=${tournamentId}&type=${TRANSACTION_TYPES.JOIN_TOURNAMENT}`,
     method: 'GET'
   });
-  if (isArrayWithElements(data)) {
-    return data.map((transaction: TransactionModel) => transaction.asset as ParticipantModel)
-  }
-  return undefined;
+  return { data, meta }
 };

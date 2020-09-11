@@ -1,8 +1,4 @@
-import { AssetModel } from './asset.model';
-import { TournamentModel } from './tournament.model';
-import { GameModel } from './game.model';
-
-export type TransactionModel = {
+export type TransactionModel<T> = {
   id: string;
   height: number;
   blockId: string;
@@ -11,5 +7,5 @@ export type TransactionModel = {
   senderPublicKey: string;
   senderId: string;
   signature: string;
-  asset: AssetModel|TournamentModel|GameModel;
+  asset: T;
 }
