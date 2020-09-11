@@ -5,7 +5,8 @@ import { AccountModel } from '../../models/account.model';
 import { AccountDetailsTransactionsItem } from './AccountDetailsTransactionsItem';
 import { isArrayWithElements } from '../../utils/type-checking';
 import { AccountDetailsTransactionsNotFound } from './AccountDetailsTransactionsNotFound';
-import { TransactionModel } from '../../models/transaction.model';
+import { ApiResponseModel } from '../../models/api-response.model';
+import { AssetModel } from '../../models/asset.model';
 
 
 interface ContainerProps {
@@ -13,17 +14,16 @@ interface ContainerProps {
 }
 
 export const AccountDetailsTransactions: React.FC<ContainerProps> = ({ account }) => {
-  const [transactions, setTransactions] = useState<TransactionModel[]>([]);
+  const [txResponse, setTxResponse] = useState<ApiResponseModel<AssetModel>>();
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect( () => {
     async function fetchData() {
       try {
-        const transactions = await getTransactionsByAddress(account.address);
-        setTransactions(transactions);
+        const response = await getTransactionsByAddress(account.address);
+        setTxResponse(response);
         setLoading(false);
       } catch (e) {
-        setTransactions([]);
         setLoading(false);
       }
     }
@@ -48,14 +48,14 @@ export const AccountDetailsTransactions: React.FC<ContainerProps> = ({ account }
         <span className="w15">Value</span>
       </div>
       {
-        !isArrayWithElements(transactions)
+        !isArrayWithElements(txResponse.data)
         ? <AccountDetailsTransactionsNotFound />
-        : transactions.map(
+        : txResponse.data.map(
           (transaction, index) =>
             <AccountDetailsTransactionsItem
               key={index}
               transaction={transaction}
-              isLastChild={index === transactions.length - 1}
+              isLastChild={index === txResponse.data.length - 1}
             />
         )
       }

@@ -7,6 +7,7 @@ import { GameModel } from '../../models/game.model';
 import { isArrayWithElements } from '../../utils/type-checking';
 import { TransactionModel } from '../../models/transaction.model';
 import { createNetworkTs } from '../../utils/dates';
+import { ApiResponseModel } from '../../models/api-response.model';
 
 const { TRANSACTION_TYPES } = utils;
 const api = new APIClient([NETWORK_BASE_URI]);
@@ -29,11 +30,12 @@ export const createGame = async (game: GameModel, passphrase: string) => {
   return api.transactions.broadcast(tx.toJSON());
 };
 
-export const getGames = async () => {
-  const { data }: any = await api.transactions.get({ type: TRANSACTION_TYPES.GAMES });
-  if (isArrayWithElements(data)) {
-    return data.map((transaction: TransactionModel) => transaction.asset as GameModel)
-  }
+export const getGames = async (): Promise<ApiResponseModel<GameModel>> => {
+  let { data, meta }: any = await request({
+    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=gameId&type=${TRANSACTION_TYPES.GAMES}`,
+    method: 'GET'
+  });
+  return { data, meta }
 };
 
 export const getGame = async (gameId: string) => {
@@ -42,7 +44,7 @@ export const getGame = async (gameId: string) => {
     method: 'GET'
   });
   if (isArrayWithElements(data)) {
-    const transaction: TransactionModel = data[0];
+    const transaction: TransactionModel<GameModel> = data[0];
     return transaction.asset as GameModel;
   }
   return undefined;

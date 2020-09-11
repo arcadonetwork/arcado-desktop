@@ -9,14 +9,16 @@ const initialState: NetworkState = {
   online: false,
   blockHeight: 0,
   newTransactions: [],
-  targetNetwork: undefined
+  targetNetwork: undefined,
+  actionBroadcast: undefined
 }
 
 export type NetworkState = {
   online: boolean,
   blockHeight: number,
   newTransactions: [],
-  targetNetwork: NetworkModel
+  targetNetwork: NetworkModel,
+  actionBroadcast: any
 }
 
 export const network = {
@@ -34,7 +36,7 @@ export const network = {
         blockHeight: payload
       }
     },
-    setNewTransactionsState: (state: NetworkState, payload: TransactionModel[]) => {
+    setNewTransactionsState: (state: NetworkState, payload: TransactionModel<any>[]) => {
       return {
         ...state,
         newTransactions: payload
@@ -44,6 +46,12 @@ export const network = {
       return {
         ...state,
         targetNetwork: payload
+      }
+    },
+    setActionBroadcast: (state: NetworkState, payload: number) => {
+      return {
+        ...state,
+        actionBroadcast: payload
       }
     },
   },
@@ -74,8 +82,6 @@ export const network = {
       dispatch.account.checkTransactionsAndUpdateAccount({
         transactions: block.transactions, account
       });
-
-
 
     }
   }),

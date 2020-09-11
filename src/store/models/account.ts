@@ -76,7 +76,6 @@ export const account = {
           ...onChainAccount
         }
       }
-      console.log('syncAccount', account);
       dispatch.account.setAccount(account);
       dispatch.account.setAccountSynced(true)
     },
@@ -100,11 +99,11 @@ export const account = {
       dispatch.account.logoutState(undefined)
       dispatch.network.setTargetNetwork(undefined)
     },
-    async checkTransactionsAndUpdateAccount ({ transactions, account } : { transactions: TransactionModel[], account: AccountModel }) {
+    async checkTransactionsAndUpdateAccount ({ transactions, account } : { transactions: TransactionModel<AssetModel>[], account: AccountModel }) {
       if (!isObjectWithFields(account)) return;
       const relevantTxs = transactions
         .filter((tx) => {
-          const asset = tx.asset as AssetModel;
+          const asset = tx.asset;
           return account.address === asset.recipientId || account.address === tx.senderId;
         });
       if (isArrayWithElements(relevantTxs)) {

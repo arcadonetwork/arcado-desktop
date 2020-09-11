@@ -24,9 +24,9 @@ export const AppContainerHeader: React.FC<ContainerProps> = () => {
           </div>
         </Link>
         {
-           isValidAndSynced
-              ? <AppContainerHeaderAuthenticated />
-              : <AppContainerHeaderNetworkSetup  />
+          isValidAndSynced
+            ? <AppContainerHeaderAuthenticated />
+            : <AppContainerHeaderNetworkSetup  />
         }
       </div>
     </div>
