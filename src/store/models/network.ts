@@ -48,7 +48,7 @@ export const network = {
         targetNetwork: payload
       }
     },
-    setActionBroadcastState: (state: NetworkState, payload: number) => {
+    setActionBroadcast: (state: NetworkState, payload: number) => {
       return {
         ...state,
         actionBroadcast: payload
@@ -61,9 +61,6 @@ export const network = {
     },
     setBlockHeight (blockHeight: number) {
       dispatch.network.setBlockHeightState(blockHeight);
-    },
-    setActionBroadcast (action: number) {
-      dispatch.network.setActionBroadcastState(action);
     },
     newBlockCreated ({ block }: { block: BlockModel }) {
 

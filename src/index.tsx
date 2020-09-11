@@ -9,7 +9,7 @@ import { store, history } from './store/store';
 
 import { AppContainer } from './containers/AppContainer';
 import AppRoutes from './shared/router/Router';
-import WebSocketProvider from './providers/WebSocketProvider';
+import WebSocketProvider from './shared/providers/WebSocketProvider';
 import { ConnectedRouter } from 'connected-react-router';
 
 ReactDOM.render(

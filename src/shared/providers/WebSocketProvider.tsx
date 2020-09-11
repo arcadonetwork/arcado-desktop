@@ -1,9 +1,9 @@
 import React, { createContext } from 'react'
 import io from 'socket.io-client';
 import { useDispatch, useSelector } from 'react-redux';
-import { Dispatch, iRootState } from '../store/store';
-import { BlockModel } from '../models/block.model';
-import { isObjectWithFields } from '../utils/type-checking';
+import { Dispatch, iRootState } from '../../store/store';
+import { BlockModel } from '../../models/block.model';
+import { isObjectWithFields } from '../../utils/type-checking';
 
 const WebSocketProvider = createContext(null)
 
@@ -28,7 +28,6 @@ export default ({ children }: { children: any }) => {
     });
 
     socket.on('disconnect', () => {
-      console.log(('disconnecting'))
       dispatch.network.setStatusUpdate({ online: false });
     });
 

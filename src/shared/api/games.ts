@@ -31,7 +31,10 @@ export const createGame = async (game: GameModel, passphrase: string) => {
 };
 
 export const getGames = async (): Promise<ApiResponseModel<GameModel>> => {
-  let { data, meta }: any = await api.transactions.get({ type: TRANSACTION_TYPES.GAMES });
+  let { data, meta }: any = await request({
+    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=gameId&type=${TRANSACTION_TYPES.GAMES}`,
+    method: 'GET'
+  });
   return { data, meta }
 };
 

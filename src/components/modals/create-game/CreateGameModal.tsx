@@ -49,6 +49,7 @@ export const CreateGameModal: React.FC<ContainerProps> = ({ isCreatingGame }) =>
     } catch (e) {
       console.error(e);
       message.error('something went wrong');
+      dispatch.network.setActionBroadcast(undefined);
       dispatch.games.setIsCreatingGame(false);
     }
   }
