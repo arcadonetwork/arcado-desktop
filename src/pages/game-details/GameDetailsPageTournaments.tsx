@@ -6,10 +6,10 @@ import { Loading } from '../../components/Loading';
 import { GameDetailsPageTournamentsItem } from './GameDetailsPageTournamentsItem';
 import { arrayContains, isArrayWithElements } from '../../utils/type-checking';
 import { TournamentModel } from '../../models/tournament.model';
-import { GameDetailsPageHeaderCreateTournament } from '../../components/modals/GameDetailsPageHeaderCreateTournament';
+import { CreateTournamentModal } from '../../components/modals/create-tournament/CreateTournamentModal';
 import { TRANSACTION_TYPES } from '@arcado/arcado-transactions/dist-node/utils';
-import { useSelector } from 'react-redux';
-import { iRootState } from '../../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch, iRootState } from '../../store/store';
 import { TransactionModel } from '../../models/transaction.model';
 import { ApiResponseModel } from '../../models/api-response.model';
 
@@ -21,8 +21,9 @@ interface ContainerProps {
 export const GameDetailsPageTournaments: React.FC<ContainerProps> = ({ game }) => {
   const [tournamentsResponse, setTournamentsResponse] = useState<ApiResponseModel<TournamentModel>>();
   const [loading, setLoading] = useState<boolean>(true);
-  const [isCreatingTournament, setIsCreatingTournament] = useState<boolean>(false);
   const newTransactions: TransactionModel<TournamentModel>[] = useSelector((state: iRootState) => state.network.newTransactions);
+  const isCreatingTournament: boolean = useSelector((state: iRootState) => state.tournaments.isCreatingTournament);
+  const dispatch = useDispatch<Dispatch>();
 
   function hasGameUpdated () {
     return arrayContains(newTransactions.map(item => item.type), TRANSACTION_TYPES.TOURNAMENTS)
@@ -57,7 +58,7 @@ export const GameDetailsPageTournaments: React.FC<ContainerProps> = ({ game }) =
           </div>*/}
           <div className="ml-auto">
             <Button
-              onClick={(ev) => setIsCreatingTournament(true)}
+              onClick={(ev) => dispatch.tournaments.setIsCreatingTournament(true)}
               type="primary"
               className="w100 h40--fixed"
             >Start a tournament</Button>
@@ -74,25 +75,22 @@ export const GameDetailsPageTournaments: React.FC<ContainerProps> = ({ game }) =
                       (tx: TransactionModel<TournamentModel>, index: any) =>
                         <GameDetailsPageTournamentsItem
                           key={tx.asset.tournamentId}
-                          gameId={game.gameId}
                           tournament={tx.asset}
-                          isLastChild={index === tournamentsResponse.data.length - 1}
                         />
                     )
                   }
                 </div>
               )
               : (
-                <div className="p15-25 flex-c br5 bgc-xxl-grey fs-s br">
-                  This game did not organise tournaments yet
+                <div className="bgc-xl-grey fc-lb br5 p15-25">
+                  There were no tournaments yet
                 </div>
               )
           }
       </div>
-      <GameDetailsPageHeaderCreateTournament
+      <CreateTournamentModal
         game={game}
         isCreatingTournament={isCreatingTournament}
-        setIsCreatingTournament={(val: boolean) => setIsCreatingTournament(val)}
       />
     </div>
   )

@@ -5,9 +5,9 @@ interface ContainerProps {
   className?: string
 }
 
-export const Logo: React.FC<ContainerProps> = () => {
+export const Logo: React.FC<ContainerProps> = ({ className }) => {
   return (
-    <svg fill="currentColor" viewBox="0 0 753.07 166.28">
+    <svg className={className} fill="currentColor" viewBox="0 0 753.07 166.28">
       <path className="cls-1"
             d="M110.93,126.45H46.13L32.85,162.9H0L61.2,3.38h36L158,162.9H124.2ZM56.48,98.1h44.1L78.53,37.8Z"/>
       <path className="cls-1"

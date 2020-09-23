@@ -109,6 +109,14 @@ export const getTournaments = async (gameId: string): Promise<ApiResponseModel<T
   return { data, meta }
 };
 
+export const getTournamentsByParams = async (parameters: any = {}): Promise<ApiResponseModel<TournamentModel>> => {
+  const { data, meta } = await api.transactions.get({
+    type: TRANSACTION_TYPES.TOURNAMENTS,
+    ...parameters
+  }) as ApiResponseModel<TournamentModel>;
+  return { data, meta };
+};
+
 export const getTournament = async (tournamentId: string): Promise<TournamentModel> => {
   const { data } = await request({
     url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=tournamentId&contains=${tournamentId}&type=${TRANSACTION_TYPES.TOURNAMENTS}`,

@@ -1,4 +1,4 @@
-import { EXTENDED_NETWORK_BASE_URI, NETWORK_BASE_URI, request } from './request';
+import { EXTENDED_NETWORK_BASE_URI, NETWORK_BASE_URI, parseParameters, request } from './request';
 import { CreateGameTransaction, utils } from '@arcado/arcado-transactions';
 import { config } from '../../config';
 import { getAddressAndPublicKeyFromPassphrase } from '@liskhq/lisk-cryptography';
@@ -30,9 +30,14 @@ export const createGame = async (game: GameModel, passphrase: string) => {
   return api.transactions.broadcast(tx.toJSON());
 };
 
-export const getGames = async (): Promise<ApiResponseModel<GameModel>> => {
-  let { data, meta }: any = await request({
-    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=gameId&type=${TRANSACTION_TYPES.GAMES}`,
+export const getGames = async (parameters: any = {}): Promise<ApiResponseModel<GameModel>> => {
+  const queryParams = parseParameters({
+    "asset" : "gameId",
+    "type" : TRANSACTION_TYPES.GAMES,
+    ...parameters
+  })
+  let { data, meta } = await request({
+    url: `${EXTENDED_NETWORK_BASE_URI}/transactions${queryParams}`,
     method: 'GET'
   });
   return { data, meta }

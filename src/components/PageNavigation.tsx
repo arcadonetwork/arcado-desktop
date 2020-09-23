@@ -7,7 +7,7 @@ interface PageNavigationItemContainerProps {
 }
 
 const PageNavigationItem: React.FC<PageNavigationItemContainerProps> = ({ label, isActive, setPage }) => {
-  const clazz = isActive ? 'fc-black br-b br-c-primary ' : 'fc-lgrey br-b br-c-trans'
+  const clazz = isActive ? 'fc-black br-b br-c-primary ffm-bold ' : 'fc-lgrey br-b br-c-trans'
   return (
     <div onClick={() => setPage(label)} className={'pl25 click pb10 pr25 ' + clazz}>
       <span>{label}</span>

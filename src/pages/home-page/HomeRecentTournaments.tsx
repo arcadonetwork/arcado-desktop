@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GameModel } from '../../models/game.model';
 import { isArrayWithElements } from '../../utils/type-checking';
-import { HomeGamesItem } from './HomeGamesItem';
-import { HomeGamesEmpty } from './HomeGamesEmpty';
-import { getGames } from '../../shared/api/games';
 import { message } from 'antd';
 import { Loading } from '../../components/Loading';
 import { useSelector } from 'react-redux';
@@ -11,22 +8,25 @@ import { iRootState } from '../../store/store';
 import { utils } from '@arcado/arcado-transactions';
 import { TransactionModel } from '../../models/transaction.model';
 import { ApiResponseModel } from '../../models/api-response.model';
+import { TournamentModel } from '../../models/tournament.model';
+import { getTournamentsByParams } from '../../shared/api/tournaments';
+import { GameDetailsPageTournamentsItem } from '../game-details/GameDetailsPageTournamentsItem';
 
 const { TRANSACTION_TYPES } = utils;
 
 interface ContainerProps {
 }
 
-export const HomeGames: React.FC<ContainerProps> = () => {
+export const HomeRecentTournaments: React.FC<ContainerProps> = () => {
 
-  const [gamesResponse, setGamesResponse] = useState<ApiResponseModel<GameModel>>();
+  const [tournamentsResponse, setTournamentsResponse] = useState<ApiResponseModel<TournamentModel>>();
   const [loading, setLoading] = useState<boolean>(true);
   const newTransactions: TransactionModel<GameModel>[] = useSelector((state: iRootState) => state.network.newTransactions);
 
   async function fetchGames() {
     try {
-      const response  = await getGames({ limit: 10 });
-      setGamesResponse(response);
+      const response  = await getTournamentsByParams({ limit: 5, sort: "timestamp:asc" });
+      setTournamentsResponse(response);
       setLoading(false);
     } catch (e) {
       message.error('can not load games')
@@ -48,19 +48,30 @@ export const HomeGames: React.FC<ContainerProps> = () => {
   }
 
   return (
-    <>
+    <div className="mb50">
       <div className="mb25 br-b pb15">
-        <h1 className="fs-xm p0 m0 fc-black ffm-bold">{gamesResponse.meta.count} Games</h1>
+        <h1 className="fs-m p0 m0 fc-black ffm-bold">Recent Tournaments</h1>
       </div>
       {
-        !isArrayWithElements(gamesResponse.data)
-          ? <HomeGamesEmpty />
+        !isArrayWithElements(tournamentsResponse.data)
+          ? (
+            <div className="bgc-xl-grey fc-lb br5 p15-25">
+              <span>We can't seem to find any tournament.</span>
+            </div>
+          )
           : (
             <div className="grid-col5">
-              {gamesResponse.data.map((game, index) => <HomeGamesItem key={index} game={game.asset} index={index}/>)}
+              {
+                tournamentsResponse
+                .data.map((tx, index) =>
+                    <GameDetailsPageTournamentsItem
+                      key={index}
+                      tournament={tx.asset}
+                    />
+                  )}
             </div>
           )
       }
-    </>
+    </div>
   )
 }

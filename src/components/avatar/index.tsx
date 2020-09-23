@@ -13,7 +13,7 @@ interface ContainerProps {
 export const Avatar: React.FC<ContainerProps> = ({ url, className = '', size, type, label }) => {
   const bg_class = getBackgroundSize(size)
   const img_type =
-    type === 'rounded' ? ' br8 ' : type === 'circle' ? 'img--circle' : ''
+    type === 'rounded' ? ' br8 ' : type === 'circle' ? 'circle' : ''
   if (url) {
     return (
       <ImageAvatar
@@ -39,7 +39,7 @@ export const Avatar: React.FC<ContainerProps> = ({ url, className = '', size, ty
 }
 
 const getBackgroundSize = (size: string) => {
-  let clazz = 'img--50'
+  let clazz;
   switch (size) {
     case 'xs':
       clazz = 'img--25'
@@ -58,6 +58,9 @@ const getBackgroundSize = (size: string) => {
       break
     case 'xl':
       clazz = 'img--125'
+      break
+    case 'xxl':
+      clazz = 'img--150'
       break
     default:
       clazz = 'img--50'

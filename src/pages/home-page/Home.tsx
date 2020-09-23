@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { HomeGames } from './HomeGames';
+import { HomeRecentTournaments } from './HomeRecentTournaments';
 
 interface ContainerProps {
 }
@@ -13,6 +14,7 @@ const Home: React.FC<ContainerProps> = () => {
 
   return (
     <div className="grid-xl mt50">
+      <HomeRecentTournaments />
       <HomeGames />
     </div>
   )

@@ -15,7 +15,9 @@ import { AssetModel } from '../../models/asset.model';
   isValidAndSynced: true,
   isValidAndLoading: false,
   isFundingAccount: false,
+  hasAuthenticated: false
 }*/
+
 
 const initialState: SessionState = {
   account: undefined,
@@ -24,6 +26,7 @@ const initialState: SessionState = {
   isValidAndLoading: false,
   isFundingAccount: false
 };
+
 
 export type SessionState = {
   account: AccountModel,

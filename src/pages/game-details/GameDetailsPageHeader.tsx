@@ -1,7 +1,8 @@
 import React from 'react';
 import { GameModel } from '../../models/game.model';
 import { PageNavigation } from '../../components/PageNavigation';
-import { config } from '../../config';
+
+import { Avatar } from '../../components/avatar';
 
 interface ContainerProps {
   game: GameModel,
@@ -15,8 +16,13 @@ export const GameDetailsPageHeader: React.FC<ContainerProps> = ({ game, page, me
     <div className="w100 bgc-xl-grey">
       <div className="grid flex-fs flex-column">
         <div className="w100 flex-c pt25 pb25">
-          <div className="bgc-lgrey game-image circle img--150 mr50" >
-            <img className="br5 circle" src={config.IMAGE_PLACEHOLDER} />
+          <div className="bgc-lgrey br8 img--125 mr50" >
+            <Avatar
+              size="xl"
+              type="circle"
+              className="bgc-white"
+              label={game.name}
+            />
           </div>
           <div className="w50">
             <div className="fs-l fc-black ffm-bold">{game.name}</div>

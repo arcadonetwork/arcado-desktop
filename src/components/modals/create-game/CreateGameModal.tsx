@@ -11,6 +11,7 @@ import { GameModel } from '../../../models/game.model';
 import { TRANSACTION_TYPES } from '@arcado/arcado-transactions/dist-node/utils';
 import { CreateGameModalForm } from './CreateGameModalForm';
 import { CreateGameModalTxConfirmation } from './CreateGameModalTxConfirmation';
+import { isArrayWithElements } from '../../../utils/type-checking';
 
 type GameData = {
   id: string;
@@ -47,8 +48,9 @@ export const CreateGameModal: React.FC<ContainerProps> = ({ isCreatingGame }) =>
       await createGame(body, account.passphrase);
       dispatch.network.setActionBroadcast(TRANSACTION_TYPES.GAMES)
     } catch (e) {
-      console.error(e);
-      message.error('something went wrong');
+      if (isArrayWithElements(e.errors)) {
+        e.errors.map((item: any) => message.error(item.message))
+      }
       dispatch.network.setActionBroadcast(undefined);
       dispatch.games.setIsCreatingGame(false);
     }

@@ -3,6 +3,7 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { account } from './models/account';
 import { network } from './models/network';
 import { games } from './models/games';
+import { tournaments } from './models/tournaments';
 import { createBrowserHistory } from 'history';
 
 export const history = createBrowserHistory();
@@ -10,13 +11,15 @@ export const history = createBrowserHistory();
 export interface RootModel {
   account: typeof account,
   network: typeof network,
-  games: typeof games
+  games: typeof games,
+  tournaments: typeof tournaments
 }
 
 const models: RootModel = {
   account,
   network,
-  games
+  games,
+  tournaments
 }
 
 export const store = init({

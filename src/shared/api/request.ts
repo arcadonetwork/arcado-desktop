@@ -35,3 +35,23 @@ const fetchRequest = async (url: string, options: object) => {
     throw Object.assign({ status: error.statusCode, message: error.message });
   }
 };
+
+export const parseParameters = (parameters: any) => {
+  const { contains, limit, type, asset } = parameters
+
+  let params = `?limit=${limit || 10}`
+
+  if (contains && contains.length > 0) {
+    params += `&contains=${contains}`
+  }
+
+  if (type) {
+    params += `&type=${type}`
+  }
+
+  if (asset) {
+    params += `&asset=${asset}`
+  }
+
+  return params
+}

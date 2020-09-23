@@ -21,7 +21,7 @@ export const LetterAvatar: React.FC<ContainerProps> = ({
     <svg
       className={`${bg_class} ${className} ffm-bold br8 ${img_type}`}
       viewBox={`0 0 ${bg_size} ${bg_size}`}>
-      <rect width="80%" height="80%" x="10%" y="10%" rx="5" ry="5" className="fill-white" />
+      <rect width="80%" height="80%" x="10%" y="10%" rx="2" ry="2" className="fill-white" />
       <text
         fontSize={center}
         y="55%"

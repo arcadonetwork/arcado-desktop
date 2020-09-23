@@ -5,13 +5,11 @@ import { getGameTournamentItemRoute } from '../../shared/router/Router';
 import { fromRawLsk } from '../../utils/lsk';
 
 interface ContainerProps {
-  gameId: string,
-  tournament: TournamentModel,
-  isLastChild: boolean
+  tournament: TournamentModel
 }
 
-export const GameDetailsPageTournamentsItem: React.FC<ContainerProps> = ({ gameId, tournament, isLastChild }) => {
-  const uri = getGameTournamentItemRoute(gameId, tournament.tournamentId);
+export const GameDetailsPageTournamentsItem: React.FC<ContainerProps> = ({ tournament }) => {
+  const uri = getGameTournamentItemRoute(tournament.gameId, tournament.tournamentId);
   return (
     <Link to={uri} className="tournament-tile bgc-xxl-grey mb10 flex-fs flex-column br5 br game-item">
       <div className="w100 mb25">

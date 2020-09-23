@@ -13,6 +13,19 @@ const initialState: NetworkState = {
   actionBroadcast: undefined
 }
 
+/*const initialState: NetworkState = {
+  online: true,
+  blockHeight: 0,
+  newTransactions: [],
+  targetNetwork:  {
+    name: 'Alphanet',
+    identifier: 'alphanet',
+    nodeUrl: "http://localhost:4000",
+    wsPort: 8000
+  },
+  actionBroadcast: undefined
+}*/
+
 export type NetworkState = {
   online: boolean,
   blockHeight: number,
