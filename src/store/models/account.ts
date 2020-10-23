@@ -1,6 +1,6 @@
 import { AccountModel }  from '../../models/account.model';
 import { Dispatch } from '../store';
-import { getAccount, addFundsToAccount } from '../../shared/api/accounts';
+import { getAccount } from '../../shared/api/accounts';
 import { isArrayWithElements, isObjectWithFields } from '../../utils/type-checking';
 import { TransactionModel } from '../../models/transaction.model';
 import { AssetModel } from '../../models/asset.model';
@@ -14,7 +14,6 @@ import { AssetModel } from '../../models/asset.model';
   },
   isValidAndSynced: true,
   isValidAndLoading: false,
-  isFundingAccount: false,
   hasAuthenticated: false
 }*/
 
@@ -23,8 +22,7 @@ const initialState: SessionState = {
   account: undefined,
   hasAuthenticated: false,
   isValidAndSynced: false,
-  isValidAndLoading: false,
-  isFundingAccount: false
+  isValidAndLoading: false
 };
 
 
@@ -32,8 +30,7 @@ export type SessionState = {
   account: AccountModel,
   hasAuthenticated: boolean,
   isValidAndSynced: boolean,
-  isValidAndLoading: boolean,
-  isFundingAccount: boolean
+  isValidAndLoading: boolean
 }
 
 export const account = {
@@ -62,12 +59,6 @@ export const account = {
         isValidAndSynced: payload
       }
     },
-    setFundingAccountState: (state: SessionState, payload: boolean) => {
-      return {
-        ...state,
-        isFundingAccount: payload
-      }
-    },
   },
   effects: (dispatch: Dispatch) => ({
     async syncAccount (account: AccountModel) {
@@ -88,15 +79,6 @@ export const account = {
       } catch (e) {
         return undefined;
       }
-    },
-    addFunds (address: string) {
-      dispatch.account.setFundingAccountState(true);
-      addFundsToAccount(address)
-        .then(({ data }) => {
-          dispatch.account.setFundingAccountState(false);
-        }).catch(() => {
-
-        });
     },
     logout () {
       dispatch.account.logoutState(undefined)

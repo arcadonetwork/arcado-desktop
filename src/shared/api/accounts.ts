@@ -1,10 +1,8 @@
-import { API_BASE_URI, NETWORK_BASE_URI, request } from './request';
+import { NETWORK_BASE_URI } from './request';
 import { fromRawLsk } from '../../utils/lsk';
 import { isArrayWithElements } from '../../utils/type-checking';
 import { APIClient } from 'lisk-elements/dist-node';
 import { AccountModel } from '../../models/account.model';
-
-const URI = `${API_BASE_URI}/accounts`
 
 const api = new APIClient([NETWORK_BASE_URI]);
 
@@ -17,11 +15,4 @@ export const getAccount = async (address: string) => {
   } else {
     return undefined;
   }
-};
-
-export const addFundsToAccount = async (address: string) => {
-  return request({
-    url: `${URI}/${encodeURI(address)}/funds`,
-    method: 'POST'
-  });
 };

@@ -18,9 +18,9 @@ export const AppContainerHeader: React.FC<ContainerProps> = () => {
 
   return (
     <div className="w100 bgc-xxl-grey br-b h60--fixed">
-      <div className="grid-xl h60--fixed m-auto flex-c">
+      <div className="w100 pr15 pl15 h60--fixed m-auto flex-c">
         <div className="h100 flex-c">
-          <Link to={ROUTES.HOME} className="flex-c h100 w85--fixed">
+          <Link to={ROUTES.HOME} className="ml25 flex-c h100 w85--fixed">
             <Logo className="w85--fixed" />
           </Link>
         </div>

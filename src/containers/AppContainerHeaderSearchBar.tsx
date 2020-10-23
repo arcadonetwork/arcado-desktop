@@ -66,7 +66,7 @@ const SearchBar: React.FC<ContainerProps> = ({ history }) => {
           ))}
         </Menu>
       }>
-      <div className="menu--search bgc-xxl-grey h60--fixed flex-c flex-jc-c w350--fixed color-lb br-r ml25 br-l br-b pl25">
+      <div className="menu--search bgc-xxl-grey h60--fixed flex-c flex-jc-c w350--fixed color-lb ml25 br-l br-b pl25">
         <div className="mr15 mt5 fc-grey">
           {
             search_loading

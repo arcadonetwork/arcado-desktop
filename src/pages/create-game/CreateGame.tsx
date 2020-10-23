@@ -1,17 +1,16 @@
 import React from 'react';
 
-import Modal from 'antd/es/modal';
-import { message } from 'antd';
+import { Button, message } from 'antd';
 import { useForm } from 'react-hook-form';
-import { Dispatch, iRootState } from '../../../store/store';
+import { Dispatch, iRootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { generateUUID } from '../../../utils/uuid';
-import { createGame } from '../../../shared/api/games';
-import { GameModel } from '../../../models/game.model';
+import { generateUUID } from '../../utils/uuid';
+import { createGame } from '../../shared/api/games';
+import { GameModel } from '../../models/game.model';
 import { TRANSACTION_TYPES } from '@arcado/arcado-transactions/dist-node/utils';
-import { CreateGameModalForm } from './CreateGameModalForm';
-import { CreateGameModalTxConfirmation } from './CreateGameModalTxConfirmation';
-import { isArrayWithElements } from '../../../utils/type-checking';
+import { CreateGameForm } from './CreateGameForm';
+import { CreateGameTxConfirmation } from './CreateGameTxConfirmation';
+import { isArrayWithElements } from '../../utils/type-checking';
 
 type GameData = {
   id: string;
@@ -23,7 +22,7 @@ interface ContainerProps {
 }
 
 
-export const CreateGameModal: React.FC<ContainerProps> = ({ isCreatingGame }) => {
+export const CreateGame: React.FC<ContainerProps> = ({ isCreatingGame }) => {
   const {
     register,
     handleSubmit,
@@ -33,10 +32,6 @@ export const CreateGameModal: React.FC<ContainerProps> = ({ isCreatingGame }) =>
   const dispatch = useDispatch<Dispatch>();
   const account = useSelector((state: iRootState) => state.account.account);
   const actionBroadcast = useSelector((state: iRootState) => state.network.actionBroadcast);
-
-  if (!isCreatingGame) {
-    return <></>;
-  }
 
   async function createOnClick (gameData: GameData) {
     try {
@@ -52,7 +47,6 @@ export const CreateGameModal: React.FC<ContainerProps> = ({ isCreatingGame }) =>
         e.errors.map((item: any) => message.error(item.message))
       }
       dispatch.network.setActionBroadcast(undefined);
-      dispatch.games.setIsCreatingGame(false);
     }
   }
 
@@ -60,36 +54,28 @@ export const CreateGameModal: React.FC<ContainerProps> = ({ isCreatingGame }) =>
 
   if (actionBroadcast) {
     Component = (
-      <CreateGameModalTxConfirmation />
+      <CreateGameTxConfirmation />
     )
   } else {
     Component = (
-      <CreateGameModalForm
+      <CreateGameForm
         register={register}
         errors={errors}
       />
     )
   }
 
-  let optionalModalProps: any = {
-    onCancel : () => dispatch.games.setIsCreatingGame(false)
-  }
-
-  if (actionBroadcast) {
-    optionalModalProps.footer = null;
-    optionalModalProps.onCancel = () => ''
-  }
-
   return (
-    <Modal
-      visible={isCreatingGame}
-      onOk={handleSubmit(createOnClick)}
-      closable={false}
-      okButtonProps={{ disabled: !!actionBroadcast }}
-      okText="Create Game"
-      {...optionalModalProps}
+    <div
+      className="grid mt50"
     >
       {Component}
-    </Modal>
+      <div className="flex-c">
+        <div className="ml-auto">
+          <Button className="w175--fixed h45--fixed mr25" onClick={handleSubmit(createOnClick)}>Cancel</Button>
+          <Button className="w175--fixed h45--fixed" disabled={!!actionBroadcast} type="primary" onClick={handleSubmit(createOnClick)}>Create game</Button>
+        </div>
+      </div>
+    </div>
   )
 }

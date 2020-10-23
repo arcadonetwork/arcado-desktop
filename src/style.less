@@ -53,7 +53,7 @@ body {
 }
 
 .bgc-lblue {
-  background-color: #eaf7ff;
+  background-color: #e5f0ff;
 }
 
 .bgc-primary {
@@ -100,8 +100,16 @@ body {
   fill: @primary-color;
 }
 
+.bgc-grey {
+  background-color: #e2e2e2;
+}
+
 .bgc-grey__hover:hover {
   background-color: #f1f1f1 !important;
+}
+
+.bgc-xl-grey__hover:hover {
+  background-color: #f3f3f3 !important;
 }
 
 .fc-primary {
@@ -177,6 +185,11 @@ body {
 
 .grid {
   width: 1150px;
+  margin: auto;
+}
+
+.grid-s {
+  width: 850px;
   margin: auto;
 }
 
@@ -316,6 +329,10 @@ body {
   height: 200px;
 }
 
+
+.fs-xxs {
+  font-size: 0.5em;
+}
 
 .fs-xs {
   font-size: 0.7em;
@@ -515,6 +532,10 @@ body {
 
 .p5-15 {
   padding: 7px 25px;
+}
+
+.p5-10 {
+  padding: 7px;
 }
 
 .p15-25 {
@@ -874,13 +895,6 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
   }
 }
 
-
-.bg--dd-menu {
-  padding: 5px !important;
-  border-radius: 2px;
-  box-shadow: 0 0px 2px rgba(25, 25, 25, 0.2) !important;
-}
-
 .error-input {
   border-color: #e00202 !important;
   color: #e00202 !important;
@@ -1047,7 +1061,7 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
 .bg--dd-menu {
   padding: 5px !important;
   border-radius: 2px;
-  box-shadow: 0 1px 2px rgba(25, 25, 25, 0.2) !important;
+  box-shadow: 0 1px 2px rgba(25, 25, 25, 0.5) !important;
 
   .ant-dropdown-menu {
     box-shadow: none !important;

@@ -55,7 +55,7 @@ export const LoginPage: React.FC<ContainerProps> = ({ history }: ContainerProps)
   }
 
   return (
-    <div className="w50 m-auto">
+    <div className="grid-s m-auto">
       <div className="mb50 flex-c flex-jc-c flex-column mt125">
         <h1 className="fs-xxl ffm-bold p0 m0">Welcome to <span className="fc-primary ffm-bold">Arcado</span></h1>
         <h2 className="fs-m fc-grey p0 m0">Sign in with a passphrase</h2>

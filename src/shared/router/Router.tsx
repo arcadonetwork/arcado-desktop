@@ -10,15 +10,18 @@ import { ProtectedRoute } from './ProtectedRoute';
 import InitialiseAccount from '../../pages/initialise-account/InitialiseAccount';
 import { LogoutPage } from '../../pages/logout/LogoutPage';
 import { TransactionDetails } from '../../pages/transaction-details/TransactionDetails';
+import { CreateGame } from '../../pages/create-game/CreateGame';
 
 export const ROUTES = {
+  ACCOUNT_DETAILS: '/address/:address',
+  CREATE_GAME: '/games/create',
   GAME_DETAILS: '/:gameId',
   HOME: '/',
+  INITIALISE: '/initialise',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  MY_GAMES: '/games',
   TOURNAMENT_PAGE: '/:gameId/tournaments/:tournamentId',
-  ACCOUNT_DETAILS: '/address/:address',
-  INITIALISE: '/initialise',
   TRANSACTION_DETAILS: '/tx/:txId'
 };
 
@@ -69,6 +72,12 @@ export default () => {
         exact
         path={ROUTES.INITIALISE}
         component={InitialiseAccount}
+      />
+
+      <ProtectedRoute
+        exact
+        path={ROUTES.CREATE_GAME}
+        component={CreateGame}
       />
 
       <ProtectedRoute

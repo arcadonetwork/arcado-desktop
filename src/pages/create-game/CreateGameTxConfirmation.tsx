@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Dispatch, iRootState } from '../../../store/store';
-import { TransactionModel } from '../../../models/transaction.model';
-import { isArrayWithElements } from '../../../utils/type-checking';
-import useUpdateEffect from '../../../shared/hooks/UseUpdateEffect';
-import { GameModel } from '../../../models/game.model';
-import { getGamesItemRoute } from '../../../shared/router/Router';
+import { Dispatch, iRootState } from '../../store/store';
+import { TransactionModel } from '../../models/transaction.model';
+import { isArrayWithElements } from '../../utils/type-checking';
+import useUpdateEffect from '../../shared/hooks/UseUpdateEffect';
+import { GameModel } from '../../models/game.model';
+import { getGamesItemRoute } from '../../shared/router/Router';
 import { History } from 'history';
 import { withRouter } from 'react-router';
-import { TransactionBroadcasted } from '../helpers/TransactionBroadcasted';
-import { TransactionFound } from '../helpers/TransactionFound';
+import { TransactionBroadcasted } from '../../components/modals/helpers/TransactionBroadcasted';
+import { TransactionFound } from '../../components/modals/helpers/TransactionFound';
 
 interface ContainerProps {
   history : History
@@ -35,7 +35,6 @@ const CreateGameModalTxConfirmationComponent: React.FC<ContainerProps> = ({ hist
       history.push(getGamesItemRoute(gameId));
     }
     dispatch.network.setActionBroadcast(undefined);
-    dispatch.games.setIsCreatingGame(false)
   }
 
   useUpdateEffect(() => {
@@ -62,4 +61,4 @@ const CreateGameModalTxConfirmationComponent: React.FC<ContainerProps> = ({ hist
 
 }
 
-export const CreateGameModalTxConfirmation = withRouter(CreateGameModalTxConfirmationComponent);
+export const CreateGameTxConfirmation = withRouter(CreateGameModalTxConfirmationComponent);

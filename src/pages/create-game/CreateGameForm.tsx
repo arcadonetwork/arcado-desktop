@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { TextInputField } from 'src/components/TextInputField';
-import { TextAreaInputField } from '../../TextAreaInputField';
+import { TextAreaInputField } from '../../components/TextAreaInputField';
 
 interface ContainerProps {
   register: any,
@@ -9,7 +9,7 @@ interface ContainerProps {
 }
 
 
-export const CreateGameModalForm: React.FC<ContainerProps> = ({ register, errors }) => (
+export const CreateGameForm: React.FC<ContainerProps> = ({ register, errors }) => (
   <>
     <div className="mb25 br-b pb10">
       <h2 className="ffm-bold fs-m p0 m0">Create Game</h2>
