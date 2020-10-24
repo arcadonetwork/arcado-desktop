@@ -22,7 +22,7 @@ export const AppContainerHeaderSearchBarItem: React.FC<ContainerProps> = ({ item
     <div
       onMouseDown={() => navigate(uri)}
       className="w100 h100 flex flex-jc-fs flex-ai-c p5">
-      <span className="w85 color-lb fs-s">{renderName(item.name)}</span>
+      <span className="w85 color-lb fs-m">{renderName(item.name)}</span>
     </div>
   )
 }

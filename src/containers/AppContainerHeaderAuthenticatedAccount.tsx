@@ -61,7 +61,7 @@ export const AppContainerHeaderAuthenticatedAccount: React.FC<ContainerProps> = 
         }
         placement="bottomRight"
       >
-        <div className="click flex-c flex-jc-c h60--fixed">
+        <div className="click flex-c flex-jc-c h70--fixed">
             <div className="ml15 arcado-avatar mr10">
               <LiskAvatar
                 address={account.address}

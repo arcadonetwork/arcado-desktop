@@ -66,21 +66,23 @@ const SearchBar: React.FC<ContainerProps> = ({ history }) => {
           ))}
         </Menu>
       }>
-      <div className="menu--search bgc-white br20 bgc-xl-grey flex-c flex-jc-c w350--fixed color-lb ml25 pl25">
-        <div className="mr15 mt5 fc-grey">
-          {
-            search_loading
-            ? <LoadingOutlined className="p0 m0 lh-none" />
-              : <SearchOutlined className="p0 m0 lh-none" />
-          }
+      <div className="h70--fixed flex-c">
+        <div className="menu--search bgc-white br20 bgc-xl-grey flex-c flex-jc-c w350--fixed color-lb pl25">
+          <div className="mr15 mt5 fc-grey">
+            {
+              search_loading
+                ? <LoadingOutlined className="p0 m0 lh-none" />
+                : <SearchOutlined className="p0 m0 lh-none" />
+            }
+          </div>
+          <input
+            className="h45--fixed"
+            value={query}
+            placeholder="Fortnite, Poker etc."
+            onChange={onChange}
+            onBlur={onBlur}
+          />
         </div>
-        <input
-          className="h45--fixed"
-          value={query}
-          placeholder="Fortnite, Poker etc."
-          onChange={onChange}
-          onBlur={onBlur}
-        />
       </div>
     </Dropdown>
   )

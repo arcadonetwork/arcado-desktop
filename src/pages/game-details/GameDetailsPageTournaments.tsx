@@ -51,18 +51,13 @@ export const GameDetailsPageTournaments: React.FC<ContainerProps> = ({ game }) =
 
   return (
     <div className="mb200">
-      <div className="w100 bgc-white">
-        <div className="grid flex-c mt50 mb25 pb15 br-b">
-          {/*<div className="br w-auto br-c-dgrey br50 p5-15 click br-c-lb__hover">
-            Price
-          </div>*/}
-          <div className="ml-auto">
-            <Button
-              onClick={(ev) => dispatch.tournaments.setIsCreatingTournament(true)}
-              type="primary"
-              className="w100 h40--fixed"
-            >Start a tournament</Button>
-          </div>
+      <div className="grid flex-c mt50 mb25 pb15 br-b">
+        <div className="ml-auto">
+          <Button
+            onClick={(ev) => dispatch.tournaments.setIsCreatingTournament(true)}
+            type="primary"
+            className="w100 h40--fixed"
+          >Start a tournament</Button>
         </div>
       </div>
       <div className="grid">
