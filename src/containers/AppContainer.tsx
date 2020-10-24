@@ -5,11 +5,15 @@ interface ContainerProps {
   children: any
 }
 
-export const AppContainer: React.FC<ContainerProps> = ({ children }) => (
-  <>
-    <AppContainerHeader />
-    <div className="w100">
-      {children}
-    </div>
-  </>
-)
+export const AppContainer: React.FC<ContainerProps> = ({ children }) => {
+
+  return (
+    <>
+      <AppContainerHeader />
+      <div className="dashboard-content overflow-hidden">
+        {children}
+      </div>
+    </>
+  )
+
+}

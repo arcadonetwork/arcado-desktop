@@ -18,17 +18,9 @@ export const AppContainerHeaderAuthenticatedAccount: React.FC<ContainerProps> = 
     {
       key: 'feedback',
       label: 'Give feedback',
-      path: ROUTES.MY_GAMES,
+      path: ROUTES.GAMES,
       description: 'Help us improve the ecosystem',
       icon: <InfoCircleOutlined />
-    },
-    {
-      divide: true
-    },
-    {
-      key: 'games',
-      label: 'Games',
-      path: ROUTES.MY_GAMES
     },
     {
       divide: true

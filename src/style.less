@@ -23,7 +23,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #fff;
+  background-color: #fafafa;
   font-family: circular, sans-serif;
 }
 
@@ -292,9 +292,9 @@ body {
   height: 200px;
 }
 
-.vh100minus60 {
-  min-height: calc(100vh - 60px);
-  max-height: calc(100vh - 60px);
+.vh100minus70 {
+  min-height: calc(100vh - 70px);
+  max-height: calc(100vh - 70px);
 }
 
 .w-auto {
@@ -818,8 +818,8 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
 .passphrase-input {
   width: 100%;
   padding: 1px 6px;
-
   border: none;
+  background-color: #fafafa;
   border-bottom: 1px solid #d9d9d9;
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;    /* Firefox, other Gecko */
@@ -1034,6 +1034,10 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
     outline: none !important;
     background-color: transparent !important;
     box-shadow: none !important;
+
+    &::placeholder {
+      color: #999 !important;
+    }
   }
 
   button {
@@ -1080,4 +1084,25 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
     display: flex !important;
     line-height: normal !important;
   }
+}
+
+.dashboard-content {
+  width: calc(100% - 0px);
+  top: 70px;
+  position: fixed;
+}
+
+.pos-rel {
+  position: relative;
+}
+.pos-fixed {
+  position: fixed;
+}
+
+.min-vh100minus60 {
+  min-height: calc(100vh - 60px);
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }

@@ -20,7 +20,7 @@ export const ROUTES = {
   INITIALISE: '/initialise',
   LOGIN: '/login',
   LOGOUT: '/logout',
-  MY_GAMES: '/games',
+  GAMES: '/games',
   TOURNAMENT_PAGE: '/:gameId/tournaments/:tournamentId',
   TRANSACTION_DETAILS: '/tx/:txId'
 };
@@ -53,6 +53,12 @@ export default () => {
       <ProtectedRoute
         exact
         path={ROUTES.HOME}
+        component={Home}
+      />
+
+      <ProtectedRoute
+        exact
+        path={ROUTES.GAMES}
         component={Home}
       />
 
