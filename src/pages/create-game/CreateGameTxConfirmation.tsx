@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, iRootState } from '../../store/store';
-import { TransactionModel } from '../../models/transaction.model';
+import { TransactionModel } from '../../typings/transaction.model';
 import { isArrayWithElements } from '../../utils/type-checking';
 import useUpdateEffect from '../../shared/hooks/UseUpdateEffect';
-import { GameModel } from '../../models/game.model';
+import { GameModel } from '../../typings/game.model';
 import { getGamesItemRoute } from '../../shared/router/Router';
 import { History } from 'history';
 import { withRouter } from 'react-router';
@@ -31,8 +31,8 @@ const CreateGameModalTxConfirmationComponent: React.FC<ContainerProps> = ({ hist
   function setTxFound () {
     const tx = newTransactions.filter(item => item.type === actionBroadcast && item.senderId === account.address);
     if (isArrayWithElements(tx)) {
-      const gameId = tx[0].asset.gameId;
-      history.push(getGamesItemRoute(gameId));
+      const id = tx[0].asset.id;
+      history.push(getGamesItemRoute(id));
     }
     dispatch.network.setActionBroadcast(undefined);
   }

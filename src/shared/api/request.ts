@@ -1,6 +1,6 @@
 export const API_BASE_URI = 'http://localhost:3000'
 export const NETWORK_BASE_URI = 'http://localhost:4000'
-export const EXTENDED_NETWORK_BASE_URI = 'http://localhost:2020/extended-api'
+export const CUSTOM_NETWORK_BASE_URI = 'http://localhost:8080'
 
 interface Options {
   url: string,

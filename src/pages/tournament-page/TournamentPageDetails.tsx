@@ -1,8 +1,8 @@
 import React from 'react';
 import { getFormattedNumber } from '../../utils/numbers';
-import { fromRawLsk } from '../../utils/lsk';
-import { TournamentModel } from '../../models/tournament.model';
-import { GameModel } from '../../models/game.model';
+import { fromRawLsk } from '../../utils/currency-converters';
+import { TournamentModel } from '../../typings/tournament.model';
+import { GameModel } from '../../typings/game.model';
 
 interface ContainerProps {
   game: GameModel,

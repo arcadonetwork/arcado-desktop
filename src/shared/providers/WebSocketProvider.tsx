@@ -2,7 +2,7 @@ import React, { createContext } from 'react'
 import io from 'socket.io-client';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, iRootState } from '../../store/store';
-import { BlockModel } from '../../models/block.model';
+import { BlockModel } from '../../typings/block.model';
 import { isObjectWithFields } from '../../utils/type-checking';
 
 const WebSocketProvider = createContext(null)
@@ -15,7 +15,7 @@ export default ({ children }: { children: any }) => {
 
   const targetNetwork = useSelector((state: iRootState) => state.network.targetNetwork);
   const dispatch = useDispatch<Dispatch>();
-  if (!isObjectWithFields(targetNetwork)){
+  if (true){
     return <>{children}</>;
   }
 

@@ -1,8 +1,8 @@
 import * as passphrase from '@liskhq/lisk-passphrase';
-import * as cryptography from '@liskhq/lisk-cryptography';
+import { cryptography } from '@liskhq/lisk-client';
 import { inDictionary } from './similarWord';
-import { AccountModel } from '../models/account.model';
-
+import { AccountModel } from '../typings/account';
+import { _arrayBufferToString } from './string-to-hex';
 const { Mnemonic } = passphrase;
 
 export const createAccount = () => {
@@ -10,14 +10,22 @@ export const createAccount = () => {
   const keys = cryptography.getPrivateAndPublicKeyFromPassphrase(
     passphrase
   );
-
-  return {
-    address: cryptography.getAddressFromPublicKey(keys.publicKey),
-    passphrase: passphrase,
-    publicKey: keys.publicKey,
-    privateKey: keys.privateKey,
-    balance: "0"
+  const publicKey  = _arrayBufferToString(keys.publicKey);
+  const privateKey = _arrayBufferToString(keys.privateKey);
+  // @ts-ignore
+  const address = cryptography.getAddressFromPassphrase(passphrase).toString("hex");
+  const account: AccountModel = {
+    address,
+    keys: {
+      publicKey,
+      privateKey
+    },
+    passphrase,
+    token : {
+      balance: "0"
+    }
   }
+  return account;
 };
 
 export const isValidPassphrase = (passphrase: string[]) => {
@@ -60,12 +68,20 @@ export const getAccountByPassphrase = (passphrase: string) => {
   const keys = cryptography.getPrivateAndPublicKeyFromPassphrase(
     passphrase || ''
   );
-  const address = cryptography.getAddressFromPublicKey(keys.publicKey  || '');
+  const publicKey  = _arrayBufferToString(keys.publicKey);
+  const privateKey = _arrayBufferToString(keys.privateKey);
+  // @ts-ignore
+  const address = cryptography.getAddressFromPassphrase(passphrase).toString("hex");
   const account: AccountModel = {
     address,
     passphrase: passphrase,
-    publicKey: keys.publicKey,
-    balance: "0"
+    keys: {
+      publicKey,
+      privateKey
+    },
+    token : {
+      balance: "0"
+    }
   }
   return account;
 };

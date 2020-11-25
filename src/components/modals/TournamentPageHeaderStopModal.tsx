@@ -1,11 +1,11 @@
-import { TournamentModel } from '../../models/tournament.model';
+import { TournamentModel } from '../../typings/tournament.model';
 import React, { useEffect, useState } from 'react';
 import { message, Modal } from 'antd';
 import { stopTournament } from '../../shared/api/tournaments';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
 import { SelectInputField } from '../SelectInputField';
-import { ParticipantModel } from '../../models/participant.model';
+import { ParticipantModel } from '../../typings/participant.model';
 
 interface ContainerProps {
   tournament: TournamentModel,
@@ -35,7 +35,7 @@ export const TournamentPageHeaderStopModal: React.FC<ContainerProps> = ({ tourna
 
   async function stop () {
     try {
-      await stopTournament(tournament.gameId, tournament.tournamentId, {
+      await stopTournament(tournament.gameId, tournament.id, {
         first,
         second,
         third

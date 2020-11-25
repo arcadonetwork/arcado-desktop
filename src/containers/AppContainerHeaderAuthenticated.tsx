@@ -15,6 +15,9 @@ export const AppContainerHeaderAuthenticated: React.FC<ContainerProps> = () => {
 
   return (
     <div className="ml-auto flex-c">
+      <Link to={ROUTES.DELEGATES} className="click fc-black mr25 ffm-bold flex-c">
+        <span className="">Delegates</span>
+      </Link>
       <Link to={ROUTES.CREATE_GAME} className="click fc-black mr25 ffm-bold flex-c">
         <div className="fs-xs">
           <PlusOutlined />

@@ -1,10 +1,10 @@
 import React from 'react';
-import { TournamentModel } from '../../models/tournament.model';
-import { fromRawLsk } from '../../utils/lsk';
+import { TournamentModel } from '../../typings/tournament.model';
+import { fromRawLsk } from '../../utils/currency-converters';
 import { TournamentPageHeaderPrizeBannerItem } from './TournamentPageHeaderPrizeBannerItem';
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { EndResultModel } from '../../models/end-result.model';
-import { TournamentStateModel } from '../../models/tournament-state.model';
+import { EndResultModel } from '../../typings/end-result.model';
+import { TournamentStateModel } from '../../typings/tournament-state.model';
 import { isObjectWithFields } from '../../utils/type-checking';
 
 interface ContainerProps {

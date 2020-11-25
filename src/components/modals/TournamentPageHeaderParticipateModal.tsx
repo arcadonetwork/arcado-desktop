@@ -1,10 +1,10 @@
-import { TournamentModel } from '../../models/tournament.model';
+import { TournamentModel } from '../../typings/tournament.model';
 import React from 'react';
 import { message, Modal } from 'antd';
 import { joinTournament } from '../../shared/api/tournaments';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
-import { fromRawLsk } from '../../utils/lsk';
+import { fromRawLsk } from '../../utils/currency-converters';
 
 interface ContainerProps {
   tournament: TournamentModel,
@@ -22,7 +22,7 @@ export const TournamentPageHeaderParticipateModal: React.FC<ContainerProps> = ({
         message.error('You are already participating')
         return;
       }
-      await joinTournament(tournament.gameId, tournament.tournamentId, account.passphrase);
+      await joinTournament(tournament.gameId, tournament.id, account.passphrase);
       message.success('successfully joined the tournament')
     } catch (e) {
       console.error(e);

@@ -1,4 +1,4 @@
-const keyCodes = {
+const keyboardCodes = {
   arrowRight: 39,
   arrowLeft: 37,
   arrowDown: 40,
@@ -10,4 +10,4 @@ const keyCodes = {
   enter: 13,
 };
 
-export default keyCodes;
+export default keyboardCodes;

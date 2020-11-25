@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { getTransactionsByAddress } from '../../shared/api/transactions';
 import { Loading } from '../../components/Loading';
-import { AccountModel } from '../../models/account.model';
+import { AccountModel } from '../../typings/account';
 import { AccountDetailsTransactionsItem } from './AccountDetailsTransactionsItem';
 import { isArrayWithElements } from '../../utils/type-checking';
 import { AccountDetailsTransactionsNotFound } from './AccountDetailsTransactionsNotFound';
-import { ApiResponseModel } from '../../models/api-response.model';
-import { AssetModel } from '../../models/asset.model';
+import { ApiResponseModel } from '../../typings/api-response.model';
+import { AssetModel } from '../../typings/asset.model';
 
 
 interface ContainerProps {
@@ -14,7 +14,7 @@ interface ContainerProps {
 }
 
 export const AccountDetailsTransactions: React.FC<ContainerProps> = ({ account }) => {
-  const [txResponse, setTxResponse] = useState<ApiResponseModel<AssetModel>>();
+  const [txResponse, setTxResponse] = useState<ApiResponseModel<AssetModel[]>>();
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect( () => {

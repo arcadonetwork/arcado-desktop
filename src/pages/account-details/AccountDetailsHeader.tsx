@@ -1,8 +1,7 @@
 import React from 'react';
-import { AccountModel } from '../../models/account.model';
+import { AccountModel } from '../../typings/account';
 import { LiskAvatar } from '../../components/lisk-avatar/LiskAvatar';
 import { Button } from 'antd';
-import { AccountDetailsHeaderItem } from './AccountDetailsHeaderItem';
 import { getFormattedNumber } from '../../utils/numbers';
 
 interface ContainerProps {
@@ -10,36 +9,28 @@ interface ContainerProps {
 }
 
 export const AccountDetailsHeader: React.FC<ContainerProps> = ({ account }) => {
-  const details = [{
-    label: "Balance",
-    value: `${getFormattedNumber(account.balance)} LSK`
-  },{
-    label: "Win ratio",
-    value: `${100}%`
-  }];
-
+  const walletName = account.dpos.delegate ? account.dpos.delegate.username : account.address;
+  const secondaryWalletName = account.dpos.delegate ? account.address : '';
   return (
-    <div className="w100 flex-fs flex-column mb50 p15 br5 bgc-white">
+    <div className="w100 flex-fs flex-column mb50 p15 br5 ">
       <div className="w100 flex-c mb25 pb15 br-b">
         <div className="mr25">
-          <LiskAvatar address={account.address} size="n" />
+          <LiskAvatar address={account.address} size="m" />
         </div>
         <div>
-          <div className="fs-m"><span className="ffm-bold fc-black">{account.address}</span></div>
-          <div className="fs-s fc-grey">normal account</div>
+          <div className="fs-xm ffm-bold fc-black p0 m0">{walletName}</div>
+          <div className="fc-lgrey fs-m p0 m0">{secondaryWalletName}</div>
         </div>
         <div className="ml-auto">
           <Button type="primary" disabled={true} className="h40--fixed w175--fixed">Send LSK</Button>
         </div>
       </div>
       <div className="flex-fs">
-        {details.map((item, index) =>
-          <AccountDetailsHeaderItem
-            key={item.label}
-            item={item}
-            isLastChild={index === details.length - 1}
-          />)
-        }
+        <div className={`flex-column flex-fs`}>
+          <div className="fs-m fc-grey mb10">Balance</div>
+          <div className="fs-xm ffm-bold fc-black">{getFormattedNumber(account.token.balance)} ARCD</div>
+          <div className="fc-lgrey">~ 500 USD</div>
+        </div>
       </div>
 
       {/*<div className="w50 ml-auto flex-c">

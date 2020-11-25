@@ -1,29 +1,33 @@
-import { AccountModel }  from '../../models/account.model';
+import { AccountModel }  from '../../typings/account';
 import { Dispatch } from '../store';
-import { getAccount } from '../../shared/api/accounts';
+import { fetchAccountInfo } from '../../shared/api/accounts';
 import { isArrayWithElements, isObjectWithFields } from '../../utils/type-checking';
-import { TransactionModel } from '../../models/transaction.model';
-import { AssetModel } from '../../models/asset.model';
+import { TransactionModel } from '../../typings/transaction.model';
+import { AssetModel } from '../../typings/asset.model';
 
-/*const initialState: SessionState = {
+const initialState: SessionState = {
   account: {
-    address: "813630206057921731L",
-    passphrase: "decade draw witness sadness suit junk theory trophy perfect chair sadness wheel",
-    publicKey: "d46e9b6487255b4fd2cc112c521b4cde5acc34e3657a2d46f74d4a43326a46b7",
-    balance: "0"
+    address: "2cf19a24ae7970a4e80955eaa03d87b0402858e3",
+    passphrase: "aerobic output pool dinner pattern absurd tunnel address enlist viable unable sibling",
+    keys : {
+      publicKey: "b958c831d69695d7eb7d0e180272e4e4ba199aabfa9fc52a0b5f77694dcd5b57",
+      privateKey: "94b0b1b948a5d4acf0ab1102aadccffb4aa121b46a1bcf1e9995ca71b2644704b958c831d69695d7eb7d0e180272e4e4ba199aabfa9fc52a0b5f77694dcd5b57",
+    },
+    token: {
+      balance: "0"
+    }
   },
   isValidAndSynced: true,
   isValidAndLoading: false,
   hasAuthenticated: false
-}*/
+}
 
-
-const initialState: SessionState = {
+/*const initialState: SessionState = {
   account: undefined,
   hasAuthenticated: false,
   isValidAndSynced: false,
   isValidAndLoading: false
-};
+};*/
 
 
 export type SessionState = {
@@ -75,7 +79,7 @@ export const account = {
     },
     async findAccount (address: string) {
       try {
-        return await getAccount(address)
+        return await fetchAccountInfo(address)
       } catch (e) {
         return undefined;
       }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { getGamesItemRoute } from '../shared/router/Router';
-import { GameModel } from '../models/game.model';
+import { GameModel } from '../typings/game.model';
 
 interface ContainerProps {
   item: GameModel,
@@ -17,7 +17,7 @@ export const AppContainerHeaderSearchBarItem: React.FC<ContainerProps> = ({ item
     return name
   }
 
-  const uri = getGamesItemRoute(item.gameId)
+  const uri = getGamesItemRoute(item.id)
   return (
     <div
       onMouseDown={() => navigate(uri)}

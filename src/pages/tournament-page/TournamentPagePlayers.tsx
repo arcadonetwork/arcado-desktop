@@ -1,10 +1,10 @@
 import React from 'react';
 import { TournamentPagePlayersItem } from './TournamentPagePlayersItem';
-import { ParticipantModel } from '../../models/participant.model';
+import { ParticipantModel } from '../../typings/participant.model';
 import { isArrayWithElements } from '../../utils/type-checking';
 
 interface ContainerProps {
-  tournamentId: string,
+  id: string,
   players: ParticipantModel[]
 }
 

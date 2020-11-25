@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import keyCodes from '../utils/keyCodes';
+import keyboardCodes from '../utils/keyboard-codes';
 import { getPassphraseValidationErrors, isValidPassphrase } from '../utils/passphrase';
 
 interface ContainerProps {
@@ -51,15 +51,15 @@ export const PassphraseInput: React.FC<ContainerProps> = ({ showPassphrase, setV
   function handleKeyEvent (event: React.KeyboardEvent<HTMLDivElement>) {
     // @ts-ignore
     const index = parseInt(event.target.dataset.index, 10);
-    if (event.which === keyCodes.space
-      || event.which === keyCodes.arrowRight
-      || event.which === keyCodes.tab) {
+    if (event.which === keyboardCodes.space
+      || event.which === keyboardCodes.arrowRight
+      || event.which === keyboardCodes.tab) {
       const newIndex = index + 1 > 12 ? index : index + 1;
       setFocus(newIndex);
       event.preventDefault();
     }
-    if ((event.which === keyCodes.delete && !passphrase[focus])
-      || event.which === keyCodes.arrowLeft) {
+    if ((event.which === keyboardCodes.delete && !passphrase[focus])
+      || event.which === keyboardCodes.arrowLeft) {
       const newIndex = index - 1 < 0 ? index : index - 1;
       setFocus(newIndex);
       event.preventDefault();

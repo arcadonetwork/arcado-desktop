@@ -112,6 +112,10 @@ body {
   background-color: #f3f3f3 !important;
 }
 
+.bgc-light-red {
+  background-color: rgba(217, 48, 78, 0.2);
+}
+
 .fc-primary {
   color: @primary-color;
 }
@@ -161,6 +165,10 @@ body {
   color: #003bff;
 }
 
+.fc-blue__hover:hover {
+  color: #003bff;
+}
+
 // SIZING
 
 .h40--fixed {
@@ -198,6 +206,10 @@ body {
   max-width: 1366px;
   width: 80%;
   margin: auto;
+}
+
+.w10 {
+  width: 10%;
 }
 
 .w100 {
@@ -281,6 +293,11 @@ body {
 .img--150 {
   width: 150px;
   height: 150px;
+}
+
+.img--200 {
+  width: 200px;
+  height: 200px;
 }
 
 .h150--fixed {
@@ -1065,7 +1082,7 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
 .bg--dd-menu {
   padding: 5px !important;
   border-radius: 2px;
-  box-shadow: 0 1px 2px rgba(25, 25, 25, 0.5) !important;
+  box-shadow: 0 1px 2px rgba(25, 25, 25, 0.2) !important;
 
   .ant-dropdown-menu {
     box-shadow: none !important;
@@ -1088,8 +1105,10 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
 
 .dashboard-content {
   width: calc(100% - 0px);
+  height: calc(100vh - 70px);
   top: 70px;
   position: fixed;
+  overflow: scroll;
 }
 
 .pos-rel {
@@ -1105,4 +1124,9 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.avatar-upload {
+  border: 1px #999 dashed;
+
 }

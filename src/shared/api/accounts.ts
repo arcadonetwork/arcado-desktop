@@ -1,18 +1,16 @@
-import { NETWORK_BASE_URI } from './request';
-import { fromRawLsk } from '../../utils/lsk';
-import { isArrayWithElements } from '../../utils/type-checking';
-import { APIClient } from 'lisk-elements/dist-node';
-import { AccountModel } from '../../models/account.model';
+import { request } from './request';
+import { fromRawLsk } from '../../utils/currency-converters';
+import { isObjectWithFields } from '../../utils/type-checking';
+import { AccountModel } from '../../typings/account';
 
-const api = new APIClient([NETWORK_BASE_URI]);
-
-export const getAccount = async (address: string) => {
-  const { data }: any = await api.accounts.get({ address : encodeURI(address) })
-  if (isArrayWithElements(data)) {
-    const account: AccountModel = data[0];
-    account.balance = fromRawLsk(Number(account.balance));
-    return account;
-  } else {
-    return undefined;
+export const fetchAccountInfo = async (address: string) => {
+  const { data } : { data: AccountModel } = await request({
+    url: `http://localhost:4000/api/accounts/${address}`,
+    method: 'GET'
+  });
+  if (isObjectWithFields(data)) {
+    data.token.balance = fromRawLsk(Number(data.token.balance));
+    return data;
   }
+  return undefined;
 };

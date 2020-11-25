@@ -2,7 +2,7 @@ import { GameModel } from './game.model';
 import { PriceDistributionModel } from './price-distribution.model';
 
 export type TournamentModel = {
-  tournamentId: string;
+  id: string;
   name: string;
   maxPlayers: number;
   entryFee?: number;

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { TournamentModel } from '../../models/tournament.model';
+import { TournamentModel } from '../../typings/tournament.model';
 import { Button, message } from 'antd';
 import { startTournament } from '../../shared/api/tournaments';
 import { TournamentPageHeaderParticipateModal } from '../../components/modals/TournamentPageHeaderParticipateModal';
 import { TournamentPageHeaderStopModal } from '../../components/modals/TournamentPageHeaderStopModal';
-import { ParticipantModel } from '../../models/participant.model';
+import { ParticipantModel } from '../../typings/participant.model';
 import { CustomIcon } from '../../components/custom-icon/CustomIcon';
-import { AccountModel } from '../../models/account.model';
-import { TournamentStateModel } from '../../models/tournament-state.model';
+import { AccountModel } from '../../typings/account';
+import { TournamentStateModel } from '../../typings/tournament-state.model';
 
 interface ContainerProps {
   tournament: TournamentModel,
@@ -32,7 +32,7 @@ export const TournamentPageHeaderActions: React.FC<ContainerProps> = ({ players,
 
   async function start () {
     try {
-      await startTournament(tournament.gameId, tournament.tournamentId, account.passphrase);
+      await startTournament(tournament.gameId, tournament.id, account.passphrase);
       message.success('successfully started the tournament')
     } catch (e) {
       console.error(e);

@@ -4,9 +4,9 @@ import { TransactionDetailsPropertyItem } from './TransactionDetailsPropertyItem
 import { Loading } from '../../components/Loading';
 import { getTransactionById } from '../../shared/api/transactions';
 import { getFormattedNumber } from '../../utils/numbers';
-import { TransactionModel } from '../../models/transaction.model';
-import { getFormattedDate } from '../../utils/dates';
-import { AssetModel } from '../../models/asset.model';
+import { TransactionModel } from '../../typings/transaction.model';
+import { getFormattedDate } from '../../utils/date-parsers';
+import { AssetModel } from '../../typings/asset.model';
 
 interface MatchParams {
   txId: string;

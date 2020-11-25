@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { AccountDetailsHeader } from './AccountDetailsHeader';
 import { Loading } from '../../components/Loading';
 import { RouteComponentProps } from 'react-router';
-import { getAccount } from '../../shared/api/accounts';
-import { AccountDetailsTransactions } from './AccountDetailsTransactions';
+import { fetchAccountInfo } from '../../shared/api/accounts';
 import { isObjectWithFields } from '../../utils/type-checking';
 import { AccountDetailsNotFound } from './AccountDetailsNotFound';
-import { AccountModel } from '../../models/account.model';
+import { AccountModel } from '../../typings/account';
 
 interface MatchParams {
   address: string;
@@ -24,10 +23,11 @@ export const AccountDetails: React.FC<ContainerProps> = ({ match }) => {
 
   async function getAccountDetails () {
     try {
-      const accountModel = await getAccount(address);
+      const accountModel = await fetchAccountInfo(address);
       setAccount(accountModel);
       setIsLoading(false);
     } catch (e) {
+      console.log(e);
       setAccount(undefined);
       setIsLoading(false);
     }
@@ -60,9 +60,9 @@ export const AccountDetails: React.FC<ContainerProps> = ({ match }) => {
       <AccountDetailsHeader
         account={account}
       />
-      <AccountDetailsTransactions
+      {/*<AccountDetailsTransactions
         account={account}
-      />
+      />*/}
     </div>
   )
 }

@@ -4,7 +4,7 @@ import { getAccountDetailsRoute, ROUTES } from '../shared/router/Router';
 import { LiskAvatar } from '../components/lisk-avatar/LiskAvatar';
 import { renderMenuItem } from '../components/dropdown-menu/HeaderDropDown';
 import { getFormattedNumber } from '../utils/numbers';
-import { AccountModel } from '../models/account.model';
+import { AccountModel } from '../typings/account';
 import { useEffect, useRef } from 'react';
 import { DownOutlined, LogoutOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -37,18 +37,18 @@ export const AppContainerHeaderAuthenticatedAccount: React.FC<ContainerProps> = 
 
   useEffect(() => {
     const balanceNode = balanceRef.current;
-    if (balanceNode && balanceNode.classList && account.balance !== "0") {
+    if (balanceNode && balanceNode.classList && account.token.balance !== "0") {
       balanceNode.classList.add('balance-updated');
       setTimeout(() => {
         balanceNode.classList.remove('balance-updated');
       }, 3000);
     }
-  }, [account.balance])
+  }, [account.token.balance])
 
   return (
     <div className="flex-c h60--fixed">
       <Link to={getAccountDetailsRoute(account.address)} ref={balanceRef} className="flex-c click p5-10 bgc-lblue br20 mr15">
-        <span className="mr10 fc-blue ffm-bold ml15">{getFormattedNumber(account.balance)} ARCD</span>
+        <span className="mr10 fc-blue ffm-bold ml15">{getFormattedNumber(account.token.balance)} ARCD</span>
       </Link>
       <Dropdown
         overlay={

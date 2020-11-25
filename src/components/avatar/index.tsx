@@ -62,6 +62,9 @@ const getBackgroundSize = (size: string) => {
     case 'xxl':
       clazz = 'img--150'
       break
+    case 'xxxl':
+      clazz = 'img--200'
+      break
     default:
       clazz = 'img--50'
       break

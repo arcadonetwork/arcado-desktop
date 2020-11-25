@@ -6,7 +6,7 @@ import { Dispatch } from '../../store/store';
 import { ROUTES } from '../../shared/router/Router';
 import { Link } from 'react-router-dom';
 import { createAccount } from '../../utils/passphrase';
-import { AccountModel } from '../../models/account.model';
+import { AccountModel } from '../../typings/account';
 import { InitialiseAccountItem } from './InitialiseAccountItem';
 import { Loading } from '../../components/Loading';
 import { isObjectWithFields } from '../../utils/type-checking';
@@ -66,7 +66,7 @@ const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
       <div className="grid-col5 mb50">
         {
           accounts.map(item => <InitialiseAccountItem
-            key={item.publicKey} selectedAccount={selectedAccount} account={item} setAccount={selectAccount} />)
+            key={item.keys.publicKey} selectedAccount={selectedAccount} account={item} setAccount={selectAccount} />)
         }
       </div>
       <div className="flex-c flex-column">

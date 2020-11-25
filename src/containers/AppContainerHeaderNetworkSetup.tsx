@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { availableNetworks } from '../utils/networks'
 import { Select } from 'antd';
 import { useEffect, useState } from 'react';
-import { NetworkModel } from '../models/network.model';
+import { NetworkModel } from '../typings/network.model';
 import { isObjectWithFields } from '../utils/type-checking';
 
 const Option = Select.Option;

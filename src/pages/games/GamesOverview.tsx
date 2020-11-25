@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GameModel } from '../../models/game.model';
+import { GameModel } from '../../typings/game.model';
 import { isArrayWithElements } from '../../utils/type-checking';
 import { GamesOverviewItem } from './GamesOverviewItem';
 import { GamesOverviewEmpty } from './GamesOverviewEmpty';
@@ -9,8 +9,7 @@ import { Loading } from '../../components/Loading';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
 import { utils } from '@arcado/arcado-transactions';
-import { TransactionModel } from '../../models/transaction.model';
-import { ApiResponseModel } from '../../models/api-response.model';
+import { TransactionModel } from '../../typings/transaction.model';
 
 const { TRANSACTION_TYPES } = utils;
 
@@ -19,13 +18,13 @@ interface ContainerProps {
 
 export const GamesOverview: React.FC<ContainerProps> = () => {
 
-  const [gamesResponse, setGamesResponse] = useState<ApiResponseModel<GameModel>>();
+  const [gamesResponse, setGamesResponse] = useState<GameModel[]>();
   const [loading, setLoading] = useState<boolean>(true);
   const newTransactions: TransactionModel<GameModel>[] = useSelector((state: iRootState) => state.network.newTransactions);
 
   async function fetchGames() {
     try {
-      const response  = await getGames({ limit: 10 });
+      const response  = await getGames();
       setGamesResponse(response);
       setLoading(false);
     } catch (e) {
@@ -44,20 +43,19 @@ export const GamesOverview: React.FC<ContainerProps> = () => {
   }, [hasNewGameState()]);
 
   if (loading) {
-    return <Loading />
+    return <Loading/>
   }
-
   return (
     <>
       <div className="mb25 br-b pb15">
-        <h1 className="fs-xm p0 m0 fc-black ffm-bold">{gamesResponse.meta.count} Games</h1>
+        <h1 className="fs-xm p0 m0 fc-black ffm-bold"> Games</h1>
       </div>
       {
-        !isArrayWithElements(gamesResponse.data)
+        !isArrayWithElements(gamesResponse)
           ? <GamesOverviewEmpty />
           : (
             <div className="grid-col4">
-              {gamesResponse.data.map((game, index) => <GamesOverviewItem key={index} game={game.asset} index={index}/>)}
+              {gamesResponse.map((game, index) => <GamesOverviewItem key={index} game={game} index={index}/>)}
             </div>
           )
       }

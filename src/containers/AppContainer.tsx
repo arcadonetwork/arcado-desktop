@@ -10,7 +10,7 @@ export const AppContainer: React.FC<ContainerProps> = ({ children }) => {
   return (
     <>
       <AppContainerHeader />
-      <div className="dashboard-content overflow-hidden">
+      <div className="dashboard-content">
         {children}
       </div>
     </>

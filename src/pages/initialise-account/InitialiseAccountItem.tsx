@@ -1,5 +1,5 @@
 import React from 'react';
-import { AccountModel } from '../../models/account.model';
+import { AccountModel } from '../../typings/account';
 import { LiskAvatar } from '../../components/lisk-avatar/LiskAvatar';
 
 interface ContainerProps {
@@ -9,9 +9,10 @@ interface ContainerProps {
 }
 
 export const InitialiseAccountItem: React.FC<ContainerProps> = ({ account, setAccount, selectedAccount }) => {
-  const publicKey = account.publicKey;
+  const publicKey = account.keys.publicKey;
   const shortenedPk = publicKey.substr(0,4) + '...' + publicKey.substr(publicKey.length - 2, publicKey.length)
-  const clazz = (selectedAccount || {}).publicKey === publicKey ? ' br5 bgc-xxl-grey shadow br-c-primary' : 'br-c-trans';
+  const clazz = selectedAccount && selectedAccount.keys.publicKey === publicKey ? ' br5 bgc-xxl-grey shadow br-c-primary' : 'br-c-trans';
+  console.log(account);
   return (
     <div onClick={() => setAccount(account)} className={`flex-c br flex-column click p15-25 ${clazz}`}>
       <LiskAvatar

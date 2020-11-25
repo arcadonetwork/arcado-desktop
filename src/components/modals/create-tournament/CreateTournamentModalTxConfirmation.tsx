@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, iRootState } from '../../../store/store';
-import { TransactionModel } from '../../../models/transaction.model';
+import { TransactionModel } from '../../../typings/transaction.model';
 import { isArrayWithElements } from '../../../utils/type-checking';
 import useUpdateEffect from '../../../shared/hooks/UseUpdateEffect';
 import { getGameTournamentItemRoute } from '../../../shared/router/Router';
 import { History } from 'history';
 import { withRouter } from 'react-router';
-import { TournamentModel } from '../../../models/tournament.model';
+import { TournamentModel } from '../../../typings/tournament.model';
 import { TransactionBroadcasted } from '../helpers/TransactionBroadcasted';
 import { TransactionFound } from '../helpers/TransactionFound';
 
@@ -31,8 +31,8 @@ const CreateGameModalTxConfirmationComponent: React.FC<ContainerProps> = ({ hist
   function setTxFound () {
     const tx = newTransactions.filter(item => item.type === actionBroadcast && item.senderId === account.address);
     if (isArrayWithElements(tx)) {
-      const { gameId, tournamentId } = tx[0].asset;
-      history.push(getGameTournamentItemRoute(gameId, tournamentId));
+      const { gameId, id } = tx[0].asset;
+      history.push(getGameTournamentItemRoute(gameId, id));
     }
     dispatch.network.setActionBroadcast(undefined);
     dispatch.tournaments.setIsCreatingTournament(false)

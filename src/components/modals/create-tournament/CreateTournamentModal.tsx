@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GameModel } from '../../../models/game.model';
+import { GameModel } from '../../../typings/game.model';
 import Modal from 'antd/es/modal';
 import { message } from 'antd';
 import { RouteComponentProps, withRouter } from 'react-router';
@@ -7,8 +7,8 @@ import { useForm } from 'react-hook-form';
 import { createTournament } from '../../../shared/api/tournaments';
 import { Dispatch, iRootState } from '../../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { toRawLsk } from '../../../utils/lsk';
-import { TournamentModel } from '../../../models/tournament.model';
+import { toRawLsk } from '../../../utils/currency-converters';
+import { TournamentModel } from '../../../typings/tournament.model';
 import { generateUUID } from '../../../utils/uuid';
 import { CreateTournamentModalTxConfirmation } from './CreateTournamentModalTxConfirmation';
 import { CreateTournamentModalForm } from './CreateTournamentModalForm';
@@ -60,15 +60,15 @@ const GameDetailsPageHeaderCreateTournamentComponent: React.FC<ContainerProps> =
       setDistributionError(undefined)
     }
     try {
-      const tournamentId = generateUUID();
+      const id = generateUUID();
       tournamentData.entryFee = toRawLsk(tournamentData.entryFee);
       const body: TournamentModel = {
         ...tournamentData,
-        gameId: game.gameId,
-        tournamentId
+        gameId: game.id,
+        id
       };
 
-      await createTournament(game.gameId, body, account.passphrase);
+      await createTournament(game.id, body, account.passphrase);
       dispatch.network.setActionBroadcast(TRANSACTION_TYPES.TOURNAMENTS)
     } catch (e) {
       if (isArrayWithElements(e.errors)) {

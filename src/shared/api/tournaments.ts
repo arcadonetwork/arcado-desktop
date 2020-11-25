@@ -1,29 +1,31 @@
-import { NETWORK_BASE_URI, EXTENDED_NETWORK_BASE_URI, request } from './request';
+import { NETWORK_BASE_URI, CUSTOM_NETWORK_BASE_URI, request } from './request';
 import { isArrayWithElements } from '../../utils/type-checking';
-import { TransactionModel } from '../../models/transaction.model';
-import { TournamentModel } from '../../models/tournament.model';
-import { getAddressAndPublicKeyFromPassphrase } from '@liskhq/lisk-cryptography';
+import { TransactionModel } from '../../typings/transaction.model';
+import { TournamentModel } from '../../typings/tournament.model';
+import { cryptography } from '@liskhq/lisk-client';
 import { config } from '../../config';
 import { APIClient } from 'lisk-elements';
-import { ParticipantModel } from '../../models/participant.model';
-import { createNetworkTs } from '../../utils/dates';
+import { ParticipantModel } from '../../typings/participant.model';
+import { createNetworkTs } from '../../utils/date-parsers';
 import {
   CreateTournamentTransaction,
   JoinTournamentTransaction,
   StartTournamentTransaction,
   StopTournamentTransaction, utils } from '@arcado/arcado-transactions';
-import { ApiResponseModel } from '../../models/api-response.model';
+import { ApiResponseModel } from '../../typings/api-response.model';
 
 const { TRANSACTION_TYPES } = utils;
 
 const api = new APIClient([NETWORK_BASE_URI]);
 
+const URI = `${CUSTOM_NETWORK_BASE_URI}/api/tournaments`
+
 
 export const createTournament = async (gameId: string, tournament: TournamentModel, passphrase: string) => {
-  const { publicKey, address } = getAddressAndPublicKeyFromPassphrase(passphrase);
+  const { publicKey, address } = cryptography.getAddressAndPublicKeyFromPassphrase(passphrase);
   let tx = new CreateTournamentTransaction({
     asset: {
-      tournamentId: tournament.tournamentId,
+      id: tournament.id,
       name: tournament.name,
       gameId: tournament.gameId,
       entryFee: tournament.entryFee,
@@ -45,13 +47,13 @@ export const createTournament = async (gameId: string, tournament: TournamentMod
   return api.transactions.broadcast(tx.toJSON());
 };
 
-export const joinTournament = async (gameId: string, tournamentId: string, passphrase: string) => {
-  const { publicKey, address } = getAddressAndPublicKeyFromPassphrase(passphrase);
+export const joinTournament = async (gameId: string, id: string, passphrase: string) => {
+  const { publicKey, address } = cryptography.getAddressAndPublicKeyFromPassphrase(passphrase);
   let tx = new JoinTournamentTransaction({
     recipientId: address,
     asset: {
       gameId,
-      tournamentId,
+      id,
       address
     },
     senderPublicKey: publicKey,
@@ -62,12 +64,12 @@ export const joinTournament = async (gameId: string, tournamentId: string, passp
   return api.transactions.broadcast(tx.toJSON());
 };
 
-export const startTournament = async (gameId: string, tournamentId: string, passphrase: string) => {
-  const { publicKey, address } = getAddressAndPublicKeyFromPassphrase(passphrase);
+export const startTournament = async (gameId: string, id: string, passphrase: string) => {
+  const { publicKey, address } = cryptography.getAddressAndPublicKeyFromPassphrase(passphrase);
   let tx = new StartTournamentTransaction({
     recipientId: address,
     asset: {
-      tournamentId,
+      id,
       address
     },
     senderPublicKey: publicKey,
@@ -80,12 +82,12 @@ export const startTournament = async (gameId: string, tournamentId: string, pass
   return api.transactions.broadcast(tx.toJSON())
 };
 
-export const stopTournament = async (gameId: string, tournamentId: string,  tournament: any, passphrase: string) => {
-  const { publicKey, address } = getAddressAndPublicKeyFromPassphrase(passphrase);
+export const stopTournament = async (gameId: string, id: string,  tournament: any, passphrase: string) => {
+  const { publicKey, address } = cryptography.getAddressAndPublicKeyFromPassphrase(passphrase);
   let tx = new StopTournamentTransaction({
     recipientId: address,
     asset: {
-      tournamentId,
+      id,
       address,
       first: tournament.first,
       second: tournament.second,
@@ -101,12 +103,12 @@ export const stopTournament = async (gameId: string, tournamentId: string,  tour
   return api.transactions.broadcast(tx.toJSON())
 };
 
-export const getTournaments = async (gameId: string): Promise<ApiResponseModel<TournamentModel>> => {
-  const { data, meta } = await request({
-    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=gameId&contains=${gameId}&type=${TRANSACTION_TYPES.TOURNAMENTS}`,
+export const getTournaments = async (gameId: string): Promise<TournamentModel[]> => {
+  const { data } = await request({
+    url: `${URI}?gameId=${gameId}`,
     method: 'GET'
   });
-  return { data, meta }
+  return data;
 };
 
 export const getTournamentsByParams = async (parameters: any = {}): Promise<ApiResponseModel<TournamentModel>> => {
@@ -117,9 +119,9 @@ export const getTournamentsByParams = async (parameters: any = {}): Promise<ApiR
   return { data, meta };
 };
 
-export const getTournament = async (tournamentId: string): Promise<TournamentModel> => {
+export const getTournament = async (id: string): Promise<TournamentModel> => {
   const { data } = await request({
-    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=tournamentId&contains=${tournamentId}&type=${TRANSACTION_TYPES.TOURNAMENTS}`,
+    url: `${CUSTOM_NETWORK_BASE_URI}/transactions?asset=id&contains=${id}&type=${TRANSACTION_TYPES.TOURNAMENTS}`,
     method: 'GET'
   });
   if (isArrayWithElements(data)) {
@@ -130,29 +132,28 @@ export const getTournament = async (tournamentId: string): Promise<TournamentMod
 };
 
 export const getTournamentState = async (tournament: TournamentModel, address: string) => {
-  const tournamentId = tournament.tournamentId;
+  const id = tournament.id;
   const { data: endGame } = await request({
-    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=tournamentId&contains=${tournamentId}&type=${TRANSACTION_TYPES.STOP_TOURNAMENT}`,
+    url: `${CUSTOM_NETWORK_BASE_URI}/transactions?asset=id&contains=${id}&type=${TRANSACTION_TYPES.STOP_TOURNAMENT}`,
     method: 'GET'
   });
   if (isArrayWithElements(endGame)) return { type: 4, endResult: endGame[0].asset }; // FINISHED
 
   const { data: startGame } = await request({
-    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=tournamentId&contains=${tournamentId}&type=${TRANSACTION_TYPES.START_TOURNAMENT}`,
+    url: `${CUSTOM_NETWORK_BASE_URI}/transactions?asset=id&contains=${id}&type=${TRANSACTION_TYPES.START_TOURNAMENT}`,
     method: 'GET'
   });
   if (isArrayWithElements(startGame)) return { type: 3 }; // STARTED
 
-  const participantsTxs = (await getParticipants(tournamentId)).data;
-  const participants = participantsTxs.map(item => item.asset);
+  const participants = (await getParticipants(id)).data;
   if (isArrayWithElements(participants) && participants.length === Number(tournament.maxPlayers)) return { type: 2 }; // CAN START
   if (isArrayWithElements(participants) && participants.map((item: ParticipantModel) => item.address).includes(address)) return { type: 1 }; // ALREADY JOINED
   return { type: 0 }; // CAN JOIN
 };
 
-export const getParticipants = async (tournamentId: string): Promise<ApiResponseModel<ParticipantModel>> => {
+export const getParticipants = async (id: string): Promise<ApiResponseModel<ParticipantModel[]>> => {
   const { data, meta } = await request({
-    url: `${EXTENDED_NETWORK_BASE_URI}/transactions?asset=tournamentId&contains=${tournamentId}&type=${TRANSACTION_TYPES.JOIN_TOURNAMENT}`,
+    url: `${CUSTOM_NETWORK_BASE_URI}/transactions?asset=id&contains=${id}&type=${TRANSACTION_TYPES.JOIN_TOURNAMENT}`,
     method: 'GET'
   });
   return { data, meta }

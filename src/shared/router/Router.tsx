@@ -11,17 +11,19 @@ import InitialiseAccount from '../../pages/initialise-account/InitialiseAccount'
 import { LogoutPage } from '../../pages/logout/LogoutPage';
 import { TransactionDetails } from '../../pages/transaction-details/TransactionDetails';
 import { CreateGame } from '../../pages/create-game/CreateGame';
+import { DelegatesOverview } from '../../pages/delegates-overview/DelegatesOverview';
 
 export const ROUTES = {
   ACCOUNT_DETAILS: '/address/:address',
   CREATE_GAME: '/games/create',
+  DELEGATES: '/delegates',
   GAME_DETAILS: '/:gameId',
   HOME: '/',
   INITIALISE: '/initialise',
   LOGIN: '/login',
   LOGOUT: '/logout',
   GAMES: '/games',
-  TOURNAMENT_PAGE: '/:gameId/tournaments/:tournamentId',
+  TOURNAMENT_PAGE: '/:gameId/tournaments/:id',
   TRANSACTION_DETAILS: '/tx/:txId'
 };
 
@@ -35,10 +37,10 @@ export const getGamesItemRoute = (gameId: string) => {
     .replace(':gameId', gameId);
 }
 
-export const getGameTournamentItemRoute = (gameId: string, tournamentId: string) => {
+export const getGameTournamentItemRoute = (gameId: string, id: string) => {
   return ROUTES.TOURNAMENT_PAGE
     .replace(':gameId', gameId)
-    .replace(':tournamentId', tournamentId);
+    .replace(':id', id);
 }
 
 export const getTransactionDetailsRoute = (txId: string) => {
@@ -49,6 +51,12 @@ export const getTransactionDetailsRoute = (txId: string) => {
 export default () => {
   return (
     <Switch>
+
+      <ProtectedRoute
+        exact
+        path={ROUTES.DELEGATES}
+        component={DelegatesOverview}
+      />
 
       <ProtectedRoute
         exact

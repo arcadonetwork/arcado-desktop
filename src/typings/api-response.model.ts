@@ -1,5 +1,3 @@
-import { TransactionModel } from './transaction.model';
-
 type Meta = {
   count: number;
   limit: number;
@@ -8,5 +6,5 @@ type Meta = {
 
 export type ApiResponseModel<T> = {
   meta: Meta;
-  data: TransactionModel<T>[]
+  data: T
 }

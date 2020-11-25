@@ -3,7 +3,7 @@ import React from 'react'
 import { HeaderDropDownItem } from './HeaderDropDownItem'
 import { HeaderDropDownReactLink } from './HeaderDropDownReactLink'
 import { getAccountDetailsRoute, ROUTES } from '../../shared/router/Router';
-import { AccountModel } from '../../models/account.model';
+import { AccountModel } from '../../typings/account';
 import { HeaderDropDownItemIcon } from './HeaderDropDownItemIcon';
 
 export const renderMenuItem = (item: any, index: number, account: AccountModel) => {
@@ -14,7 +14,7 @@ export const renderMenuItem = (item: any, index: number, account: AccountModel) 
   }
 
   const clazz =
-    'w350--fixed br2 click fs-m bgc-xl-grey__hover lh-none fc-lb fc-lb__hover flex-c'
+    'w350--fixed br2 click bgc-xl-grey__hover lh-none fc-lb fc-blue__hover flex-c'
   let Component;
   if (item.icon) {
     Component = <HeaderDropDownItemIcon item={item} clazz={clazz} idx={index} />

@@ -1,15 +1,15 @@
 import React from 'react';
-import { TournamentModel } from '../../models/tournament.model';
+import { TournamentModel } from '../../typings/tournament.model';
 import { Link } from 'react-router-dom';
 import { getGameTournamentItemRoute } from '../../shared/router/Router';
-import { fromRawLsk } from '../../utils/lsk';
+import { fromRawLsk } from '../../utils/currency-converters';
 
 interface ContainerProps {
   tournament: TournamentModel
 }
 
 export const GameDetailsPageTournamentsItem: React.FC<ContainerProps> = ({ tournament }) => {
-  const uri = getGameTournamentItemRoute(tournament.gameId, tournament.tournamentId);
+  const uri = getGameTournamentItemRoute(tournament.gameId, tournament.id);
   return (
     <Link to={uri} className="tournament-tile bgc-xxl-grey mb10 flex-fs flex-column br5 br game-item">
       <div className="w100 mb25">

@@ -1,30 +1,30 @@
 import { Dispatch, getState } from '../store';
-import { BlockModel } from '../../models/block.model';
+import { BlockModel } from '../../typings/block.model';
 import { isArrayWithElements } from '../../utils/type-checking';
-import { TransactionModel } from '../../models/transaction.model';
-import { NetworkModel } from '../../models/network.model';
+import { TransactionModel } from '../../typings/transaction.model';
+import { NetworkModel } from '../../typings/network.model';
 
 
-const initialState: NetworkState = {
+/*const initialState: NetworkState = {
   online: false,
   blockHeight: 0,
   newTransactions: [],
   targetNetwork: undefined,
   actionBroadcast: undefined
-}
+}*/
 
-/*const initialState: NetworkState = {
+const initialState: NetworkState = {
   online: true,
   blockHeight: 0,
   newTransactions: [],
   targetNetwork:  {
     name: 'Alphanet',
     identifier: 'alphanet',
-    nodeUrl: "http://localhost:4000",
+    nodeUrl: "http://localhost:5000",
     wsPort: 8000
   },
   actionBroadcast: undefined
-}*/
+}
 
 export type NetworkState = {
   online: boolean,

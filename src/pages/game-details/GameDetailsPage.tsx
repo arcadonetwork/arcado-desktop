@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GameModel } from '../../models/game.model';
+import { GameModel } from '../../typings/game.model';
 import { getGame } from '../../shared/api/games';
 import { message } from 'antd';
 import { Loading } from '../../components/Loading';

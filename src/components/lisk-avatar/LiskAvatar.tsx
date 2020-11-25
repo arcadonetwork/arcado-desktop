@@ -16,7 +16,7 @@ const getBackgroundSize = (size: string) => {
     case 's':
       newSize = 30
       break
-    case 'normal':
+    case 'n':
       newSize = 50
       break
     case 'm':

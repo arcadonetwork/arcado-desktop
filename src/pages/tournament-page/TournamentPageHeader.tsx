@@ -1,14 +1,14 @@
 import React from 'react';
-import { TournamentModel } from '../../models/tournament.model';
+import { TournamentModel } from '../../typings/tournament.model';
 import { getGamesItemRoute, ROUTES } from '../../shared/router/Router';
 import { Link } from 'react-router-dom';
 import { TournamentPageHeaderActions } from './TournamentPageHeaderActions';
-import { GameModel } from '../../models/game.model';
+import { GameModel } from '../../typings/game.model';
 import { Breadcrumb } from 'antd';
-import { ParticipantModel } from '../../models/participant.model';
-import { AccountModel } from '../../models/account.model';
+import { ParticipantModel } from '../../typings/participant.model';
+import { AccountModel } from '../../typings/account';
 import { TournamentPageHeaderPrizeBanner } from './TournamentPageHeaderPrizeBanner';
-import { TournamentStateModel } from '../../models/tournament-state.model';
+import { TournamentStateModel } from '../../typings/tournament-state.model';
 
 interface ContainerProps {
   game: GameModel,
@@ -28,7 +28,7 @@ export const TournamentPageHeader: React.FC<ContainerProps> = ({ game, tournamen
             <Link to={ROUTES.HOME}>Home</Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            <Link to={getGamesItemRoute(game.gameId)}>{game.name}</Link>
+            <Link to={getGamesItemRoute(game.id)}>{game.name}</Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <span>{tournament.name}</span>

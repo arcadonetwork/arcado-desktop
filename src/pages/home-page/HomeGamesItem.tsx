@@ -1,5 +1,5 @@
 import React from 'react';
-import { GameModel } from '../../models/game.model';
+import { GameModel } from '../../typings/game.model';
 import { Link } from 'react-router-dom';
 import { getGamesItemRoute } from '../../shared/router/Router';
 import { Avatar } from '../../components/avatar';
@@ -10,7 +10,7 @@ interface ContainerProps {
 }
 
 export const HomeGamesItem: React.FC<ContainerProps> = ({ game, index }) => {
-  const uri = getGamesItemRoute(game.gameId);
+  const uri = getGamesItemRoute(game.id);
   return (
     <Link to={uri} className="game-item br5 br bgc-xl-grey">
       <div className="game-image bgc-black h150--fixed br5-top w100">

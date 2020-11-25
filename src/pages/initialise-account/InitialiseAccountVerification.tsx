@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
 import Checkbox from 'antd/es/checkbox';
-import { AccountModel } from '../../models/account.model';
+import { AccountModel } from '../../typings/account';
 import { CustomIcon } from '../../components/custom-icon/CustomIcon';
 
 interface ContainerProps {
@@ -14,7 +14,7 @@ export const InitialiseAccountVerification: React.FC<ContainerProps> = ({ confir
   const [hasSavedPassphrase, setHasSavedPassphrase] = useState<boolean>(false);
 
   return (
-    <div className="w40 m-auto flex-c flex-column mt75">
+    <div className="grid-s m-auto flex-c flex-column mt75">
 
       <div className="w100 mb25 br-b pb25 flex-fs flex-jc-c flex-column">
         <h1 className="fs-xl ffm-bold p0 m0 mb5">Almost There!</h1>
@@ -53,7 +53,7 @@ export const InitialiseAccountVerification: React.FC<ContainerProps> = ({ confir
       </div>
 
       <div className="w100 mb25 mt50 pt25 br-t">
-        <Checkbox value={hasSavedPassphrase} onChange={() => setHasSavedPassphrase(!hasSavedPassphrase)}>My passphrase is secure</Checkbox>
+        <Checkbox checked={hasSavedPassphrase} onChange={() => setHasSavedPassphrase(!hasSavedPassphrase)}>My passphrase is secure</Checkbox>
       </div>
       <Button
         disabled={!hasSavedPassphrase}

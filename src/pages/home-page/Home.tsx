@@ -16,6 +16,7 @@ const Home: React.FC<ContainerProps> = () => {
       <HomeGames />
     </div>
   )
+
 }
 
 export default Home;

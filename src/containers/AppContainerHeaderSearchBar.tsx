@@ -6,7 +6,7 @@ import { SearchOutlined, LoadingOutlined } from '@ant-design/icons'
 import { AppContainerHeaderSearchBarItem } from './AppContainerHeaderSearchBarItem'
 
 import { getGames } from '../shared/api/games';
-import { GameModel } from '../models/game.model';
+import { GameModel } from '../typings/game.model';
 import _ from 'lodash'
 import { isArrayWithElements } from '../utils/type-checking';
 
@@ -40,8 +40,7 @@ const SearchBar: React.FC<ContainerProps> = ({ history }) => {
     setSearchLoading(true);
     let result: GameModel[] = [];
     try {
-      const response = await getGames({ contains: value, limit: 3, asset: "name" })
-      result = response.data.map(item => item.asset);
+      result = await getGames();
     } catch (error) {
 
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { GameModel } from '../../models/game.model';
+import { GameModel } from '../../typings/game.model';
 import { PageNavigation } from '../../components/PageNavigation';
 
 import { Avatar } from '../../components/avatar';

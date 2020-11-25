@@ -2,30 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Loading } from '../../components/Loading';
 import { TournamentPageHeader } from './TournamentPageHeader';
-import { TournamentModel } from '../../models/tournament.model';
+import { TournamentModel } from '../../typings/tournament.model';
 import { getParticipants, getTournament, getTournamentState } from '../../shared/api/tournaments';
 import { message } from 'antd';
 import { TournamentPagePlayers } from './TournamentPagePlayers';
 import { PageNavigation } from '../../components/PageNavigation';
 import { getGame } from '../../shared/api/games';
-import { GameModel } from '../../models/game.model';
-import { TransactionModel } from '../../models/transaction.model';
+import { GameModel } from '../../typings/game.model';
+import { TransactionModel } from '../../typings/transaction.model';
 import { useSelector } from 'react-redux';
 import { iRootState } from '../../store/store';
 import { TRANSACTION_TYPES } from '@arcado/arcado-transactions/dist-node/utils';
 import { isArrayWithElements } from '../../utils/type-checking';
-import { ParticipantModel } from '../../models/participant.model';
+import { ParticipantModel } from '../../typings/participant.model';
 import { TournamentPageDetails } from './TournamentPageDetails';
-import { AccountModel } from '../../models/account.model';
-import { TournamentStateModel } from '../../models/tournament-state.model';
-import { ApiResponseModel } from '../../models/api-response.model';
+import { AccountModel } from '../../typings/account';
+import { TournamentStateModel } from '../../typings/tournament-state.model';
+import { ApiResponseModel } from '../../typings/api-response.model';
 
 const menu = [
   'Participants'
 ]
 
 interface MatchParams {
-  tournamentId: string;
+  id: string;
   gameId: string;
 }
 
@@ -34,11 +34,11 @@ interface ContainerProps extends RouteComponentProps<MatchParams> {
 }
 
 export const TournamentPage: React.FC<ContainerProps> = ({ match }) => {
-  const { gameId, tournamentId } = match.params;
+  const { gameId, id } = match.params;
 
   const [game, setGame] = useState<GameModel>();
   const [tournament, setTournament] = useState<TournamentModel>();
-  const [participantsResponse, setParticipantsResponse] = useState<ApiResponseModel<ParticipantModel>>();
+  const [participantsResponse, setParticipantsResponse] = useState<ApiResponseModel<ParticipantModel[]>>();
   const [tournamentState, setTournamentState] = useState<TournamentStateModel>();
 
   const [page, setPage] = useState<string>(menu[0]);
@@ -51,9 +51,9 @@ export const TournamentPage: React.FC<ContainerProps> = ({ match }) => {
 
     try {
       const [tournamentResponse, gameResponse, playersResponse] = await Promise.all([
-        getTournament(tournamentId),
+        getTournament(id),
         getGame(gameId),
-        getParticipants(tournamentId)
+        getParticipants(id)
       ])
 
       setTournament(tournamentResponse);
@@ -77,7 +77,7 @@ export const TournamentPage: React.FC<ContainerProps> = ({ match }) => {
 
   useEffect( () => {
     fetchTournament();
-  }, [gameId, tournamentId]);
+  }, [gameId, id]);
 
   useEffect( () => {
     const hasNewPlayers = getHasNewPlayers();
@@ -98,7 +98,7 @@ export const TournamentPage: React.FC<ContainerProps> = ({ match }) => {
 
   async function fetchPlayers () {
     try {
-      const response = await getParticipants(tournamentId);
+      const response = await getParticipants(id);
       setParticipantsResponse(response);
       setLoading(false);
     }catch (e) {
@@ -110,7 +110,7 @@ export const TournamentPage: React.FC<ContainerProps> = ({ match }) => {
   function getHasNewPlayers () {
     const txs = newTransactions.filter(item => (
       item.type === TRANSACTION_TYPES.JOIN_TOURNAMENT
-      && item.asset.tournamentId === tournamentId
+      && item.asset.id === id
     ))
     return isArrayWithElements(txs);
   }
@@ -130,12 +130,12 @@ export const TournamentPage: React.FC<ContainerProps> = ({ match }) => {
         || item.type === TRANSACTION_TYPES.STOP_TOURNAMENT
         || item.type === TRANSACTION_TYPES.JOIN_TOURNAMENT
       )
-      && item.asset.tournamentId === tournamentId
+      && item.asset.id === id
     )
     return isArrayWithElements(txs);
   }
 
-  const participants = participantsResponse.data.map(item => item.asset);
+  const participants = participantsResponse.data;
 
   return (
     <div className="grid-xl mt50">
@@ -160,7 +160,7 @@ export const TournamentPage: React.FC<ContainerProps> = ({ match }) => {
             setPage={(page) => setPage(page)}
           />
           <TournamentPagePlayers
-            tournamentId={tournamentId}
+            id={id}
             players={participants}
           />
         </div>
