@@ -1,6 +1,6 @@
 import React from 'react';
 import { TournamentModel } from '../../typings/tournament.model';
-import { getGamesItemRoute, ROUTES } from '../../shared/router/Router';
+import { getGamesItemRoute, ROUTES } from '../../shared/router/routes';
 import { Link } from 'react-router-dom';
 import { TournamentPageHeaderActions } from './TournamentPageHeaderActions';
 import { GameModel } from '../../typings/game.model';

@@ -5,7 +5,7 @@ import { TransactionModel } from '../../typings/transaction.model';
 import { isArrayWithElements } from '../../utils/type-checking';
 import useUpdateEffect from '../../shared/hooks/UseUpdateEffect';
 import { GameModel } from '../../typings/game.model';
-import { getGamesItemRoute } from '../../shared/router/Router';
+import { getGamesItemRoute } from '../../shared/router/routes';
 import { History } from 'history';
 import { withRouter } from 'react-router';
 import { TransactionBroadcasted } from '../../components/modals/helpers/TransactionBroadcasted';

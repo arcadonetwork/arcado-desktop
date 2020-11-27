@@ -1,12 +1,12 @@
 import React  from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { ROUTES } from './Router'
+import { ROUTES } from './routes'
 import { iRootState } from '../../store/store';
 
 interface ContainerProps {
   component: any,
-  exact: boolean,
+  exact?: boolean,
   path: String
 }
 

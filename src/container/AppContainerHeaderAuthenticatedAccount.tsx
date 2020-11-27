@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Dropdown, Menu } from 'antd';
-import { getAccountDetailsRoute, ROUTES } from '../shared/router/Router';
+import { getAccountDetailsRoute, ROUTES } from '../shared/router/routes';
 import { LiskAvatar } from '../components/lisk-avatar/LiskAvatar';
 import { renderMenuItem } from '../components/dropdown-menu/HeaderDropDown';
 import { getFormattedNumber } from '../utils/numbers';
 import { AccountModel } from '../typings/account';
 import { useEffect, useRef } from 'react';
-import { DownOutlined, LogoutOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { DownOutlined, LogoutOutlined, InfoCircleOutlined, SettingOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 interface ContainerProps {
@@ -15,6 +15,12 @@ interface ContainerProps {
 
 export const AppContainerHeaderAuthenticatedAccount: React.FC<ContainerProps> = ({ account }) => {
   const menu = [
+    {
+      key: 'settings',
+      label: 'Settings',
+      path: ROUTES.SETTINGS,
+      icon: <SettingOutlined />
+    },
     {
       key: 'feedback',
       label: 'Give feedback',

@@ -1,7 +1,7 @@
 import React from 'react';
 import { LiskAvatar } from '../../components/lisk-avatar/LiskAvatar';
 import { Link } from 'react-router-dom';
-import { getAccountDetailsRoute } from '../../shared/router/Router';
+import { getAccountDetailsRoute } from '../../shared/router/routes';
 
 interface ContainerProps {
   address: string,

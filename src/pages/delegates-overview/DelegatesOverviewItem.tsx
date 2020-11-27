@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getAccountDetailsRoute } from '../../shared/router/Router';
+import { getAccountDetailsRoute } from '../../shared/router/routes';
 import { LiskAvatar } from '../../components/lisk-avatar/LiskAvatar';
 import { ForgerModel } from '../../typings/forger';
 

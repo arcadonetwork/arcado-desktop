@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { AppContainerSideBarNavigationItem } from './AppContainerSideBarNavigationItem'
 import {
   ROUTES
-} from '../shared/router/Router'
+} from '../shared/router/routes'
 import { AimOutlined } from '@ant-design/icons';
 
 export const AppContainerSideBarNavigation = withRouter(({ location }) => {

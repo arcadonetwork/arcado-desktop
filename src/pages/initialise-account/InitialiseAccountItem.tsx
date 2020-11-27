@@ -12,7 +12,6 @@ export const InitialiseAccountItem: React.FC<ContainerProps> = ({ account, setAc
   const publicKey = account.keys.publicKey;
   const shortenedPk = publicKey.substr(0,4) + '...' + publicKey.substr(publicKey.length - 2, publicKey.length)
   const clazz = selectedAccount && selectedAccount.keys.publicKey === publicKey ? ' br5 bgc-xxl-grey shadow br-c-primary' : 'br-c-trans';
-  console.log(account);
   return (
     <div onClick={() => setAccount(account)} className={`flex-c br flex-column click p15-25 ${clazz}`}>
       <LiskAvatar

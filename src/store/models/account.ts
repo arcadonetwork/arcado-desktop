@@ -15,6 +15,18 @@ const initialState: SessionState = {
     },
     token: {
       balance: "0"
+    },
+    dpos: {
+      delegate : {
+        username: 'helloworld',
+        consecutiveMissedBlocks: 0,
+        isBanned: false,
+        lastForgedHeight: 0,
+        pomHeights: [],
+        totalVotesReceived: "0"
+      },
+      sentVotes: [],
+      unlocking: []
     }
   },
   isValidAndSynced: true,

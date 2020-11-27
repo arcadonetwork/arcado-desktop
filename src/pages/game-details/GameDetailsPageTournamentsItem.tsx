@@ -1,7 +1,7 @@
 import React from 'react';
 import { TournamentModel } from '../../typings/tournament.model';
 import { Link } from 'react-router-dom';
-import { getGameTournamentItemRoute } from '../../shared/router/Router';
+import { getGameTournamentItemRoute } from '../../shared/router/routes';
 import { fromRawLsk } from '../../utils/currency-converters';
 
 interface ContainerProps {

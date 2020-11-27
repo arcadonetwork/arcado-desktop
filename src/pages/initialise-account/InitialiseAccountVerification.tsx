@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import Checkbox from 'antd/es/checkbox';
 import { AccountModel } from '../../typings/account';
 import { CustomIcon } from '../../components/custom-icon/CustomIcon';
@@ -13,8 +13,18 @@ export const InitialiseAccountVerification: React.FC<ContainerProps> = ({ confir
 
   const [hasSavedPassphrase, setHasSavedPassphrase] = useState<boolean>(false);
 
+  function copyToClipboard () {
+    var textField = document.createElement('textarea')
+    textField.innerText = selectedAccount.passphrase
+    document.body.appendChild(textField)
+    textField.select()
+    document.execCommand('copy')
+    textField.remove()
+    message.success('copied to clipboard.')
+  }
+
   return (
-    <div className="grid-s m-auto flex-c flex-column mt75">
+    <div className="grid-s m-auto flex-c flex-column mt75 mb200">
 
       <div className="w100 mb25 br-b pb25 flex-fs flex-jc-c flex-column">
         <h1 className="fs-xl ffm-bold p0 m0 mb5">Almost There!</h1>
@@ -37,14 +47,14 @@ export const InitialiseAccountVerification: React.FC<ContainerProps> = ({ confir
         <div className="w100 grid-col6 p15-25 br br-c-primary">
           {selectedAccount.passphrase.split(" ").map((item, idx) => (
             <div className="flex-c w100">
-              <div className="mr5 fc-lgrey noselect">{idx + 1}.</div>
+              <div className="mr5 fc-lgrey noselect copy-blocker">{idx + 1}.</div>
               <div className="fs-m fc-black">{item}</div>
             </div>
           ))}
         </div>
       </div>
       <div className="w100 mt15 flex-c flex-jc-fe" >
-        <Button className="" disabled>
+        <Button className="" onClick={() => copyToClipboard()}>
           Copy passphrase
         </Button>
         <Button className="ml15" disabled>

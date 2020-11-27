@@ -32,7 +32,7 @@ const fetchRequest = async (url: string, options: object) => {
     return response.json();
   } else {
     const error = await response.json();
-    throw Object.assign({ status: error.statusCode, message: error.message });
+    throw Object.assign(error);
   }
 };
 

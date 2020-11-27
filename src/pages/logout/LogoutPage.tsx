@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Dispatch } from '../../store/store';
 import { Loading } from '../../components/Loading';
 import { Redirect } from 'react-router';
-import { ROUTES } from '../../shared/router/Router';
+import { ROUTES } from '../../shared/router/routes';
 
 interface ContainerProps {
 }

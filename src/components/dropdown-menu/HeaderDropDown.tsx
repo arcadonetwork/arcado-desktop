@@ -2,7 +2,7 @@ import React from 'react'
 
 import { HeaderDropDownItem } from './HeaderDropDownItem'
 import { HeaderDropDownReactLink } from './HeaderDropDownReactLink'
-import { getAccountDetailsRoute, ROUTES } from '../../shared/router/Router';
+import { getAccountDetailsRoute, ROUTES } from '../../shared/router/routes';
 import { AccountModel } from '../../typings/account';
 import { HeaderDropDownItemIcon } from './HeaderDropDownItemIcon';
 

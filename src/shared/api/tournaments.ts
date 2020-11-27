@@ -1,28 +1,19 @@
-import { NETWORK_BASE_URI, CUSTOM_NETWORK_BASE_URI, request } from './request';
+import { CUSTOM_NETWORK_BASE_URI, request } from './request';
 import { isArrayWithElements } from '../../utils/type-checking';
 import { TransactionModel } from '../../typings/transaction.model';
 import { TournamentModel } from '../../typings/tournament.model';
-import { cryptography } from '@liskhq/lisk-client';
-import { config } from '../../config';
-import { APIClient } from 'lisk-elements';
 import { ParticipantModel } from '../../typings/participant.model';
-import { createNetworkTs } from '../../utils/date-parsers';
-import {
-  CreateTournamentTransaction,
-  JoinTournamentTransaction,
-  StartTournamentTransaction,
-  StopTournamentTransaction, utils } from '@arcado/arcado-transactions';
+import { utils } from '@arcado/arcado-transactions';
 import { ApiResponseModel } from '../../typings/api-response.model';
 
 const { TRANSACTION_TYPES } = utils;
 
-const api = new APIClient([NETWORK_BASE_URI]);
 
 const URI = `${CUSTOM_NETWORK_BASE_URI}/api/tournaments`
 
 
 export const createTournament = async (gameId: string, tournament: TournamentModel, passphrase: string) => {
-  const { publicKey, address } = cryptography.getAddressAndPublicKeyFromPassphrase(passphrase);
+  /*const { publicKey, address } = cryptography.getAddressAndPublicKeyFromPassphrase(passphrase);
   let tx = new CreateTournamentTransaction({
     asset: {
       id: tournament.id,
@@ -43,12 +34,12 @@ export const createTournament = async (gameId: string, tournament: TournamentMod
     timestamp: createNetworkTs()
   });
 
-  tx.sign(passphrase);
-  return api.transactions.broadcast(tx.toJSON());
+  tx.sign(passphrase);*/
+  //return api.transactions.broadcast(tx.toJSON());
 };
 
 export const joinTournament = async (gameId: string, id: string, passphrase: string) => {
-  const { publicKey, address } = cryptography.getAddressAndPublicKeyFromPassphrase(passphrase);
+  /*const { publicKey, address } = cryptography.getAddressAndPublicKeyFromPassphrase(passphrase);
   let tx = new JoinTournamentTransaction({
     recipientId: address,
     asset: {
@@ -60,12 +51,12 @@ export const joinTournament = async (gameId: string, id: string, passphrase: str
     networkIdentifier: config.NETWORK_IDENTIFIER,
     timestamp: createNetworkTs()
   });
-  tx.sign(passphrase);
-  return api.transactions.broadcast(tx.toJSON());
+  tx.sign(passphrase);*/
+  //return api.transactions.broadcast(tx.toJSON());
 };
 
 export const startTournament = async (gameId: string, id: string, passphrase: string) => {
-  const { publicKey, address } = cryptography.getAddressAndPublicKeyFromPassphrase(passphrase);
+  /*const { publicKey, address } = cryptography.getAddressAndPublicKeyFromPassphrase(passphrase);
   let tx = new StartTournamentTransaction({
     recipientId: address,
     asset: {
@@ -77,13 +68,13 @@ export const startTournament = async (gameId: string, id: string, passphrase: st
     timestamp: createNetworkTs()
   });
 
-  tx.sign(passphrase);
+  tx.sign(passphrase);*/
 
-  return api.transactions.broadcast(tx.toJSON())
+  //return api.transactions.broadcast(tx.toJSON())
 };
 
 export const stopTournament = async (gameId: string, id: string,  tournament: any, passphrase: string) => {
-  const { publicKey, address } = cryptography.getAddressAndPublicKeyFromPassphrase(passphrase);
+  /*const { publicKey, address } = cryptography.getAddressAndPublicKeyFromPassphrase(passphrase);
   let tx = new StopTournamentTransaction({
     recipientId: address,
     asset: {
@@ -98,9 +89,9 @@ export const stopTournament = async (gameId: string, id: string,  tournament: an
     timestamp: createNetworkTs()
   });
 
-  tx.sign(passphrase);
+  tx.sign(passphrase);*/
 
-  return api.transactions.broadcast(tx.toJSON())
+  //return api.transactions.broadcast(tx.toJSON())
 };
 
 export const getTournaments = async (gameId: string): Promise<TournamentModel[]> => {
@@ -112,11 +103,11 @@ export const getTournaments = async (gameId: string): Promise<TournamentModel[]>
 };
 
 export const getTournamentsByParams = async (parameters: any = {}): Promise<ApiResponseModel<TournamentModel>> => {
-  const { data, meta } = await api.transactions.get({
+  /*const { data, meta } = await api.transactions.get({
     type: TRANSACTION_TYPES.TOURNAMENTS,
     ...parameters
-  }) as ApiResponseModel<TournamentModel>;
-  return { data, meta };
+  }) as ApiResponseModel<TournamentModel>;*/
+  return { data: undefined, meta: undefined };
 };
 
 export const getTournament = async (id: string): Promise<TournamentModel> => {

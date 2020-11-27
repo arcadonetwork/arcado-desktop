@@ -3,7 +3,7 @@ import React from 'react';
 import emptyImage from '../../assets/images/empty.svg'
 import { Button } from 'antd';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../shared/router/Router';
+import { ROUTES } from '../../shared/router/routes';
 
 interface ContainerProps {
 }

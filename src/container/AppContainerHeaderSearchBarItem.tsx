@@ -1,5 +1,5 @@
 import React from 'react'
-import { getGamesItemRoute } from '../shared/router/Router';
+import { getGamesItemRoute } from '../shared/router/routes';
 import { GameModel } from '../typings/game.model';
 
 interface ContainerProps {

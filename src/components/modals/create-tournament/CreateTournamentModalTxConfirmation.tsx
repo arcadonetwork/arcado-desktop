@@ -4,7 +4,7 @@ import { Dispatch, iRootState } from '../../../store/store';
 import { TransactionModel } from '../../../typings/transaction.model';
 import { isArrayWithElements } from '../../../utils/type-checking';
 import useUpdateEffect from '../../../shared/hooks/UseUpdateEffect';
-import { getGameTournamentItemRoute } from '../../../shared/router/Router';
+import { getGameTournamentItemRoute } from '../../../shared/router/routes';
 import { History } from 'history';
 import { withRouter } from 'react-router';
 import { TournamentModel } from '../../../typings/tournament.model';

@@ -23,6 +23,18 @@ export const createAccount = () => {
     passphrase,
     token : {
       balance: "0"
+    },
+    dpos : {
+      delegate : {
+        username: '',
+        consecutiveMissedBlocks: 0,
+        lastForgedHeight: 0,
+        pomHeights : [],
+        totalVotesReceived: '',
+        isBanned: false
+      },
+      unlocking: [],
+      sentVotes: []
     }
   }
   return account;

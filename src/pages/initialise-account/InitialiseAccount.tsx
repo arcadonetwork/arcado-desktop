@@ -3,7 +3,7 @@ import { Button, message } from 'antd';
 import { History } from 'history';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from '../../store/store';
-import { ROUTES } from '../../shared/router/Router';
+import { ROUTES } from '../../shared/router/routes';
 import { Link } from 'react-router-dom';
 import { createAccount } from '../../utils/passphrase';
 import { AccountModel } from '../../typings/account';
@@ -58,7 +58,7 @@ const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
   }
 
   return (
-    <div className="grid-s mt125 m-auto">
+    <div className="grid-s mt125 mb200 m-auto">
       <div className="mb50 flex-c flex-jc-c flex-column">
         <h1 className="fs-l ffm-bold p0 m0 mb5">Choose your avatar</h1>
         <h2 className="w70 txt-ac fs-m fc-grey p0 m0">We provided you with 5 different empty accounts. Please choose one of your lickings.</h2>

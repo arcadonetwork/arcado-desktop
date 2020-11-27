@@ -4,11 +4,10 @@ import ReactDOM from 'react-dom';
 import './style.less';
 
 import { Provider } from 'react-redux';
-
 import { store, history } from './store/store';
 
-import { AppContainer } from './containers/AppContainer';
-import AppRoutes from './shared/router/Router';
+import { AppContainer } from './container/AppContainer';
+import { ApplicationRoutes } from './shared/router';
 import WebSocketProvider from './shared/providers/WebSocketProvider';
 import { ConnectedRouter } from 'connected-react-router';
 
@@ -17,7 +16,7 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <WebSocketProvider>
           <AppContainer>
-            <AppRoutes />
+            <ApplicationRoutes />
           </AppContainer>
       </WebSocketProvider>
     </ConnectedRouter>

@@ -1,9 +1,10 @@
 import React, { createContext } from 'react'
-import io from 'socket.io-client';
-import { useDispatch, useSelector } from 'react-redux';
-import { Dispatch, iRootState } from '../../store/store';
-import { BlockModel } from '../../typings/block.model';
+
+import { useSelector } from 'react-redux';
+import { iRootState } from '../../store/store';
 import { isObjectWithFields } from '../../utils/type-checking';
+//const { createWSClient } = require('@liskhq/lisk-api-client/dist-browser');
+
 
 const WebSocketProvider = createContext(null)
 
@@ -14,33 +15,34 @@ export default ({ children }: { children: any }) => {
   let ws;
 
   const targetNetwork = useSelector((state: iRootState) => state.network.targetNetwork);
-  const dispatch = useDispatch<Dispatch>();
-  if (true){
+  //const dispatch = useDispatch<Dispatch>();
+
+  if (isObjectWithFields(targetNetwork)){
     return <>{children}</>;
   }
+/*
+  async function startWs () {
+    const client = await createWSClient(targetNetwork.wsUrl)
 
-  if (!socket && isObjectWithFields(targetNetwork)) {
-    socket = io(targetNetwork.nodeUrl, { transports: ['websocket'] })
-
-
-    socket.on('connect', () => {
+    client.subscribe('app:network:ready', () => {
       dispatch.network.setStatusUpdate({ online: true });
     });
 
-    socket.on('disconnect', () => {
+    client.subscribe('app:shutdown', () => {
       dispatch.network.setStatusUpdate({ online: false });
     });
 
-    socket.on('reconnect', () => {
-      dispatch.network.setStatusUpdate({ online: true });
-    });
-
-    socket.on('blocks/change', (block: BlockModel) => {
+    client.subscribe('app:block:new', (block: any) => {
+      console.log('new block', block)
       dispatch.network.newBlockCreated({ block });
     });
 
+  }*/
+
+  if (!socket && isObjectWithFields(targetNetwork)) {
+    //startWs();
     ws = {
-      socket: socket
+      socket
     }
   }
 

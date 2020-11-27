@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, matchPath } from 'react-router-dom'
-import { ROUTES } from '../shared/router/Router'
+import { ROUTES } from '../shared/router/routes'
 
 const active_class = 'bg-c-lb color-w ffm-bold '
 const inactive_class = 'color-lg '

@@ -9,8 +9,9 @@ interface ContainerProps {
 }
 
 export const AccountDetailsHeader: React.FC<ContainerProps> = ({ account }) => {
-  const walletName = account.dpos.delegate ? account.dpos.delegate.username : account.address;
-  const secondaryWalletName = account.dpos.delegate ? account.address : '';
+  const delegateName: string = account.dpos.delegate.username;
+  const walletName = delegateName && delegateName.length > 0 ? account.dpos.delegate.username : account.address;
+  const secondaryWalletName = delegateName && delegateName.length > 0 ? account.address : '';
   return (
     <div className="w100 flex-fs flex-column mb50 p15 br5 ">
       <div className="w100 flex-c mb25 pb15 br-b">
@@ -19,7 +20,12 @@ export const AccountDetailsHeader: React.FC<ContainerProps> = ({ account }) => {
         </div>
         <div>
           <div className="fs-xm ffm-bold fc-black p0 m0">{walletName}</div>
-          <div className="fc-lgrey fs-m p0 m0">{secondaryWalletName}</div>
+          {
+            secondaryWalletName
+            ? <div className="fc-lgrey fs-m p0 m0">{secondaryWalletName}</div>
+            : ''
+          }
+
         </div>
         <div className="ml-auto">
           <Button type="primary" disabled={true} className="h40--fixed w175--fixed">Send LSK</Button>

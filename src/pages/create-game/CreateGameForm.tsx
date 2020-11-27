@@ -14,7 +14,7 @@ interface ContainerProps {
 }
 
 
-export const CreateGameForm: React.FC<ContainerProps> = ({ register, errors, image = {} }) => (
+export const CreateGameForm: React.FC<ContainerProps> = ({ register, errors }) => (
   <>
     <div className="mb50">
       <h2 className="ffm-bold fs-x p0 m0 mb10">Create Game</h2>
