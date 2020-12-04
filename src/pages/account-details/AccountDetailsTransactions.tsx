@@ -1,27 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { getTransactionsByAddress } from '../../shared/api/transactions';
 import { Loading } from '../../components/Loading';
 import { AccountModel } from '../../typings/account';
-import { AccountDetailsTransactionsItem } from './AccountDetailsTransactionsItem';
-import { isArrayWithElements } from '../../utils/type-checking';
-import { AccountDetailsTransactionsNotFound } from './AccountDetailsTransactionsNotFound';
-import { ApiResponseModel } from '../../typings/api-response.model';
-import { AssetModel } from '../../typings/asset.model';
 
 
 interface ContainerProps {
   account: AccountModel
 }
 
-export const AccountDetailsTransactions: React.FC<ContainerProps> = ({ account }) => {
-  const [txResponse, setTxResponse] = useState<ApiResponseModel<AssetModel[]>>();
+const AccountDetailsTransactions: React.FC<ContainerProps> = ({ account }) => {
+  //const [txResponse, setTxResponse] = useState<ApiResponseModel<AssetModel[]>>();
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect( () => {
     async function fetchData() {
       try {
-        const response = await getTransactionsByAddress(account.address);
-        setTxResponse(response);
+        //const response = await getTransactionsByAddress(account.address);
+        //setTxResponse(response);
         setLoading(false);
       } catch (e) {
         setLoading(false);
@@ -37,17 +31,14 @@ export const AccountDetailsTransactions: React.FC<ContainerProps> = ({ account }
 
   return (
     <>
-      <div className="mb25">
-        <h3 className="fs-m ffm-bold fc-black">Transactions</h3>
-      </div>
-      <div className="flex-c ffm-bold pt10 pb10 fc-lb br-t br-b fs-s">
+      {/*<div className="flex-c ffm-bold pt10 pb10 fc-lb br-t br-b fs-s">
         <span className="w20">Tx Id</span>
         <span className="w15">Age</span>
         <span className="w20">From</span>
         <span className="w20">To</span>
         <span className="w15">Value</span>
-      </div>
-      {
+      </div>*/}
+      {/*{
         !isArrayWithElements(txResponse.data)
         ? <AccountDetailsTransactionsNotFound />
         : txResponse.data.map(
@@ -58,7 +49,12 @@ export const AccountDetailsTransactions: React.FC<ContainerProps> = ({ account }
               isLastChild={index === txResponse.data.length - 1}
             />
         )
-      }
+      }*/}
+      <div className="p15-25 w100 br5 bgc-white br flex-c flex-jc-c">
+        <span className="fc-grey">Transactions not implemented</span>
+      </div>
     </>
   )
 }
+
+export default AccountDetailsTransactions;

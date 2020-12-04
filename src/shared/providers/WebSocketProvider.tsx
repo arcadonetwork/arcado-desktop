@@ -1,9 +1,11 @@
 import React, { createContext } from 'react'
 
-import { useSelector } from 'react-redux';
-import { iRootState } from '../../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch, iRootState } from '../../store/store';
 import { isObjectWithFields } from '../../utils/type-checking';
 //const { createWSClient } = require('@liskhq/lisk-api-client/dist-browser');
+
+import WebSocket from 'isomorphic-ws';
 
 
 const WebSocketProvider = createContext(null)
@@ -12,14 +14,16 @@ export { WebSocketProvider }
 
 export default ({ children }: { children: any }) => {
   let socket;
-  let ws;
+  let ws: any;
 
   const targetNetwork = useSelector((state: iRootState) => state.network.targetNetwork);
-  //const dispatch = useDispatch<Dispatch>();
+  const dispatch = useDispatch<Dispatch>();
 
-  if (isObjectWithFields(targetNetwork)){
+  if (!isObjectWithFields(targetNetwork)){
     return <>{children}</>;
   }
+
+  ws = new WebSocket(targetNetwork.wsUrl);
 /*
   async function startWs () {
     const client = await createWSClient(targetNetwork.wsUrl)
@@ -39,8 +43,27 @@ export default ({ children }: { children: any }) => {
 
   }*/
 
+  async function startWs () {
+    ws.onopen = () => {
+      dispatch.network.setStatusUpdate({ online: true });
+    }
+
+    ws.onclose = () => {
+      dispatch.network.setStatusUpdate({ online: false });
+    }
+
+    ws.onmessage = ({ data } : { data: any }) => {
+      const message = JSON.parse(data);
+      console.log(message);
+      if (message.method === 'app:transaction:new') {
+        console.log(message.params)
+        dispatch.network.newTransactionFound(message.params.transaction);
+      }
+    }
+  }
+
   if (!socket && isObjectWithFields(targetNetwork)) {
-    //startWs();
+    startWs();
     ws = {
       socket
     }

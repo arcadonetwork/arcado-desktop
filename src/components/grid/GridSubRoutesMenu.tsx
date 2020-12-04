@@ -8,14 +8,14 @@ interface Props extends RouteComponentProps {
 }
 
 export const GridSubRoutesMenuComponent: React.FC<Props> = ({ menu, url, location }) => {
-    return menu.map((item: any) => {
+    return menu.map((item: any, index: number) => {
       if (item.divider) {
-        return <div className="w100 pb10 mb10 br-b br-c-grey" />
+        return <div key={index} className="w100 pb10 mb10 br-b br-c-grey" />
       }
       const route = `${url}/${item.page}`
       return (
         <GridSubRoutesMenuItem
-          key={item.label}
+          key={index}
           label={item.label}
           isActive={route === location.pathname}
           page={item.page}

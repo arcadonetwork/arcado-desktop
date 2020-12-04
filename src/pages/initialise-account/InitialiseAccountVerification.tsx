@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, message } from 'antd';
 import Checkbox from 'antd/es/checkbox';
 import { AccountModel } from '../../typings/account';
-import { CustomIcon } from '../../components/custom-icon/CustomIcon';
+import { CustomIcon } from '../../components/icons/custom-icon/CustomIcon';
 
 interface ContainerProps {
   confirmAccount(): void,

@@ -29,24 +29,17 @@ const network = {
   Component: LazyLoad(lazy(() => import('./SettingsPageNetwork')))
 }
 
-const projects = {
+const hallar = {
   label: 'Hallar',
   page: 'hallar',
   icon: <HallarLogo />,
   Component: LazyLoad(lazy(() => import('./SettingsPageHallar')))
 }
 
-/*const contributions = {
-  label: 'Contributions',
-  page: 'contributions',
-  icon: <TrophyOutlined />,
-  Component: LazyLoad(lazy(() => import('./SettingsPageProfile')))
-}*/
-
 export const SettingsPageMenu = [
   profile,
   dataExport,
   divider,
   network,
-  projects
+  hallar
 ]

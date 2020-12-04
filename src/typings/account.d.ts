@@ -5,6 +5,7 @@ export type AccountModel = {
   keys: AccountKeys
   token?: Token
   sequence?: Sequence
+  hallar?: Hallar
 }
 
 export interface DPoS {
@@ -32,6 +33,22 @@ export interface AccountKeys {
 
 export interface Token {
   balance: string
+}
+
+export interface Hallar {
+  github: HallarGithubAccount
+  activities: HallarActivity[]
+}
+
+export interface HallarGithubAccount {
+  id: number
+  username: string
+}
+
+export interface HallarActivity {
+  id: number
+  title: string
+  description: string
 }
 
 export interface Sequence {

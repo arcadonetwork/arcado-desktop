@@ -5,7 +5,7 @@ import { startTournament } from '../../shared/api/tournaments';
 import { TournamentPageHeaderParticipateModal } from '../../components/modals/TournamentPageHeaderParticipateModal';
 import { TournamentPageHeaderStopModal } from '../../components/modals/TournamentPageHeaderStopModal';
 import { ParticipantModel } from '../../typings/participant.model';
-import { CustomIcon } from '../../components/custom-icon/CustomIcon';
+import { CustomIcon } from '../../components/icons/custom-icon/CustomIcon';
 import { AccountModel } from '../../typings/account';
 import { TournamentStateModel } from '../../typings/tournament-state.model';
 

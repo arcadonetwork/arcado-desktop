@@ -7,8 +7,8 @@ import { AssetModel } from '../../typings/asset.model';
 
 const initialState: SessionState = {
   account: {
-    address: "2cf19a24ae7970a4e80955eaa03d87b0402858e3",
-    passphrase: "aerobic output pool dinner pattern absurd tunnel address enlist viable unable sibling",
+    address: "954356120d19e70508be4ceac35539069dbdb99d",
+    passphrase: "index rib someone inmate pony girl aisle skull immune raccoon wreck photo",
     keys : {
       publicKey: "b958c831d69695d7eb7d0e180272e4e4ba199aabfa9fc52a0b5f77694dcd5b57",
       privateKey: "94b0b1b948a5d4acf0ab1102aadccffb4aa121b46a1bcf1e9995ca71b2644704b958c831d69695d7eb7d0e180272e4e4ba199aabfa9fc52a0b5f77694dcd5b57",
@@ -18,7 +18,7 @@ const initialState: SessionState = {
     },
     dpos: {
       delegate : {
-        username: 'helloworld',
+        username: 'arcado',
         consecutiveMissedBlocks: 0,
         isBanned: false,
         lastForgedHeight: 0,
@@ -27,6 +27,13 @@ const initialState: SessionState = {
       },
       sentVotes: [],
       unlocking: []
+    },
+    hallar: {
+      github: {
+        id: 32424211,
+        username: 'qazxsw'
+      },
+      activities: []
     }
   },
   isValidAndSynced: true,
