@@ -4,6 +4,8 @@ import { AccountModel } from '../../typings/account';
 import { AccountDetailsHeaderCalendarItem } from './AccountDetailsHallerCalendarItem';
 import { CalendarItem } from '../../typings/application';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { GithubActivity } from '../../utils/hallar';
+import { hallarClient } from '../../shared/api/hallar';
 
 interface ContainerProps {
   account: AccountModel
@@ -12,12 +14,29 @@ interface ContainerProps {
 export const AccountDetailsHallarCalendar: React.FC<ContainerProps> = ({ account }) => {
 
   const [calendar, setCalendar] = useState<CalendarItem[]>([]);
+  const [activity, setActivity] = useState<GithubActivity[]>([]);
   const [activeMonth, setActiveMonth] = useState<Moment>(moment())
   const today = moment();
 
   useEffect(() => {
-    renderMonthView()
+    async function onInit () {
+      getActivity();
+    }
+    onInit()
   }, [account.address, activeMonth])
+
+  useEffect(() => {
+    renderMonthView()
+  }, [activity])
+
+  async function getActivity () {
+    try {
+      const data = await hallarClient.github.activity(account.hallar.github.username)
+      setActivity(data);
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   function renderMonthView () {
     const max_elements = 35;
@@ -34,10 +53,12 @@ export const AccountDetailsHallarCalendar: React.FC<ContainerProps> = ({ account
 
     const start = dow - 1;
     for (let i = 0; i < daysInMonth; i++) {
-
+      const day = moment(firstDay).add(i, 'days');
+      const act = activity.filter(item => moment(item.created_at).format('D MM YYYY') === day.format('D MM YYYY'))
       calendar[start + i] = {
         ...calendar[start + i],
-        day : moment(firstDay).add(i, 'days')
+        day,
+        activity: act
       }
 
     }
@@ -56,16 +77,20 @@ export const AccountDetailsHallarCalendar: React.FC<ContainerProps> = ({ account
 
   return (
     <div className="w100 mb200">
-      <div className="mb25 flex-c">
-        <h1 className="fc-black ffm-bold fs-xm p0 m0 mr25">{activeMonth.format('MMMM YYYY')}</h1>
-        <div className="flex-c flex-jc-c img--20 bgc-lblue fc-blue fs-xs bgc-grey__hover click mr5" onClick={setPreviousMonth}>
-          <LeftOutlined />
-        </div>
-        <div className="flex-c flex-jc-c img--20 bgc-lblue fc-blue fs-xs bgc-grey__hover click" onClick={setNextMonth}>
-          <RightOutlined />
+      <div className="w100 br5-top br-l br-r br-t flex-c bgc-white p15-25">
+        <h1 className="fc-black ffm-bold fs-xm p0 m0 mr25">
+          {activeMonth.format('MMMM YYYY')}
+        </h1>
+        <div className="ml-auto flex-c">
+          <div className="flex-c flex-jc-c img--30 bgc-lblue fc-blue fs-xs bgc-grey__hover click mr10" onClick={setPreviousMonth}>
+            <LeftOutlined />
+          </div>
+          <div className="flex-c flex-jc-c img--30 bgc-lblue fc-blue fs-xs bgc-grey__hover click" onClick={setNextMonth}>
+            <RightOutlined />
+          </div>
         </div>
       </div>
-      <div className="calendar-grid flex-jc-sb flex-ww bgc-lgrey">
+      <div className="calendar-grid flex-jc-sb flex-ww bgc-xl-grey br">
         {
           calendar.map((calendarItem, index) =>
             <AccountDetailsHeaderCalendarItem

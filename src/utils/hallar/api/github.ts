@@ -27,7 +27,7 @@ export class Github {
       const { data } = await this.octokit.activity
         .listPublicEventsForUser({
           username,
-          per_page: 5
+          per_page: 50
         });
       return data;
     } catch (e) {
